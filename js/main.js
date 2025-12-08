@@ -522,53 +522,60 @@ document.querySelectorAll('.card, .hero-content, .comparison-wrapper, .testimoni
     observer.observe(el);
 });
 
-// Form Submission
+// Form Submission (Using Formspree for Static Hosting)
 const quoteForm = document.getElementById('quoteForm');
+// REPLACE THIS WITH YOUR FORMSPREE ID
+const FORMSPREE_ID = 'YOUR_ID_HERE';
+
 if (quoteForm) {
     quoteForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (FORMSPREE_ID === 'YOUR_ID_HERE') {
+            alert('SETUP REQUIRED: Please update the FORMSPREE_ID in js/main.js with your Formspree form ID to make this form work.');
+            return;
+        }
+
         const btn = quoteForm.querySelector('button[type="submit"]');
         const originalHTML = btn.innerHTML;
 
-        // Get form data
-        const formData = {
-            name: quoteForm.querySelector('input[type="text"]').value,
-            phone: quoteForm.querySelector('input[type="tel"]').value,
-            vehicle: quoteForm.querySelectorAll('input[type="text"]')[1]?.value || '',
-            service: quoteForm.querySelector('select').value,
-            requests: quoteForm.querySelector('textarea')?.value || '',
-            marketingConsent: quoteForm.querySelector('input[name="marketingConsent"]:checked')?.value || 'no'
-        };
+        // Get form data using FormData API (simpler now that we have name attributes)
+        const formData = new FormData(quoteForm);
 
         // Disable button and show loading state
         btn.disabled = true;
         btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
 
         try {
-            const response = await fetch('/api/quote', {
+            const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+                    'Accept': 'application/json'
+                }
             });
 
-            const data = await response.json();
-
-            if (data.success) {
+            if (response.ok) {
                 // Success state
                 btn.innerHTML = '<span>Sent!</span> <i class="fas fa-check"></i>';
                 btn.style.background = '#10b981'; // Success Green
 
                 setTimeout(() => {
-                    alert(data.message || 'Your quote request has been received! We will contact you shortly.');
+                    alert('Your quote request has been received! We will contact you shortly.');
                     quoteForm.reset();
                     btn.innerHTML = originalHTML;
                     btn.style.background = '';
                     btn.disabled = false;
                 }, 1500);
             } else {
-                throw new Error(data.message || 'Failed to send quote request');
+                // Check if response is JSON before parsing
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    throw new Error(data.error || 'Failed to send quote request');
+                } else {
+                    throw new Error('Failed to send quote request. Please check your form settings.');
+                }
             }
         } catch (error) {
             console.error('Error:', error);
@@ -578,7 +585,7 @@ if (quoteForm) {
             btn.style.background = '#ef4444'; // Error Red
 
             setTimeout(() => {
-                alert(error.message || 'Failed to send quote request. Please try again or call us directly at (903) 555-0123.');
+                alert('Failed to submit. Please try again or call us directly at (903) 555-0123.');
                 btn.innerHTML = originalHTML;
                 btn.style.background = '';
                 btn.disabled = false;
@@ -744,12 +751,33 @@ async function sendMessage() {
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
+    // Use local response only (Client-side Demo Mode)
+    // Since we are on a static site, we don't have a backend server for AI.
+    // If you add a backend later, uncomment the fetch code below.
+
+    // Simulate network delay for realism
+    setTimeout(() => {
+        // Remove typing indicator
+        if (typingDiv.parentNode) chatMessages.removeChild(typingDiv);
+
+        const localResponse = getBotResponse(message);
+        addMessage(localResponse, false);
+    }, 600);
+
+    /* 
+    // SERVER-SIDE CODE (Uncomment if you deploy a real Node.js server)
     try {
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
         });
+
+        // Check if response is valid JSON
+        const contentType = response.headers.get('content-type');
+        if (!response.ok || !contentType || !contentType.includes('application/json')) {
+            throw new Error('Chat server unreachable');
+        }
 
         const data = await response.json();
 
@@ -759,19 +787,17 @@ async function sendMessage() {
         if (data.success) {
             addMessage(data.reply, false);
         } else {
-            // Fallback to local response if server fails
             console.warn('Server error, falling back to local:', data.message);
             const localResponse = getBotResponse(message);
             addMessage(localResponse, false);
         }
     } catch (error) {
-        // Remove typing indicator
         if (typingDiv.parentNode) chatMessages.removeChild(typingDiv);
-
         console.warn('Network error, falling back to local:', error);
         const localResponse = getBotResponse(message);
         addMessage(localResponse, false);
     }
+    */
 }
 
 // Event listeners
