@@ -96,7 +96,7 @@ const translations = {
         footer_legal: 'Legal',
         footer_privacy: 'Privacy Policy',
         footer_terms: 'Terms of Service',
-        footer_copyright: '2025 Fairfield Mobile Detailing. All rights reserved.'
+        footer_copyright: '2025 A&J Mobile Detailing. All rights reserved.'
     },
     es: {
         // Navigation
@@ -192,7 +192,7 @@ const translations = {
         footer_legal: 'Legal',
         footer_privacy: 'Política de Privacidad',
         footer_terms: 'Términos de Servicio',
-        footer_copyright: '2025 Fairfield Mobile Detailing. Todos los derechos reservados.'
+        footer_copyright: '2025 A&J Mobile Detailing. Todos los derechos reservados.'
     }
 };
 

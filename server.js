@@ -105,7 +105,7 @@ app.post('/api/quote', async (req, res) => {
         const customerMailOptions = {
             from: process.env.EMAIL_USER,
             to: phone, // If you want to send to email instead, add email field to form
-            subject: 'Quote Request Received - Fairfield Mobile Detailing',
+            subject: 'Quote Request Received - A&J Mobile Detailing',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #3b82f6;">Thank You for Your Quote Request!</h2>
@@ -123,7 +123,7 @@ app.post('/api/quote', async (req, res) => {
                     <p>If you have any immediate questions, feel free to call or text us at <strong>(903) 555-0123</strong>.</p>
                     
                     <p style="margin-top: 30px;">Best regards,<br>
-                    <strong>Fairfield Mobile Detailing Team</strong></p>
+                    <strong>A&J Mobile Detailing Team</strong></p>
                     
                     <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
                     <p style="font-size: 12px; color: #6b7280;">
@@ -165,7 +165,7 @@ app.post('/api/chat', async (req, res) => {
 
         const apiKey = process.env.DEEPSEEK_API_KEY || 'sk-aafcf16baa0344e4aa043b553d413ead';
 
-        const systemPrompt = `You are Nova, a helpful and friendly AI assistant for Fairfield Mobile Detailing. You help customers with pricing, services, and booking.
+        const systemPrompt = `You are Nova, a helpful and friendly AI assistant for A&J Mobile Detailing. You help customers with pricing, services, and booking.
 
 Our Packages:
 
