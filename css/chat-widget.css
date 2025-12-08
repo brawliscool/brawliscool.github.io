@@ -367,15 +367,20 @@
     /* Chat Header - Mobile */
     .chat-header {
         padding: 16px;
+        padding-top: max(16px, env(safe-area-inset-top, 16px));
         border-radius: 0;
+        flex-shrink: 0;
     }
 
     .chat-header-info {
         gap: 10px;
+        flex: 1;
+        min-width: 0;
     }
 
     .chat-header-info i {
         font-size: 1.5rem;
+        flex-shrink: 0;
     }
 
     .chat-header-info h4 {
@@ -386,11 +391,22 @@
         font-size: 0.7rem;
     }
 
+    /* Close Button - Mobile - Make it prominent! */
     .chat-close {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        font-size: 1.1rem;
+        margin-left: 12px;
+    }
+
+    .chat-close:active {
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(0.95);
     }
 
     /* Chat Messages Area - Mobile */
@@ -582,13 +598,9 @@
     }
 }
 
-/* iOS Safari Fix - Respect notch and home indicator */
+/* iOS Safari Fix - Respect home indicator */
 @supports (padding: max(0px)) {
     @media (max-width: 768px) {
-        .chat-window {
-            padding-top: env(safe-area-inset-top);
-        }
-
         .chat-input-container {
             padding-bottom: max(12px, env(safe-area-inset-bottom));
         }

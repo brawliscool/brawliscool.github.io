@@ -154,7 +154,7 @@ app.post('/api/quote', async (req, res) => {
     }
 });
 
-// AI Chat Endpoint
+// AI Chat Endpoint (DeepSeek)
 app.post('/api/chat', async (req, res) => {
     try {
         const { message } = req.body;
@@ -163,13 +163,11 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Message is required' });
         }
 
-        const apiKey = process.env.CHATBOT_API_KEY;
-        if (!apiKey) {
-            return res.status(500).json({ success: false, message: 'Server API key not configured' });
-        }
+        const apiKey = process.env.DEEPSEEK_API_KEY || 'sk-aafcf16baa0344e4aa043b553d413ead';
 
-        // Call AI Provider (Defaulting to generic OpenAI-compatible structure)
-        // Call AI Provider (DeepSeek)
+        const systemPrompt = "You are Nova, a helpful and friendly AI assistant for Fairfield Mobile Detailing. You help customers with pricing, services, and booking. Prices: Basic $89, Standard $149, Premium $249. Phone: (903) 555-0123. Keep responses concise and professional.";
+
+        // Call DeepSeek API
         const response = await fetch('https://api.deepseek.com/chat/completions', {
             method: 'POST',
             headers: {
@@ -179,10 +177,7 @@ app.post('/api/chat', async (req, res) => {
             body: JSON.stringify({
                 model: "deepseek-chat",
                 messages: [
-                    {
-                        role: "system",
-                        content: "You are Nova, a helpful and friendly AI assistant for Fairfield Mobile Detailing. You help customers with pricing, services, and booking. Prices: Basic $89, Standard $149, Premium $249. Phone: (903) 555-0123. Keep responses concise and professional."
-                    },
+                    { role: "system", content: systemPrompt },
                     { role: "user", content: message }
                 ],
                 stream: false
@@ -192,17 +187,16 @@ app.post('/api/chat', async (req, res) => {
         const data = await response.json();
 
         if (!response.ok) {
-            console.error('AI API Error:', data);
+            console.error('DeepSeek API Error:', data);
             throw new Error(data.error?.message || 'Failed to get AI response');
         }
 
-        const botReply = data.choices[0].message.content;
+        const botReply = data.choices?.[0]?.message?.content || 'I apologize, but I could not process your request. Please try again or call us at (903) 555-0123.';
 
         res.json({ success: true, reply: botReply });
 
     } catch (error) {
-        console.error('Chat API Error:', error);
-        // Fallback to local logic if API fails
+        console.error('DeepSeek API Error:', error);
         res.status(500).json({ success: false, message: 'Failed to communicate with AI' });
     }
 });

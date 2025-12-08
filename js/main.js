@@ -756,6 +756,8 @@ async function sendMessage() {
     // If you add a backend later, uncomment the fetch code below.
 
     // Simulate network delay for realism
+    /* 
+    // LOCAL RESPONSES (Uncomment if not using a server)
     setTimeout(() => {
         // Remove typing indicator
         if (typingDiv.parentNode) chatMessages.removeChild(typingDiv);
@@ -763,9 +765,9 @@ async function sendMessage() {
         const localResponse = getBotResponse(message);
         addMessage(localResponse, false);
     }, 600);
+    */
 
-    /* 
-    // SERVER-SIDE CODE (Uncomment if you deploy a real Node.js server)
+    // SERVER-SIDE CODE (Uses /api/chat endpoint)
     try {
         const response = await fetch('/api/chat', {
             method: 'POST',
@@ -782,7 +784,7 @@ async function sendMessage() {
         const data = await response.json();
 
         // Remove typing indicator
-        chatMessages.removeChild(typingDiv);
+        if (typingDiv.parentNode) chatMessages.removeChild(typingDiv);
 
         if (data.success) {
             addMessage(data.reply, false);
@@ -797,7 +799,6 @@ async function sendMessage() {
         const localResponse = getBotResponse(message);
         addMessage(localResponse, false);
     }
-    */
 }
 
 // Event listeners
