@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairfield Mobile Detailing | Premium Car Care in Fairfield, TX</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat-widget.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-car-alt"></i>
+                Fairfield Mobile Detailing
+            </a>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button class="lang-toggle" id="langToggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="langText">ES</span>
+                </button>
+
+                <button class="mobile-toggle" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" data-en="Home" data-es="Inicio">Home</a></li>
+                <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+                <li><a href="#gallery" data-en="Our Work" data-es="Nuestro Trabajo">Our Work</a></li>
+                <li><a href="#about" data-en="About" data-es="Acerca de">About</a></li>
+                <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">#1 Rated in Freestone County</span>
+                <h1>Premium Mobile Car Detailing in <span class="highlight">Fairfield, TX</span></h1>
+                <p>Experience showroom quality at your doorstep. We bring professional auto detailing directly to your
+                    home or office with our fully equipped mobile unit.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <a href="#contact" class="btn btn-primary">Get a Free Quote <i class="fas fa-arrow-right"
+                            style="margin-left: 8px;"></i></a>
+                    <a href="#services" class="btn btn-outline">View Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-padding" id="services">
+        <div class="container">
+            <h2>Our <span class="highlight">Services</span></h2>
+            <div class="services-grid">
+
+                <!-- Express -->
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-soap"></i>
+                    </div>
+                    <h3>Express Wash & Vacuum</h3>
+                    <p>Perfect for regular maintenance to keep your vehicle looking fresh.</p>
+                    <span class="price-tag">$89</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Hand wash & dry</li>
+                        <li><i class="fas fa-check"></i> Wheel clean & tire shine</li>
+                        <li><i class="fas fa-check"></i> Interior vacuum</li>
+                        <li><i class="fas fa-check"></i> Wipe down dash & console</li>
+                        <li><i class="fas fa-check"></i> Clean refined windows</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Book Express</a>
+                </div>
+
+                <!-- Standard -->
+                <div class="card card-recommended"
+                    style="border-color: var(--accent-primary); box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);">
+                    <div class="recommended-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Recommended</span>
+                    </div>
+                    <div class="card-icon" style="background: var(--accent-primary); color: white;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Standard Full Detail</h3>
+                    <p>Our most popular package. Deep cleaning inside and out.</p>
+                    <span class="price-tag" style="color: var(--accent-primary);">$149</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <strong>Everything in Express +</strong></li>
+                        <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                        <li><i class="fas fa-check"></i> Hand wax application</li>
+                        <li><i class="fas fa-check"></i> Shampoo seats & carpets</li>
+                        <li><i class="fas fa-check"></i> Leather conditioning</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%;">Book Standard</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Premium Detail</h3>
+                    <p>The ultimate restoration for enthusiasts and special occasions.</p>
+                    <span class="price-tag">$249</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <strong>Everything in Standard +</strong></li>
+                        <li><i class="fas fa-check"></i> Light machine polish</li>
+                        <li><i class="fas fa-check"></i> Engine bay detail</li>
+                        <li><i class="fas fa-check"></i> Fabric protection</li>
+                        <li><i class="fas fa-check"></i> Plastic debris removal</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Book Premium</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section-padding" id="gallery" style="background: #08080c;">
+        <div class="container">
+            <h2>See the <span class="highlight">Transformation</span></h2>
+            <div class="gallery-grid">
+
+                <!-- Comparison 1 -->
+                <div class="comparison-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                        alt="Clean After" class="comparison-image">
+                    <div class="comparison-overlay">
+                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                            alt="Dirty Before" class="comparison-image">
+                    </div> <!-- Added missing closing div -->
+                    <div class="handle">
+                        <i class="fas fa-arrows-alt-h" style="color: white;"></i>
+                    </div>
+                    <div class="label before">Before</div>
+                    <div class="label after">After</div>
+                </div>
+
+                <!-- Comparison 2 -->
+                <div class="comparison-wrapper">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                        alt="Clean After" class="comparison-image">
+                    <div class="comparison-overlay">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                            alt="Dirty Before" class="comparison-image">
+                    </div>
+                    <div class="handle">
+                        <i class="fas fa-arrows-alt-h" style="color: white;"></i>
+                    </div>
+                    <div class="label before">Before</div>
+                    <div class="label after">After</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Testimonials -->
+    <section class="section-padding" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2>Recent <span class="highlight">Reviews</span></h2>
+            <div class="services-grid">
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"My Model Y looks better than delivery day. They knew exactly how to clean the
+                        white interior and touchscreen without streaks. True Tesla pros."</p>
+                    <div class="author">
+                        <div class="avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jason T.</h4>
+                            <span>Fairfield, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"Three kids destroy an SUV, but these guys erased every trace. My Honda Pilot
+                        actually smells clean again; total lifesaver."</p>
+                    <div class="author">
+                        <div class="avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sarah M.</h4>
+                            <span>Teague, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"My work truck's been on their monthly plan for six months. They make a 100k-mile
+                        F-150 look brand new every single time."</p>
+                    <div class="author">
+                        <div class="avatar">R</div>
+                        <div class="author-info">
+                            <h4>Robert D.</h4>
+                            <span>Streetman, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <!-- Left Side - Info Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <span class="contact-badge"><i class="fas fa-bolt"></i> Quick Response</span>
+                        <h2>Let's Get Your Car <span class="highlight">Sparkling</span></h2>
+                        <p class="contact-subtitle">We typically respond within 1 hour during business hours. Fill out
+                            the form and we'll get back to you ASAP!</p>
+
+                        <div class="contact-methods">
+                            <a href="tel:9035550123" class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="method-info">
+                                    <span class="method-label">Call or Text</span>
+                                    <span class="method-value">(903) 555-0123</span>
+                                </div>
+                                <i class="fas fa-arrow-right method-arrow"></i>
+                            </a>
+
+                            <a href="mailto:hello@fairfielddetailing.com" class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-info">
+                                    <span class="method-label">Email Us</span>
+                                    <span class="method-value">hello@fairfielddetailing.com</span>
+                                </div>
+                                <i class="fas fa-arrow-right method-arrow"></i>
+                            </a>
+
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="method-info">
+                                    <span class="method-label">Business Hours</span>
+                                    <span class="method-value">Mon - Sat: 8am - 6pm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trust-badges">
+                            <div class="trust-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Insured</span>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-star"></i>
+                                <span>5-Star Rated</span>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-truck"></i>
+                                <span>Mobile Service</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Form -->
+                <div class="form-card">
+                    <div class="form-header">
+                        <h3>Get Your Free Quote</h3>
+                        <p>No obligation, no spam - just honest pricing.</p>
+                    </div>
+
+                    <form id="quoteForm" class="quote-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-user"></i>
+                                    Full Name
+                                </label>
+                                <input type="text" class="form-input" required placeholder="Your name">
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-phone"></i>
+                                    Phone Number
+                                </label>
+                                <input type="tel" class="form-input" required placeholder="(903) 000-0000">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-car"></i>
+                                Vehicle Info
+                            </label>
+                            <input type="text" class="form-input" placeholder="e.g. 2020 Ford F-150 (White)">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-sparkles"></i>
+                                Service Package
+                            </label>
+                            <select class="form-select" required>
+                                <option value="">Choose a package...</option>
+                                <option value="Express">🚿 Basic Package — $89</option>
+                                <option value="Standard">⭐ Standard Package — $149</option>
+                                <option value="Premium">💎 Premium Package — $249</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-comment-dots"></i>
+                                Special Requests <span class="optional">(optional)</span>
+                            </label>
+                            <textarea class="form-textarea"
+                                placeholder="Pet hair removal, deep stain cleaning, specific concerns..."></textarea>
+                        </div>
+
+                        <div class="consent-group">
+                            <p class="consent-question">Do you consent to photos/videos of your vehicle being used for
+                                marketing purposes? <span class="required-star">*</span></p>
+                            <div class="toggle-options">
+                                <label class="toggle-option">
+                                    <input type="radio" name="marketingConsent" value="yes" required>
+                                    <span class="toggle-btn">Yes</span>
+                                </label>
+                                <label class="toggle-option">
+                                    <input type="radio" name="marketingConsent" value="no" required>
+                                    <span class="toggle-btn">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>Get My Free Quote</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                        <p class="form-disclaimer">
+                            <i class="fas fa-lock"></i>
+                            Your information is secure and never shared.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo">Fairfield Detailing</a>
+                    <p>Professional mobile car detailing bringing showroom quality to your driveway.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 Fairfield Mobile Detailing. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chatButton">
+            <i class="fas fa-comment-dots"></i>
+            <span class="chat-tooltip">Chat with us!</span>
+        </button>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <h4>Nova</h4>
+                        <span class="chat-status">Online</span>
+                    </div>
+                </div>
+                <button class="chat-close" id="chatClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hi! 👋 I'm Nova, your detailing assistant. How can I help you today?</p>
+                        <div class="quick-replies">
+                            <button class="quick-reply" data-message="What services do you offer?">Services</button>
+                            <button class="quick-reply" data-message="What are your prices?">Pricing</button>
+                            <button class="quick-reply" data-message="How do I book?">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="chat-send" id="chatSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
