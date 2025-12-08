@@ -173,12 +173,12 @@ Our Packages:
 Hand wash & dry, wheel clean & tire shine, interior vacuum, wipe down dash & console, clean windows, all purpose cleaning
 
 ⭐ STANDARD DETAIL - $149 (Most Popular)
-Everything in Express + clay bar treatment, hand wax application, shampoo seats & carpets, leather conditioning, steam cleaner, odor neutralizer treatment
+Everything in Express + shampoo seats & carpets, leather conditioning, steam cleaner, odor neutralizer treatment
 
 💎 PREMIUM DETAIL - $249
-Everything in Standard + clay bar treatment, hand wax application, light machine polish, engine bay detail, plastic debris removal
+Everything in Standard + clay bar treatment, hand wax application, light machine polish, engine bay detail, plastic debris removal, ceramic spray coating
 
-Phone: (903) 555-0123
+Phone: (903) 423-1372 or (903) 388-8071
 
 FORMATTING RULES:
 - When listing packages, put a blank line between each package
