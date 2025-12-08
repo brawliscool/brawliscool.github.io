@@ -48,7 +48,7 @@ const translations = {
         service_premium_feature5: 'Plastic debris removal',
         service_premium_btn: 'Book Premium',
 
-        services_addon: 'Additional services available: Headlight Restoration ($40), Pet Hair Removal ($30+), Engine Detail ($50).',
+        services_addon: '',
 
         // Gallery
         gallery_title: 'See the',
