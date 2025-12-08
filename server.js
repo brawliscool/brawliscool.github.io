@@ -173,7 +173,7 @@ Our Packages:
 Hand wash & dry, wheel clean & tire shine, interior vacuum, wipe down dash & console, clean windows, all purpose cleaning
 
 ⭐ STANDARD DETAIL - $149 (Most Popular)
-Everything in Express + clay bar treatment, hand wax application, shampoo seats & carpets, leather conditioning, steam cleaner
+Everything in Express + clay bar treatment, hand wax application, shampoo seats & carpets, leather conditioning, steam cleaner, odor neutralizer treatment
 
 💎 PREMIUM DETAIL - $249
 Everything in Standard + clay bar treatment, hand wax application, light machine polish, engine bay detail, plastic debris removal
