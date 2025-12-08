@@ -170,13 +170,13 @@ app.post('/api/chat', async (req, res) => {
 Our Packages:
 
 📦 EXPRESS WASH - $89
-Hand wash, interior vacuum, windows, tire shine
+Hand wash & dry, wheel clean & tire shine, interior vacuum, wipe down dash & console, clean windows, all purpose cleaning
 
 ⭐ STANDARD DETAIL - $149 (Most Popular)
-Everything in Express + clay bar, hand wax, shampoo seats & carpets, leather conditioning
+Everything in Express + clay bar treatment, hand wax application, shampoo seats & carpets, leather conditioning, steam cleaner
 
 💎 PREMIUM DETAIL - $249
-Everything in Standard + light machine polish, engine bay detail, plastic debris removal
+Everything in Standard + clay bar treatment, hand wax application, light machine polish, engine bay detail, plastic debris removal
 
 Phone: (903) 555-0123
 

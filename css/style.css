@@ -588,87 +588,120 @@ header.scrolled {
     right: 20px;
 }
 
-/* Photos Gallery */
-.photos-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+/* Before & After Section */
+.before-after-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.photo-item {
+.before-after-item {
     position: relative;
+    flex: 1;
     border-radius: var(--border-radius);
     overflow: hidden;
-    aspect-ratio: 4/3;
-    cursor: pointer;
-    border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--border-color);
+    transition: all 0.4s ease;
 }
 
-.photo-item:hover {
-    transform: scale(1.02);
+.before-after-item:hover {
     border-color: var(--accent-primary);
+    transform: scale(1.02);
     box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
 }
 
-.photo-item img {
+.before-after-item img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/10;
     object-fit: cover;
-    transition: transform 0.5s ease;
 }
 
-.photo-item:hover img {
-    transform: scale(1.1);
-}
-
-.photo-item-wide {
-    grid-column: span 2;
-}
-
-.photo-overlay {
+.before-after-label {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    top: 16px;
+    left: 16px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.photo-item:hover .photo-overlay {
-    opacity: 1;
-}
-
-.photo-overlay i {
-    color: var(--accent-primary);
-    font-size: 2rem;
-    margin-bottom: 10px;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-}
-
-.photo-item:hover .photo-overlay i {
-    transform: translateY(0);
-}
-
-.photo-overlay span {
+.before-label {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-align: center;
-    transform: translateY(20px);
-    transition: transform 0.3s ease 0.1s;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
-.photo-item:hover .photo-overlay span {
-    transform: translateY(0);
+.after-label {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.before-after-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    animation: pulse-arrow 2s infinite;
+}
+
+.before-after-arrow i {
+    color: white;
+    font-size: 1.5rem;
+}
+
+@keyframes pulse-arrow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    }
+
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.6);
+    }
+}
+
+/* Mobile Responsive for Before/After */
+@media (max-width: 768px) {
+    .before-after-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .before-after-arrow {
+        transform: rotate(90deg);
+        width: 50px;
+        height: 50px;
+    }
+
+    .before-after-arrow i {
+        font-size: 1.2rem;
+    }
+
+    .before-after-item {
+        width: 100%;
+    }
+
+    .before-after-label {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+    }
 }
 
 /* Testimonials */
