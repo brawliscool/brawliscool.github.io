@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans - A&J Mobile Detailing</title>
+    <meta name="description"
+        content="Save money with our subscription detailing plans. Regular car care at discounted rates.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Subscription Page Specific Styles */
+        .subscription-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #0a0a12 100%);
+        }
+
+        .subscription-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .subscription-hero p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .subscription-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        .subscription-card {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-bg);
+            padding: 40px;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .subscription-card.popular {
+            border-color: var(--accent-primary);
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), var(--secondary-bg));
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .subscription-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .subscription-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .subscription-card .frequency {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .subscription-price {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subscription-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .savings-tag {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 16px 0 24px;
+        }
+
+        .subscription-features {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .subscription-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+        }
+
+        .subscription-features li:last-child {
+            border-bottom: none;
+        }
+
+        .subscription-features li i {
+            color: var(--accent-primary);
+            font-size: 1rem;
+        }
+
+        .subscription-card .btn {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .benefits-section {
+            padding: 80px 0;
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+        }
+
+        .benefit-card h4 {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 12px;
+        }
+
+        .faq-section {
+            padding: 80px 0;
+        }
+
+        .faq-item {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .faq-item h4 {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-item h4 i {
+            color: var(--accent-primary);
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .subscription-hero {
+                padding: 100px 0 40px;
+            }
+
+            .subscription-hero h1 {
+                font-size: 2rem;
+            }
+
+            .subscription-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 0;
+            }
+
+            .subscription-card {
+                padding: 30px;
+            }
+
+            .subscription-price {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>A&J Detailing</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="subscriptions.html" class="active">Subscriptions</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Subscription Hero -->
+    <section class="subscription-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <h1>Subscription <span class="highlight">Plans</span></h1>
+            <p>Keep your car looking showroom-fresh year-round with our subscription detailing plans. Save money and
+                never worry about scheduling again!</p>
+        </div>
+    </section>
+
+    <!-- Subscription Plans -->
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div class="subscription-grid">
+
+                <!-- Weekly Plan -->
+                <div class="subscription-card">
+                    <div class="subscription-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Weekly Wash</h3>
+                    <p class="frequency">Every Week</p>
+                    <div class="subscription-price">$59<span>/month</span></div>
+                    <div class="savings-tag">Save $17/month</div>
+                    <ul class="subscription-features">
+                        <li><i class="fas fa-check"></i> 4 exterior washes per month</li>
+                        <li><i class="fas fa-check"></i> Interior vacuum each visit</li>
+                        <li><i class="fas fa-check"></i> Window cleaning</li>
+                        <li><i class="fas fa-check"></i> Tire shine</li>
+                        <li><i class="fas fa-check"></i> Air freshener</li>
+                    </ul>
+                    <a href="index.html#contact" class="btn btn-outline">Get Started</a>
+                </div>
+
+                <!-- Bi-Weekly Plan -->
+                <div class="subscription-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="subscription-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Bi-Weekly Detail</h3>
+                    <p class="frequency">Every 2 Weeks</p>
+                    <div class="subscription-price">$129<span>/month</span></div>
+                    <div class="savings-tag">Save $20/month</div>
+                    <ul class="subscription-features">
+                        <li><i class="fas fa-check"></i> 2 full details per month</li>
+                        <li><i class="fas fa-check"></i> Complete interior cleaning</li>
+                        <li><i class="fas fa-check"></i> Exterior wash & wax</li>
+                        <li><i class="fas fa-check"></i> Leather conditioning</li>
+                        <li><i class="fas fa-check"></i> Priority scheduling</li>
+                    </ul>
+                    <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+                </div>
+
+                <!-- Monthly Plan -->
+                <div class="subscription-card">
+                    <div class="subscription-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Monthly Premium</h3>
+                    <p class="frequency">Once a Month</p>
+                    <div class="subscription-price">$199<span>/month</span></div>
+                    <div class="savings-tag">Save $50/month</div>
+                    <ul class="subscription-features">
+                        <li><i class="fas fa-check"></i> 1 premium detail per month</li>
+                        <li><i class="fas fa-check"></i> Full interior deep clean</li>
+                        <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                        <li><i class="fas fa-check"></i> Ceramic spray coating</li>
+                        <li><i class="fas fa-check"></i> Engine bay cleaning</li>
+                    </ul>
+                    <a href="index.html#contact" class="btn btn-outline">Get Started</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 style="text-align: center;">Why <span class="highlight">Subscribe?</span></h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h4>Save Money</h4>
+                    <p>Subscribers save up to 25% compared to individual bookings</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Auto-Scheduling</h4>
+                    <p>We'll automatically schedule your appointments - no hassle</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-crown"></i>
+                    <h4>Priority Service</h4>
+                    <p>Subscribers get first pick of time slots and priority booking</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>No Contracts</h4>
+                    <p>Cancel anytime - no long-term commitments required</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked <span
+                    class="highlight">Questions</span></h2>
+
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> How does billing work?</h4>
+                <p>You'll be billed on the same day each month. We accept all major credit cards and can set up
+                    automatic payments for your convenience.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Can I skip a week if I'm out of town?</h4>
+                <p>Absolutely! Just let us know at least 24 hours in advance and we'll reschedule your appointment at no
+                    extra charge.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Can I upgrade or downgrade my plan?</h4>
+                <p>Yes! You can change your plan at any time. Changes take effect on your next billing cycle.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What if I need to cancel?</h4>
+                <p>No problem! There are no contracts or cancellation fees. Just let us know and we'll stop your
+                    subscription at the end of the current billing period.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding"
+        style="text-align: center; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.05));">
+        <div class="container">
+            <h2>Ready to Get <span class="highlight">Started?</span></h2>
+            <p style="color: var(--text-secondary); max-width: 500px; margin: 16px auto 32px;">Contact us today to set
+                up your subscription plan and start saving!</p>
+            <a href="index.html#contact" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.1rem;">
+                <i class="fas fa-phone" style="margin-right: 10px;"></i>
+                Contact Us Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">A&J Detailing</a>
+                    <p>Professional mobile car detailing bringing showroom quality to your driveway.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="subscriptions.html">Subscriptions</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><a href="tel:9034231372">(903) 423-1372</a></li>
+                        <li><a href="tel:9033888071">(903) 388-8071</a></li>
+                        <li><a href="mailto:Justinwill063@gmail.com">Justinwill063@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 A&J Mobile Detailing. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle?.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    </script>
+</body>
+
+</html>

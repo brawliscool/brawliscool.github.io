@@ -44,6 +44,8 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" data-en="Home" data-es="Inicio">Home</a></li>
                 <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+                <li><a href="subscriptions.html" target="_blank" data-en="Subscriptions"
+                        data-es="Suscripciones">Subscriptions</a></li>
                 <li><a href="#photos" data-en="Before & After" data-es="Antes y Después">Before & After</a></li>
                 <li><a href="portfolio.html" target="_blank" data-en="Portfolio" data-es="Portafolio">Portfolio</a></li>
                 <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
@@ -262,6 +264,12 @@
                             </a>
                         </div>
 
+                        <p
+                            style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 16px; text-align: center;">
+                            <i class="fas fa-truck" style="margin-right: 8px; color: var(--accent-primary);"></i>
+                            If you're a business with a fleet, contact us for a custom quote!
+                        </p>
+
                         <div class="trust-badges">
                             <div class="trust-badge">
                                 <i class="fas fa-star"></i>
@@ -297,7 +305,9 @@
                                     <i class="fas fa-phone"></i>
                                     Phone Number
                                 </label>
-                                <input type="tel" name="phone" class="form-input" required placeholder="(903) 000-0000">
+                                <input type="tel" name="phone" class="form-input" required placeholder="(903) 000-0000"
+                                    inputmode="numeric" pattern="[0-9]*"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                             </div>
                         </div>
 
