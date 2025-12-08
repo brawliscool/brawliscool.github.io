@@ -170,7 +170,7 @@ app.post('/api/chat', async (req, res) => {
 Our Packages:
 
 📦 EXPRESS WASH - $89
-Hand wash & dry, wheel clean & tire shine, interior vacuum, wipe down dash & console, clean windows, all purpose cleaning
+Hand wash & dry, wheel clean & tire shine, interior vacuum, wipe down dash & console, clean windows, all purpose cleaning, air fresheners
 
 ⭐ STANDARD DETAIL - $149 (Most Popular)
 Everything in Express + shampoo seats & carpets, leather conditioning, steam cleaner, odor neutralizer treatment

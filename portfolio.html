@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Portfolio - Fairfield Mobile Detailing</title>
+    <meta name="description"
+        content="View our portfolio of detailed vehicles. See the quality work we deliver at Fairfield Mobile Detailing.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Portfolio Page Specific Styles */
+        .portfolio-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #0a0a12 100%);
+        }
+
+        .portfolio-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-hero p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            padding: 60px 0;
+        }
+
+        .portfolio-card {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-bg);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-card-content {
+            padding: 20px;
+        }
+
+        .portfolio-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+        }
+
+        .portfolio-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .portfolio-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 12px;
+        }
+
+        .empty-portfolio {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-portfolio i {
+            font-size: 4rem;
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-portfolio h3 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-hero {
+                padding: 100px 0 40px;
+            }
+
+            .portfolio-hero h1 {
+                font-size: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>Fairfield Detailing</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#photos">Before & After</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Portfolio Hero -->
+    <section class="portfolio-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <h1>Our <span class="highlight">Portfolio</span></h1>
+            <p>Browse through our collection of detailed vehicles. Each one represents our commitment to quality and
+                attention to detail.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div class="portfolio-grid">
+
+                <!-- Portfolio Item 1 - Cadillac -->
+                <div class="portfolio-card">
+                    <img src="images/after.jpg" alt="Black Cadillac Escalade - Full Detail">
+                    <div class="portfolio-card-content">
+                        <h3>Cadillac Escalade</h3>
+                        <p>Full exterior and interior detail with ceramic coating</p>
+                        <span class="portfolio-tag">Premium Detail</span>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 - Tesla Side View -->
+                <div class="portfolio-card">
+                    <img src="images/tesla1.jpg" alt="Matte Black Tesla Model 3 - Side View">
+                    <div class="portfolio-card-content">
+                        <h3>Tesla Model 3</h3>
+                        <p>Matte black exterior detail with ceramic spray coating</p>
+                        <span class="portfolio-tag">Premium Detail</span>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 - Tesla Front Clean -->
+                <div class="portfolio-card">
+                    <img src="images/tesla2.jpg" alt="Matte Black Tesla Model 3 - Front View Clean">
+                    <div class="portfolio-card-content">
+                        <h3>Tesla Model 3</h3>
+                        <p>Full exterior wash and polish - front view after detail</p>
+                        <span class="portfolio-tag">Standard Detail</span>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 - Tesla Front Before -->
+                <div class="portfolio-card">
+                    <img src="images/tesla3.jpg" alt="Matte Black Tesla Model 3 - Before Detail">
+                    <div class="portfolio-card-content">
+                        <h3>Tesla Model 3 - Before</h3>
+                        <p>Vehicle condition before our detailing service</p>
+                        <span class="portfolio-tag">Before</span>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 - Tesla Side Before -->
+                <div class="portfolio-card">
+                    <img src="images/tesla4.jpg" alt="Matte Black Tesla Model 3 - Side View Before">
+                    <div class="portfolio-card-content">
+                        <h3>Tesla Model 3 - Before</h3>
+                        <p>Dirty wheels and lower panels before cleaning</p>
+                        <span class="portfolio-tag">Before</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Show this when portfolio is empty or has few items -->
+            <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                <p><i class="fas fa-camera" style="margin-right: 8px;"></i> More photos coming soon as we detail more
+                    vehicles!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">Fairfield Detailing</a>
+                    <p>Professional mobile car detailing bringing showroom quality to your driveway.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><a href="tel:9034231372">(903) 423-1372</a></li>
+                        <li><a href="tel:9033888071">(903) 388-8071</a></li>
+                        <li><a href="mailto:Justinwill063@gmail.com">Justinwill063@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 Fairfield Mobile Detailing. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle?.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+    </script>
+</body>
+
+</html>
