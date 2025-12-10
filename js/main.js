@@ -197,8 +197,17 @@ const translations = {
 };
 
 const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 const QUOTE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/quote`;
 const CHAT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/chat`;
+
+function ensureSupabaseAuthConfigured() {
+    if (!SUPABASE_ANON_KEY || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY') {
+        alert('SETUP REQUIRED: Add your Supabase anon key to SUPABASE_ANON_KEY in js/main.js.');
+        return false;
+    }
+    return true;
+}
 
 function translatePage(lang) {
     currentLang = lang;
@@ -557,6 +566,10 @@ if (quoteForm) {
             return;
         }
 
+        if (!ensureSupabaseAuthConfigured()) {
+            return;
+        }
+
         btn.disabled = true;
         btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
 
@@ -564,7 +577,9 @@ if (quoteForm) {
             const response = await fetch(QUOTE_FUNCTION_URL, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'apikey': SUPABASE_ANON_KEY
                 },
                 body: JSON.stringify(payload)
             });
@@ -789,9 +804,20 @@ async function sendMessage() {
 
     // SERVER-SIDE CODE (Uses Supabase Edge Function)
     try {
+        if (!ensureSupabaseAuthConfigured()) {
+            if (typingDiv.parentNode) chatMessages.removeChild(typingDiv);
+            const localResponse = getBotResponse(message);
+            addMessage(localResponse, false);
+            return;
+        }
+
         const response = await fetch(CHAT_FUNCTION_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'apikey': SUPABASE_ANON_KEY
+            },
             body: JSON.stringify({ message })
         });
 

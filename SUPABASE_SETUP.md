@@ -116,7 +116,13 @@ create policy "Service role access only"
   with check (auth.role() = 'service_role');
 ```
 
-### 2. Set Supabase Secrets
+### 2. Grab Your Public Anon Key
+
+1. Stay on **Project Settings → API**.
+2. Copy the **anon public key** (this one is safe to expose on the frontend).
+3. Open `js/main.js` and replace `YOUR_SUPABASE_ANON_KEY` with the value you just copied.
+
+### 3. Set Supabase Secrets
 
 ```bash
 supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
@@ -129,13 +135,13 @@ supabase secrets set FROM_EMAIL=notifications@ajdetailing.store
 - `RESEND_API_KEY` – generate one for free at [resend.com](https://resend.com)
 - `FROM_EMAIL` – optional, defaults to `nova@ajdetailing.store`
 
-### 3. Deploy the Function
+### 4. Deploy the Function
 
 ```bash
 supabase functions deploy quote
 ```
 
-### 4. Test
+### 5. Test
 
 Submit the quote form on your site. You should see a new row in `quote_requests` and receive an email notification immediately.
 
