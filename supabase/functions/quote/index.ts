@@ -50,6 +50,7 @@ serve(async (req) => {
     const {
       name,
       phone,
+      address,
       vehicle,
       service,
       requests,
@@ -60,7 +61,7 @@ serve(async (req) => {
       referer,
     } = payload ?? {};
 
-    const missingFields = ['name', 'phone', 'service', 'marketingConsent'].filter(
+    const missingFields = ['name', 'phone', 'address', 'service', 'marketingConsent'].filter(
       (field) => !payload?.[field]?.toString().trim(),
     );
 
@@ -76,6 +77,7 @@ serve(async (req) => {
     const submission = {
       name: name.trim(),
       phone: phone.trim(),
+      address: address.trim(),
       vehicle: vehicle?.trim() || null,
       service: service.trim(),
       requests: requests?.trim() || null,
@@ -163,6 +165,7 @@ function buildOwnerEmail(submission: Record<string, unknown>) {
       <div style="padding:24px;">
         ${buildRow('Name', safe(submission.name))}
         ${buildRow('Phone', `<a href="tel:${safe(submission.phone)}" style="color:#2563eb;text-decoration:none;">${safe(submission.phone)}</a>`)}
+        ${buildRow('Address', safe(submission.address))}
         ${buildRow('Vehicle', safe(submission.vehicle))}
         ${buildRow('Service Package', `<span style="background:#eff6ff;color:#1d4ed8;padding:6px 14px;border-radius:999px;font-weight:600;">${safe(submission.service)}</span>`)}
         ${buildRow('Special Requests', submission.requests ? `<div style="background:#f9fafb;padding:12px;border-radius:10px;line-height:1.5;">${safe(submission.requests)}</div>` : '<span style="color:#9ca3af;">None</span>')}

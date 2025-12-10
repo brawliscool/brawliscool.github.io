@@ -542,6 +542,7 @@ if (quoteForm) {
         const payload = {
             name: formData.get('name')?.toString().trim(),
             phone: formData.get('phone')?.toString().trim(),
+            address: formData.get('address')?.toString().trim(),
             vehicle: formData.get('vehicle')?.toString().trim() || '',
             service: formData.get('service')?.toString(),
             requests: formData.get('requests')?.toString() || '',
@@ -552,7 +553,7 @@ if (quoteForm) {
             utmCampaign: urlParams.get('utm_campaign')
         };
 
-        if (!payload.name || !payload.phone || !payload.service || !payload.marketingConsent) {
+        if (!payload.name || !payload.phone || !payload.address || !payload.service || !payload.marketingConsent) {
             alert('Please fill out all required fields before submitting.');
             return;
         }
