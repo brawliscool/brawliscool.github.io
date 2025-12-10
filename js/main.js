@@ -767,9 +767,10 @@ async function sendMessage() {
     }, 600);
     */
 
-    // SERVER-SIDE CODE (Uses API endpoint)
-    // Configure your deployed API URL here (Vercel, etc.)
-    const API_URL = window.CHAT_API_URL || '/api/chat';
+    // SERVER-SIDE CODE (Uses Supabase Edge Function)
+    // Replace with your Supabase project URL
+    const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+    const API_URL = `${SUPABASE_URL}/functions/v1/chat`;
     
     try {
         const response = await fetch(API_URL, {
