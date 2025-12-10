@@ -41,6 +41,9 @@ npm install
    EMAIL_USER=your-email@gmail.com
    EMAIL_PASSWORD=your-16-char-app-password
    BUSINESS_EMAIL=where-to-receive-quotes@gmail.com
+   
+   # Supabase / Postgres
+   DATABASE_URL=postgresql://postgres:[YOUR_PASSWORD]@db.example.supabase.co:5432/postgres
    ```
 
 ### Step 3: Get Gmail App Password
@@ -67,6 +70,12 @@ npm run dev
 1. Open http://localhost:3000
 2. Fill out the contact form
 3. Submit and check your email!
+
+### Step 6: Connect Supabase (Optional)
+1. In Supabase, open **Project Settings → Database → Connection string → psql**.
+2. Copy the provided `postgresql://` URL into the `DATABASE_URL` field in `.env`.
+3. Host is typically `db.<project-ref>.supabase.co`, port `5432`, database `postgres`, user `postgres`.
+4. Use the generated database password from Supabase; never commit it to Git.
 
 ## Features
 

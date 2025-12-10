@@ -41,6 +41,9 @@ BUSINESS_EMAIL=your-business-email@gmail.com
 # Server Configuration
 PORT=3000
 NODE_ENV=development
+
+# Database (Supabase / Postgres)
+DATABASE_URL=postgresql://postgres:[YOUR_PASSWORD]@db.example.supabase.co:5432/postgres
 ```
 
 ### 3. Gmail App Password Setup
@@ -67,6 +70,12 @@ npm start
 ```
 
 The server will start on `http://localhost:3000`
+
+## Database Connection
+
+- `db.js` exports a configured [postgres](https://www.npmjs.com/package/postgres) client that reads `process.env.DATABASE_URL`.  
+- Supply the Supabase connection string (Settings → Database → Connection string → `psql`) in your `.env`.  
+- The default host looks like `db.{project-ref}.supabase.co` with port `5432`, user `postgres`, database `postgres`, and your generated database password.
 
 ## API Endpoints
 
