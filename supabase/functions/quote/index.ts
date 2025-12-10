@@ -11,7 +11,7 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
 const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const BUSINESS_EMAIL = Deno.env.get('BUSINESS_EMAIL') ?? '';
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const FROM_EMAIL = Deno.env.get('FROM_EMAIL') ?? 'nova@ajdetailing.store';
+const FROM_EMAIL = Deno.env.get('FROM_EMAIL') ?? 'onboarding@resend.dev';
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   console.error('Missing Supabase configuration. Ensure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY secrets are set.');
@@ -137,6 +137,7 @@ async function sendOwnerEmail({ submission }: { submission: Record<string, unkno
     body: JSON.stringify({
       from: `A&J Detailing <${FROM_EMAIL}>`,
       to: [BUSINESS_EMAIL],
+      reply_to: [BUSINESS_EMAIL],
       subject: `New quote request from ${submission.name} (${submission.service})`,
       html,
     }),
@@ -145,7 +146,9 @@ async function sendOwnerEmail({ submission }: { submission: Record<string, unkno
   if (!response.ok) {
     const details = await response.text();
     console.error('Resend API error:', details);
-    throw new Error('Failed to deliver email notification');
+    throw new Error(
+      'Failed to deliver email notification. Use onboarding@resend.dev or verify your custom domain inside Resend before using a branded address.',
+    );
   }
 }
 
