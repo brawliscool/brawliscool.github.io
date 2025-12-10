@@ -197,7 +197,7 @@ const translations = {
 };
 
 const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqcnBwZ2hlY2djcXp5dWxwbmtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNDQ2NzMsImV4cCI6MjA4MDkyMDY3M30.Zx_tYyUv0HjUPpZhuz1KvOGdlkNoz8qX5_SP58g-Gts';
 const QUOTE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/quote`;
 const CHAT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/chat`;
 
