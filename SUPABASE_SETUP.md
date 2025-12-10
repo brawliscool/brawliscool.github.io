@@ -78,6 +78,67 @@ curl -X POST 'https://vjrppghecgcqzyulpnkk.supabase.co/functions/v1/chat' \
 - Verify your DeepSeek API key is valid
 - Check the base URL is correct
 
+---
+
+## Quote Request Email Function
+
+You can now process quote requests (store them in Supabase + send you an email) with the `quote` Edge Function.
+
+### 1. Create the Database Table
+
+Run this SQL in the Supabase SQL editor:
+
+```sql
+create extension if not exists "pgcrypto";
+
+create table if not exists public.quote_requests (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  phone text not null,
+  vehicle text,
+  service text not null,
+  requests text,
+  marketing_consent boolean not null default false,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
+  referer text,
+  user_agent text,
+  inserted_at timestamptz not null default now()
+);
+
+alter table public.quote_requests enable row level security;
+
+create policy "Service role access only"
+  on public.quote_requests
+  for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');
+```
+
+### 2. Set Supabase Secrets
+
+```bash
+supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+supabase secrets set BUSINESS_EMAIL=you@example.com
+supabase secrets set RESEND_API_KEY=re_abc123
+supabase secrets set FROM_EMAIL=notifications@ajdetailing.store
+```
+
+- `BUSINESS_EMAIL` – where the notification should be delivered
+- `RESEND_API_KEY` – generate one for free at [resend.com](https://resend.com)
+- `FROM_EMAIL` – optional, defaults to `nova@ajdetailing.store`
+
+### 3. Deploy the Function
+
+```bash
+supabase functions deploy quote
+```
+
+### 4. Test
+
+Submit the quote form on your site. You should see a new row in `quote_requests` and receive an email notification immediately.
+
 ## Costs
 
 - Supabase Edge Functions: Free tier includes 500,000 invocations/month

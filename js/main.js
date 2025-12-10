@@ -196,6 +196,10 @@ const translations = {
     }
 };
 
+const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
+const QUOTE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/quote`;
+const CHAT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/chat`;
+
 function translatePage(lang) {
     currentLang = lang;
     const t = translations[lang];
@@ -522,70 +526,72 @@ document.querySelectorAll('.card, .hero-content, .comparison-wrapper, .testimoni
     observer.observe(el);
 });
 
-// Form Submission (Using Formspree for Static Hosting)
+// Form Submission (Supabase Edge Function)
 const quoteForm = document.getElementById('quoteForm');
-// REPLACE THIS WITH YOUR FORMSPREE ID
-const FORMSPREE_ID = 'YOUR_ID_HERE';
 
 if (quoteForm) {
+    const urlParams = new URLSearchParams(window.location.search);
+
     quoteForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        if (FORMSPREE_ID === 'YOUR_ID_HERE') {
-            alert('SETUP REQUIRED: Please update the FORMSPREE_ID in js/main.js with your Formspree form ID to make this form work.');
-            return;
-        }
 
         const btn = quoteForm.querySelector('button[type="submit"]');
         const originalHTML = btn.innerHTML;
 
-        // Get form data using FormData API (simpler now that we have name attributes)
         const formData = new FormData(quoteForm);
+        const payload = {
+            name: formData.get('name')?.toString().trim(),
+            phone: formData.get('phone')?.toString().trim(),
+            vehicle: formData.get('vehicle')?.toString().trim() || '',
+            service: formData.get('service')?.toString(),
+            requests: formData.get('requests')?.toString() || '',
+            marketingConsent: formData.get('marketingConsent'),
+            referer: window.location.href,
+            utmSource: urlParams.get('utm_source'),
+            utmMedium: urlParams.get('utm_medium'),
+            utmCampaign: urlParams.get('utm_campaign')
+        };
 
-        // Disable button and show loading state
+        if (!payload.name || !payload.phone || !payload.service || !payload.marketingConsent) {
+            alert('Please fill out all required fields before submitting.');
+            return;
+        }
+
         btn.disabled = true;
         btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
 
         try {
-            const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+            const response = await fetch(QUOTE_FUNCTION_URL, {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
             });
 
-            if (response.ok) {
-                // Success state
-                btn.innerHTML = '<span>Sent!</span> <i class="fas fa-check"></i>';
-                btn.style.background = '#10b981'; // Success Green
+            const data = await response.json().catch(() => ({}));
 
-                setTimeout(() => {
-                    alert('Your quote request has been received! We will contact you shortly.');
-                    quoteForm.reset();
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = '';
-                    btn.disabled = false;
-                }, 1500);
-            } else {
-                // Check if response is JSON before parsing
-                const contentType = response.headers.get('content-type');
-                if (contentType && contentType.includes('application/json')) {
-                    const data = await response.json();
-                    throw new Error(data.error || 'Failed to send quote request');
-                } else {
-                    throw new Error('Failed to send quote request. Please check your form settings.');
-                }
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'Failed to send quote request.');
             }
-        } catch (error) {
-            console.error('Error:', error);
 
-            // Error state
-            btn.innerHTML = '<span>Failed</span> <i class="fas fa-times"></i>';
-            btn.style.background = '#ef4444'; // Error Red
+            btn.innerHTML = '<span>Sent!</span> <i class="fas fa-check"></i>';
+            btn.style.background = '#10b981';
 
             setTimeout(() => {
-                alert('Failed to submit. Please try again or call us directly at (903) 555-0123.');
+                alert('Your quote request has been received! We will contact you shortly.');
+                quoteForm.reset();
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 1400);
+        } catch (error) {
+            console.error('Quote submission error:', error);
+            btn.innerHTML = '<span>Failed</span> <i class="fas fa-times"></i>';
+            btn.style.background = '#ef4444';
+
+            setTimeout(() => {
+                alert(error.message || 'Failed to submit. Please try again or contact us directly at (903) 555-0123.');
                 btn.innerHTML = originalHTML;
                 btn.style.background = '';
                 btn.disabled = false;
@@ -624,11 +630,13 @@ function resetChat() {
             <i class="fas fa-robot"></i>
         </div>
         <div class="message-content">
-            <p>Hi! 👋 I'm Nova, your detailing assistant. How can I help you today?</p>
-            <div class="quick-replies">
-                <button class="quick-reply" data-message="What services do you offer?">Services</button>
-                <button class="quick-reply" data-message="What are your prices?">Pricing</button>
-                <button class="quick-reply" data-message="How do I book?">Book Now</button>
+            <div class="message-bubble">
+                <p>Hi! 👋 I'm Nova, your detailing assistant. How can I help you today?</p>
+                <div class="quick-replies">
+                    <button class="quick-reply" data-message="What services do you offer?">Services</button>
+                    <button class="quick-reply" data-message="What are your prices?">Pricing</button>
+                    <button class="quick-reply" data-message="How do I book?">Book Now</button>
+                </div>
             </div>
         </div>
     `;
@@ -719,12 +727,16 @@ function addMessage(text, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
 
+    const formattedContent = formatMessageContent(text);
+
     messageDiv.innerHTML = `
         <div class="message-avatar">
             <i class="fas fa-${isUser ? 'user' : 'robot'}"></i>
         </div>
         <div class="message-content">
-            <p>${text.replace(/\n/g, '<br>')}</p>
+            <div class="message-bubble">
+                ${formattedContent}
+            </div>
         </div>
     `;
 
@@ -746,7 +758,15 @@ async function sendMessage() {
     typingDiv.className = 'chat-message bot-message typing-indicator';
     typingDiv.innerHTML = `
         <div class="message-avatar"><i class="fas fa-robot"></i></div>
-        <div class="message-content"><p>Typing...</p></div>
+        <div class="message-content">
+            <div class="message-bubble typing-bubble">
+                <span class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+        </div>
     `;
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -768,11 +788,8 @@ async function sendMessage() {
     */
 
     // SERVER-SIDE CODE (Uses Supabase Edge Function)
-    const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
-    const API_URL = `${SUPABASE_URL}/functions/v1/chat`;
-    
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(CHAT_FUNCTION_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
@@ -820,3 +837,44 @@ document.querySelectorAll('.quick-reply').forEach(button => {
         sendMessage();
     });
 });
+
+function escapeHtmlContent(text = '') {
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function formatMessageContent(rawText = '') {
+    const sanitized = escapeHtmlContent(rawText);
+    const withBold = sanitized.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    const sections = withBold.split(/\n{2,}/).map(section => section.trim()).filter(Boolean);
+
+    if (!sections.length) {
+        return `<p>${withBold.replace(/\n/g, '<br>')}</p>`;
+    }
+
+    return sections.map(section => formatSection(section)).join('');
+}
+
+function formatSection(section) {
+    const lines = section.split('\n').map(line => line.trim()).filter(Boolean);
+    if (!lines.length) return '';
+
+    const bulletRegex = /^([-*•·]\s+|\d+\.\s+)/;
+    const orderedRegex = /^\d+\.\s+/;
+
+    if (lines.every(line => bulletRegex.test(line))) {
+        const isOrdered = lines.every(line => orderedRegex.test(line));
+        const listItems = lines
+            .map(line => line.replace(bulletRegex, '').trim())
+            .map(item => `<li>${item}</li>`)
+            .join('');
+        const tag = isOrdered ? 'ol' : 'ul';
+        return `<${tag}>${listItems}</${tag}>`;
+    }
+
+    return `<p>${lines.join('<br>')}</p>`;
+}
