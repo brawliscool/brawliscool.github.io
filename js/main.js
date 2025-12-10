@@ -767,9 +767,12 @@ async function sendMessage() {
     }, 600);
     */
 
-    // SERVER-SIDE CODE (Uses /api/chat endpoint)
+    // SERVER-SIDE CODE (Uses API endpoint)
+    // Configure your deployed API URL here (Vercel, etc.)
+    const API_URL = window.CHAT_API_URL || '/api/chat';
+    
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
