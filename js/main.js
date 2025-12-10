@@ -15,7 +15,7 @@ const translations = {
         hero_title: 'Premium Mobile Car Detailing in',
         hero_location: 'Fairfield, TX',
         hero_description: 'Experience showroom quality at your doorstep. We bring professional auto detailing directly to your home or office with our fully equipped mobile unit.',
-        hero_cta: 'Get a Free Quote',
+        hero_cta: 'Book Now!',
         hero_cta_secondary: 'View Services',
 
         // Services Section
