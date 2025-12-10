@@ -1,4 +1,6 @@
-# Formspree Setup Guide
+# Formspree Setup Guide (Legacy)
+
+> **Heads up:** The quote form now sends requests through our Supabase Edge Function (`supabase/functions/quote`). You only need these Formspree instructions if you decide to switch back to the old static setup.
 
 To make the Contact Form work on your website, you need to connect it to Formspree (a free service for handling forms on static sites).
 
