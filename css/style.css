@@ -294,6 +294,12 @@ header.scrolled {
     z-index: 3;
 }
 
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .hero-bg {
     position: absolute;
     top: 0;
@@ -1240,6 +1246,7 @@ footer {
 
     /* Hero Section - Tablet */
     .hero {
+        flex-direction: column-reverse;
         padding-top: 100px;
         min-height: auto;
         padding-bottom: 60px;
@@ -1249,6 +1256,7 @@ footer {
         justify-content: center;
         padding-left: 24px;
         padding-right: 24px;
+        width: 100%;
     }
 
     .hero-content {
@@ -1267,8 +1275,14 @@ footer {
         width: 100%;
         height: 50vh;
         min-height: 300px;
-        mask-image: linear-gradient(to bottom, transparent, black 10%);
-        -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%);
+        mask-image: linear-gradient(to top, transparent 0%, black 20%);
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, black 20%);
+        opacity: 0.8;
+    }
+    
+    /* Gallery Grid - Tablet */
+    .gallery-grid {
+        grid-template-columns: 1fr;
     }
 
     /* Navigation - Tablet */
@@ -1376,11 +1390,13 @@ footer {
 
     .nav-container {
         padding: 0 16px;
+        justify-content: space-between;
     }
 
     .logo {
         font-size: 1.1rem;
         gap: 8px;
+        flex: 1;
     }
 
     .logo i {
@@ -1421,6 +1437,19 @@ footer {
         font-size: 1.1rem;
         color: var(--text-primary);
     }
+    
+    /* Language button in mobile menu */
+    .nav-links li:last-child {
+        border-bottom: none;
+        padding: 20px 0;
+    }
+    
+    .nav-links .lang-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
 
     .mobile-toggle {
         display: flex;
@@ -1429,6 +1458,8 @@ footer {
         width: 44px;
         height: 44px;
         font-size: 1.3rem;
+        flex-shrink: 0;
+        z-index: 1001;
     }
 
     .lang-toggle {
@@ -1442,12 +1473,14 @@ footer {
 
     /* Hero Section - Mobile */
     .hero {
+        flex-direction: column-reverse;
         padding-top: 80px;
         padding-bottom: 40px;
     }
 
     .hero .container {
         padding: 0 16px;
+        width: 100%;
     }
 
     .hero-content {
@@ -1474,15 +1507,17 @@ footer {
         min-height: 52px;
     }
 
-    .hero-content>div[style*="flex"] {
-        flex-direction: column !important;
-        gap: 12px !important;
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
         width: 100%;
     }
 
     .hero-bg {
         height: 40vh;
         min-height: 250px;
+        mask-image: linear-gradient(to top, transparent 0%, black 15%);
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, black 15%);
     }
 
     /* Services Section - Mobile */
@@ -1545,6 +1580,7 @@ footer {
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+        max-width: 100%;
     }
 
     .comparison-wrapper {
@@ -1818,6 +1854,7 @@ footer {
 
     /* Hero - Small Phone */
     .hero {
+        flex-direction: column-reverse;
         padding-top: 70px;
     }
 
@@ -1833,6 +1870,11 @@ footer {
     .hero-bg {
         height: 35vh;
         min-height: 200px;
+    }
+    
+    /* Gallery - Small Phone */
+    .gallery-grid {
+        grid-template-columns: 1fr;
     }
 
     /* Cards - Small Phone */
@@ -1968,14 +2010,27 @@ footer {
 /* Landscape Phone Orientation */
 @media (max-height: 500px) and (orientation: landscape) {
     .hero {
+        flex-direction: row;
         min-height: auto;
         padding: 100px 0 40px;
     }
 
     .hero-bg {
         position: absolute;
+        width: 50%;
         height: 100%;
-        opacity: 0.3;
+        opacity: 0.4;
+        right: 0;
+        mask-image: linear-gradient(to right, transparent, black 30%);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+    }
+    
+    .hero .container {
+        width: 60%;
+    }
+    
+    .hero-content {
+        text-align: left;
     }
 
     .nav-links {
