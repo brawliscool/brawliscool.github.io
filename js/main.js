@@ -86,6 +86,8 @@ const translations = {
         form_service_premium: 'Premium Package ($249)',
         form_vehicle: 'Vehicle Info (Year/Make/Model)',
         form_vehicle_placeholder: 'e.g. 2020 Ford F-150',
+        form_address: 'Address',
+        form_address_placeholder: '123 Main St, Fairfield, TX 75840',
         form_requests: 'Any Special Requests?',
         form_requests_placeholder: 'Tell us about any specific stains or concerns...',
         form_submit: 'Get Quote',
@@ -182,6 +184,8 @@ const translations = {
         form_service_premium: 'Paquete Premium ($249)',
         form_vehicle: 'Información del Vehículo (Año/Marca/Modelo)',
         form_vehicle_placeholder: 'ej. 2020 Ford F-150',
+        form_address: 'Dirección',
+        form_address_placeholder: '123 Main St, Fairfield, TX 75840',
         form_requests: '¿Alguna Solicitud Especial?',
         form_requests_placeholder: 'Cuéntenos sobre manchas o preocupaciones específicas...',
         form_submit: 'Obtener Cotización',
@@ -542,6 +546,7 @@ if (quoteForm) {
         const payload = {
             name: formData.get('name')?.toString().trim(),
             phone: formData.get('phone')?.toString().trim(),
+            address: formData.get('address')?.toString().trim(),
             vehicle: formData.get('vehicle')?.toString().trim() || '',
             service: formData.get('service')?.toString(),
             requests: formData.get('requests')?.toString() || '',
@@ -552,7 +557,7 @@ if (quoteForm) {
             utmCampaign: urlParams.get('utm_campaign')
         };
 
-        if (!payload.name || !payload.phone || !payload.service || !payload.marketingConsent) {
+        if (!payload.name || !payload.phone || !payload.address || !payload.service || !payload.marketingConsent) {
             alert('Please fill out all required fields before submitting.');
             return;
         }
