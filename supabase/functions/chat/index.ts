@@ -59,9 +59,12 @@ FORMATTING RULES:
 
     // DeepSeek API base URL
     const baseUrl = Deno.env.get('DEEPSEEK_BASE_URL') || 'https://api.deepseek.com'
+    const apiUrl = `${baseUrl}/chat/completions`
+    
+    console.log('Calling DeepSeek API at:', apiUrl)
 
     // Call DeepSeek API
-    const response = await fetch(`${baseUrl}/chat/completions`, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -73,15 +76,17 @@ FORMATTING RULES:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: message }
         ],
-        stream: false
+        stream: false,
+        temperature: 1.0
       })
     })
 
     const data = await response.json()
 
     if (!response.ok) {
-      console.error('DeepSeek API Error:', data)
-      throw new Error(data.error?.message || 'Failed to get AI response')
+      console.error('DeepSeek API Error:', JSON.stringify(data))
+      console.error('Status:', response.status)
+      throw new Error(data.error?.message || `API error: ${response.status}`)
     }
 
     const botReply = data.choices?.[0]?.message?.content || 
@@ -93,9 +98,9 @@ FORMATTING RULES:
     )
 
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error:', error.message || error)
     return new Response(
-      JSON.stringify({ success: false, message: 'Failed to communicate with AI' }),
+      JSON.stringify({ success: false, message: 'Failed to communicate with AI', error: error.message }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   }
