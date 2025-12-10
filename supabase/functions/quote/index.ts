@@ -146,9 +146,7 @@ async function sendOwnerEmail({ submission }: { submission: Record<string, unkno
   if (!response.ok) {
     const details = await response.text();
     console.error('Resend API error:', details);
-    throw new Error(
-      'Failed to deliver email notification. Use onboarding@resend.dev or verify your custom domain inside Resend before using a branded address.',
-    );
+    throw new Error(`Email provider error (${response.status}): ${details}`);
   }
 }
 
