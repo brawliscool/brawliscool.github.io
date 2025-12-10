@@ -767,9 +767,12 @@ async function sendMessage() {
     }, 600);
     */
 
-    // SERVER-SIDE CODE (Uses /api/chat endpoint)
+    // SERVER-SIDE CODE (Uses Supabase Edge Function)
+    const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
+    const API_URL = `${SUPABASE_URL}/functions/v1/chat`;
+    
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
