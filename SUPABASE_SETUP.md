@@ -26,11 +26,11 @@ supabase login
 
 ## Step 3: Link to Your Project
 
-Get your project ID from your Supabase dashboard URL: `https://supabase.com/dashboard/project/YOUR_PROJECT_ID`
+Your project ID: `vjrppghecgcqzyulpnkk`
 
 ```bash
 cd /path/to/your/project
-supabase link --project-ref YOUR_PROJECT_ID
+supabase link --project-ref vjrppghecgcqzyulpnkk
 ```
 
 ## Step 4: Set Your DeepSeek API Key as a Secret
@@ -48,10 +48,10 @@ supabase functions deploy chat
 
 ## Step 6: Update Your Website
 
-Edit `js/main.js` and replace `YOUR_PROJECT_ID` with your actual Supabase project ID:
+The `js/main.js` file has already been configured with your Supabase URL:
 
 ```javascript
-const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
 ```
 
 ## Step 7: Test the Function
@@ -59,7 +59,7 @@ const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
 You can test the function with curl:
 
 ```bash
-curl -X POST 'https://YOUR_PROJECT_ID.supabase.co/functions/v1/chat' \
+curl -X POST 'https://vjrppghecgcqzyulpnkk.supabase.co/functions/v1/chat' \
   -H 'Content-Type: application/json' \
   -d '{"message": "What services do you offer?"}'
 ```

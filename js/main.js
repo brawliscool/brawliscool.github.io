@@ -768,8 +768,7 @@ async function sendMessage() {
     */
 
     // SERVER-SIDE CODE (Uses Supabase Edge Function)
-    // Replace with your Supabase project URL
-    const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+    const SUPABASE_URL = 'https://vjrppghecgcqzyulpnkk.supabase.co';
     const API_URL = `${SUPABASE_URL}/functions/v1/chat`;
     
     try {
