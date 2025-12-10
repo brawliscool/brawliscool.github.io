@@ -163,7 +163,13 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Message is required' });
         }
 
-        const apiKey = process.env.DEEPSEEK_API_KEY || 'sk-aafcf16baa0344e4aa043b553d413ead';
+        // API key is loaded from environment variables only - never hardcoded
+        const apiKey = process.env.DEEPSEEK_API_KEY;
+        
+        if (!apiKey) {
+            console.error('DEEPSEEK_API_KEY not configured in environment variables');
+            return res.status(500).json({ success: false, message: 'AI service not configured' });
+        }
 
         const systemPrompt = `You are Nova, a helpful and friendly AI assistant for A&J Mobile Detailing. You help customers with pricing, services, and booking.
 
@@ -186,9 +192,11 @@ FORMATTING RULES:
 - Use emojis sparingly for package names
 - Be professional and helpful`;
 
+        // DeepSeek API base URL from environment or default
+        const baseUrl = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
 
         // Call DeepSeek API
-        const response = await fetch('https://api.deepseek.com/chat/completions', {
+        const response = await fetch(`${baseUrl}/chat/completions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
