@@ -1,596 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Justin Williams personal hub: trucking, CDL goals, fitness, AI tools, coding, reptiles, and self-improvement." />
-  <title>Justin Williams | Personal Hub</title>
-  <style>
-    :root {
-      --bg: #05070d;
-      --bg-2: #0b1020;
-      --card: rgba(255, 255, 255, 0.075);
-      --card-2: rgba(255, 255, 255, 0.11);
-      --text: #f5f7fb;
-      --muted: #a7b0c6;
-      --line: rgba(255, 255, 255, 0.14);
-      --accent: #68e1fd;
-      --accent-2: #8b5cf6;
-      --good: #22c55e;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
-      --radius: 28px;
-      --max: 1120px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A&J Mobile Detailing | Premium Car Care in Fairfield, TX</title>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-    html { scroll-behavior: smooth; }
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    body {
-      min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 20% 5%, rgba(104, 225, 253, 0.18), transparent 34%),
-        radial-gradient(circle at 82% 14%, rgba(139, 92, 246, 0.22), transparent 32%),
-        radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.08), transparent 36%),
-        var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .page-glow {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 72%);
-      z-index: -1;
-    }
-
-    .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(5, 7, 13, 0.74);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 76px;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #05070d;
-      box-shadow: 0 14px 35px rgba(104, 225, 253, 0.25);
-    }
-
-    nav { display: flex; gap: 10px; align-items: center; }
-
-    nav a {
-      color: var(--muted);
-      font-size: 0.93rem;
-      padding: 10px 12px;
-      border-radius: 999px;
-      transition: 0.2s ease;
-    }
-
-    nav a:hover { color: var(--text); background: rgba(255,255,255,0.08); }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 13px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      color: var(--muted);
-      border-radius: 999px;
-      font-size: 0.86rem;
-      width: fit-content;
-    }
-
-    .pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--good);
-      box-shadow: 0 0 16px var(--good);
-    }
-
-    .hero {
-      padding: 82px 0 56px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.12fr 0.88fr;
-      align-items: center;
-      gap: 42px;
-    }
-
-    .hero h1 {
-      margin-top: 18px;
-      font-size: clamp(3rem, 8vw, 6.4rem);
-      line-height: 0.9;
-      letter-spacing: -0.075em;
-      max-width: 820px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #fff, var(--accent) 48%, #c4b5fd);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.22rem);
-      line-height: 1.75;
-      max-width: 680px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 32px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 50px;
-      padding: 0 18px;
-      border-radius: 16px;
-      font-weight: 800;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      border: 1px solid var(--line);
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #05070d;
-      border-color: transparent;
-    }
-
-    .btn-ghost { color: var(--text); background: rgba(255,255,255,0.06); }
-
-    .hero-card {
-      position: relative;
-      min-height: 470px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      padding: 26px;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -30%;
-      background: conic-gradient(from 180deg, transparent, rgba(104, 225, 253, 0.18), transparent, rgba(139, 92, 246, 0.2), transparent);
-      animation: spin 12s linear infinite;
-      opacity: 0.9;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      border-radius: 22px;
-      background: rgba(5,7,13,0.76);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 24px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .dash-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 26px;
-    }
-
-    .status { color: var(--good); font-weight: 800; font-size: 0.85rem; }
-
-    .metric {
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 14px;
-    }
-
-    .metric small { color: var(--muted); display: block; margin-bottom: 8px; }
-    .metric strong { font-size: 1.65rem; letter-spacing: -0.04em; }
-
-    .progress {
-      margin-top: 12px;
-      height: 9px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      overflow: hidden;
-    }
-
-    .bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-
-    section { padding: 64px 0; }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 22px;
-      margin-bottom: 28px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(2rem, 5vw, 3.6rem);
-      letter-spacing: -0.06em;
-      line-height: 0.98;
-    }
-
-    .section-head p { color: var(--muted); max-width: 520px; line-height: 1.7; }
-
-    .grid { display: grid; gap: 18px; }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-
-    .card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.035));
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
-      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(104, 225, 253, 0.35);
-      background: linear-gradient(180deg, var(--card-2), rgba(255,255,255,0.05));
-    }
-
-    .icon {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: rgba(104,225,253,0.12);
-      border: 1px solid rgba(104,225,253,0.18);
-      margin-bottom: 18px;
-      font-size: 1.25rem;
-    }
-
-    .card h3 { font-size: 1.28rem; margin-bottom: 10px; letter-spacing: -0.025em; }
-    .card p, .card li { color: var(--muted); line-height: 1.7; }
-    .card ul { list-style: none; display: grid; gap: 9px; margin-top: 14px; }
-    .card li::before { content: "▸"; color: var(--accent); margin-right: 8px; }
-
-    .timeline { display: grid; gap: 16px; }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 128px 1fr;
-      gap: 18px;
-      padding: 20px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.055);
-    }
-
-    .time { color: var(--accent); font-weight: 900; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .tag { color: var(--muted); border: 1px solid var(--line); background: rgba(255,255,255,0.05); border-radius: 999px; padding: 7px 11px; font-size: 0.86rem; }
-
-    .contact {
-      border-radius: 32px;
-      padding: 34px;
-      border: 1px solid rgba(104, 225, 253, 0.22);
-      background:
-        linear-gradient(135deg, rgba(104,225,253,0.13), rgba(139,92,246,0.12)),
-        rgba(255,255,255,0.05);
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .contact h2 { font-size: clamp(1.8rem, 5vw, 3.3rem); letter-spacing: -0.06em; }
-    .contact p { color: var(--muted); margin-top: 10px; line-height: 1.7; max-width: 650px; }
-
-    footer { padding: 34px 0; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); }
-    footer .container { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
-
-    .reveal { opacity: 0; transform: translateY(20px); transition: 0.65s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 860px) {
-      nav { display: none; }
-      .hero { padding-top: 52px; }
-      .hero-grid, .grid-3, .grid-2, .contact { grid-template-columns: 1fr; }
-      .hero-card { min-height: auto; }
-      .section-head { display: grid; }
-      .timeline-item { grid-template-columns: 1fr; }
-      .contact { padding: 24px; }
-      .btn { width: 100%; }
-      .actions { width: 100%; }
-    }
-  </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat-widget.css">
 </head>
+
 <body>
-  <div class="page-glow"></div>
 
-  <header>
-    <div class="container nav">
-      <a class="brand" href="#top" aria-label="Justin Williams home">
-        <span class="brand-mark">JW</span>
-        <span>Justin Williams</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#goals">Goals</a>
-        <a href="#projects">Interests</a>
-        <a href="#plan">Plan</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-car-alt"></i>
+                A&J Mobile Detailing
+            </a>
+
+            <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" data-en="Home" data-es="Inicio">Home</a></li>
+                <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+                <li><a href="subscriptions.html" target="_blank" data-en="Subscriptions"
+                        data-es="Suscripciones">Subscriptions</a></li>
+                <li><a href="#photos" data-en="Before & After" data-es="Antes y Después">Before & After</a></li>
+                <li><a href="portfolio.html" target="_blank" data-en="Portfolio" data-es="Portafolio">Portfolio</a></li>
+                <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
+                <li>
+                    <button class="lang-btn" id="langToggle">
+                        🇪🇸 <span id="langText">Español</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">#1 Rated in Freestone County</span>
+                <h1>Premium Mobile Car Detailing in <span class="highlight">Fairfield, TX</span></h1>
+                <p>Experience showroom quality at your doorstep. We bring professional auto detailing directly to your
+                    home or office with our fully equipped mobile unit.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Book Now! <i class="fas fa-arrow-right"
+                            style="margin-left: 8px;"></i></a>
+                    <a href="#services" class="btn btn-outline">View Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-padding" id="services">
+        <div class="container">
+            <h2>Our <span class="highlight">Services</span></h2>
+            <div class="services-grid">
+
+                <!-- Express -->
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-soap"></i>
+                    </div>
+                    <h3>Express Wash & Vacuum</h3>
+                    <p>Perfect for regular maintenance to keep your vehicle looking fresh.</p>
+                    <span class="price-tag">$89</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Exterior wash & dry</li>
+                        <li><i class="fas fa-check"></i> Wheel clean & tire shine</li>
+                        <li><i class="fas fa-check"></i> Interior vacuum</li>
+                        <li><i class="fas fa-check"></i> Wipe down dash & console</li>
+                        <li><i class="fas fa-check"></i> Clean refined windows</li>
+                        <li><i class="fas fa-check"></i> All purpose cleaning</li>
+                        <li><i class="fas fa-check"></i> Air fresheners</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Book Express</a>
+                </div>
+
+                <!-- Standard -->
+                <div class="card card-recommended"
+                    style="border-color: var(--accent-primary); box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);">
+                    <div class="recommended-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Recommended</span>
+                    </div>
+                    <div class="card-icon" style="background: var(--accent-primary); color: white;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Standard Full Detail</h3>
+                    <p>Our most popular package. Deep cleaning inside and out.</p>
+                    <span class="price-tag" style="color: var(--accent-primary);">$149</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <strong>Everything in Express +</strong></li>
+                        <li><i class="fas fa-check"></i> Shampoo seats & carpets</li>
+                        <li><i class="fas fa-check"></i> Leather conditioning</li>
+                        <li><i class="fas fa-check"></i> Steam cleaner</li>
+                        <li><i class="fas fa-check"></i> Odor neutralizer treatment</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%;">Book Standard</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Premium Detail</h3>
+                    <p>The ultimate restoration for enthusiasts and special occasions.</p>
+                    <span class="price-tag">$249</span>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <strong>Everything in Standard +</strong></li>
+                        <li><i class="fas fa-check"></i> Clay bar treatment</li>
+                        <li><i class="fas fa-check"></i> Hand wax application</li>
+                        <li><i class="fas fa-check"></i> Light machine polish</li>
+                        <li><i class="fas fa-check"></i> Engine bay detail</li>
+                        <li><i class="fas fa-check"></i> Plastic debris removal</li>
+                        <li><i class="fas fa-check"></i> Ceramic spray coating</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Book Premium</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Photos Section -->
+    <section class="section-padding" id="photos">
+        <div class="container">
+            <h2>Before & <span class="highlight">After</span></h2>
+            <p
+                style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                See the difference our professional detailing makes.
+            </p>
+
+            <div class="before-after-container">
+                <div class="before-after-item">
+                    <div class="before-after-label before-label">Before</div>
+                    <img src="images/before.jpg" alt="Cadillac Escalade before detailing - dirty exterior"
+                        loading="lazy">
+                </div>
+
+                <div class="before-after-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div class="before-after-item">
+                    <div class="before-after-label after-label">After</div>
+                    <img src="images/after.jpg" alt="Cadillac Escalade after detailing - clean and shiny"
+                        loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Testimonials -->
+    <section class="section-padding" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2>Recent <span class="highlight">Reviews</span></h2>
+            <div class="services-grid">
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"My Model Y looks better than delivery day. They knew exactly how to clean the
+                        white interior and touchscreen without streaks. True Tesla pros."</p>
+                    <div class="author">
+                        <div class="avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jason T.</h4>
+                            <span>Fairfield, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"Three kids destroy an SUV, but these guys erased every trace. My Honda Pilot
+                        actually smells clean again; total lifesaver."</p>
+                    <div class="author">
+                        <div class="avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sarah M.</h4>
+                            <span>Teague, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"My work truck's been on their monthly plan for six months. They make a 100k-mile
+                        F-150 look brand new every single time."</p>
+                    <div class="author">
+                        <div class="avatar">R</div>
+                        <div class="author-info">
+                            <h4>Robert D.</h4>
+                            <span>Streetman, TX</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <!-- Left Side - Info Card -->
+                <div class="contact-card">
+                    <div class="contact-card-content">
+                        <span class="contact-badge"><i class="fas fa-bolt"></i> Quick Response</span>
+                        <h2>Let's Get Your Car <span class="highlight">Sparkling</span></h2>
+                        <p class="contact-subtitle">We typically respond within 1 hour during business hours. Fill out
+                            the form and we'll get back to you ASAP!</p>
+
+                        <div class="contact-methods">
+                            <a href="tel:9034231372" class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="method-info">
+                                    <span class="method-label">Call or Text</span>
+                                    <span class="method-value">(903) 423-1372 or (903) 388-8071</span>
+                                </div>
+                                <i class="fas fa-arrow-right method-arrow"></i>
+                            </a>
+
+                            <a href="mailto:Justinwill063@gmail.com" class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-info">
+                                    <span class="method-label">Email Us</span>
+                                    <span class="method-value">Justinwill063@gmail.com</span>
+                                </div>
+                                <i class="fas fa-arrow-right method-arrow"></i>
+                            </a>
+                        </div>
+
+                        <p
+                            style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 16px; margin-bottom: 24px; text-align: center;">
+                            <i class="fas fa-truck" style="margin-right: 8px; color: var(--accent-primary);"></i>
+                            If you're a business with a fleet, contact us for a custom quote!
+                        </p>
+
+                        <div class="trust-badges">
+                            <div class="trust-badge">
+                                <i class="fas fa-star"></i>
+                                <span>5-Star Rated</span>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-truck"></i>
+                                <span>Mobile Service</span>
+                            </div>
+                            <div class="trust-badge">
+                                <i class="fas fa-clock"></i>
+                                <span>Convenient</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 16px; text-align: center;">
+                            <i class="fas fa-water" style="margin-right: 8px; color: var(--accent-primary);"></i>
+                            We bring our own water & power. No hookups needed.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Side - Form -->
+                <div class="form-card">
+                    <div class="form-header">
+                        <h3>Book Now!</h3>
+                        <p>Schedule your appointment today - fast, easy, and hassle-free.</p>
+                    </div>
+
+                    <form id="quoteForm" class="quote-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-user"></i>
+                                    Full Name
+                                </label>
+                                <input type="text" name="name" class="form-input" required placeholder="Your name">
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-phone"></i>
+                                    Phone Number
+                                </label>
+                                <input type="tel" name="phone" class="form-input" required placeholder="(903) 000-0000"
+                                    inputmode="numeric" pattern="[0-9]*"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-car"></i>
+                                Vehicle Info
+                            </label>
+                            <input type="text" name="vehicle" class="form-input"
+                                placeholder="e.g. 2020 Ford F-150 (White)">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Address
+                            </label>
+                            <input type="text" name="address" class="form-input" required
+                                placeholder="123 Main St, Fairfield, TX 75840">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-sparkles"></i>
+                                Service Package
+                            </label>
+                            <select name="service" class="form-select" required>
+                                <option value="">Choose a package...</option>
+                                <option value="Express">🚿 Basic Package — $89</option>
+                                <option value="Standard">⭐ Standard Package — $149</option>
+                                <option value="Premium">💎 Premium Package — $249</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-comment-dots"></i>
+                                Special Requests <span class="optional">(optional)</span>
+                            </label>
+                            <textarea name="requests" class="form-textarea"
+                                placeholder="Pet hair removal, deep stain cleaning, specific concerns..."></textarea>
+                        </div>
+
+                        <div class="consent-group">
+                            <p class="consent-question">Do you consent to photos/videos of your vehicle being used for
+                                marketing purposes? <span class="required-star">*</span></p>
+                            <div class="toggle-options">
+                                <label class="toggle-option">
+                                    <input type="radio" name="marketingConsent" value="yes" required>
+                                    <span class="toggle-btn">Yes</span>
+                                </label>
+                                <label class="toggle-option">
+                                    <input type="radio" name="marketingConsent" value="no" required>
+                                    <span class="toggle-btn">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>Get My Free Quote</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                        <p class="form-disclaimer">
+                            <i class="fas fa-lock"></i>
+                            Your information is secure and never shared.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo">A&J Detailing</a>
+                    <p>Professional mobile car detailing bringing showroom quality to your driveway.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 A&J Mobile Detailing. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chatButton">
+            <i class="fas fa-comment-dots"></i>
+            <span class="chat-tooltip">Chat with us!</span>
+        </button>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <h4>Nova</h4>
+                        <span class="chat-status">Online</span>
+                    </div>
+                </div>
+                <button class="chat-close" id="chatClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hi! 👋 I'm Nova, your detailing assistant. How can I help you today?</p>
+                        <div class="quick-replies">
+                            <button class="quick-reply" data-message="What services do you offer?">Services</button>
+                            <button class="quick-reply" data-message="What are your prices?">Pricing</button>
+                            <button class="quick-reply" data-message="How do I book?">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="chat-send" id="chatSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="reveal">
-          <div class="pill"><span class="pill-dot"></span> Building the next version of my life</div>
-          <h1>Trucking. Fitness. AI. <span class="gradient-text">Discipline.</span></h1>
-          <p>
-            I’m Justin — focused on earning my CDL, getting stronger, learning Spanish, building with AI, and creating a future with more freedom, money, and momentum.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#goals">See My Goals →</a>
-            <a class="btn btn-ghost" href="#projects">View Interests</a>
-          </div>
-        </div>
-
-        <aside class="hero-card reveal" aria-label="Personal dashboard preview">
-          <div class="hero-card-inner">
-            <div class="dash-top">
-              <strong>2026 Dashboard</strong>
-              <span class="status">ACTIVE</span>
-            </div>
-            <div class="metric">
-              <small>Main move</small>
-              <strong>Class A CDL</strong>
-              <div class="progress"><div class="bar" style="width: 44%"></div></div>
-            </div>
-            <div class="metric">
-              <small>Fitness target</small>
-              <strong>90 → 115+ lbs</strong>
-              <div class="progress"><div class="bar" style="width: 25%"></div></div>
-            </div>
-            <div class="metric">
-              <small>Money goal</small>
-              <strong>Save & move smart</strong>
-              <div class="progress"><div class="bar" style="width: 35%"></div></div>
-            </div>
-            <div class="tags">
-              <span class="tag">AI tools</span>
-              <span class="tag">Hotshot ideas</span>
-              <span class="tag">Gym consistency</span>
-              <span class="tag">Spanish daily</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>About <span class="gradient-text">me</span></h2>
-          <p>A simple hub for what I’m building, learning, and working toward.</p>
-        </div>
-        <div class="grid grid-2">
-          <article class="card reveal">
-            <div class="icon">⚡</div>
-            <h3>Current focus</h3>
-            <p>I’m working on leveling up my income, discipline, body, and skills. My main path is CDL/trucking, but I’m also learning AI, coding, Spanish, and business ideas.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🧭</div>
-            <h3>Direction</h3>
-            <p>The goal is independence: better money, my own place, stronger routines, and a future where I can choose bigger moves instead of being stuck.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="goals">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Core <span class="gradient-text">goals</span></h2>
-          <p>Everything here is built around becoming stronger, smarter, and more independent.</p>
-        </div>
-        <div class="grid grid-3">
-          <article class="card reveal">
-            <div class="icon">🚛</div>
-            <h3>CDL & trucking</h3>
-            <p>Study General Knowledge, Air Brakes, and Combination Vehicles. Get the CLP, complete ELDT, pass skills, then move toward better-paying driving work.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🏋️</div>
-            <h3>Fitness & weight gain</h3>
-            <p>Stay consistent in the gym, eat more, use shakes, and slowly move from 90 lbs toward 100, 110, 115, and beyond.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">💰</div>
-            <h3>Money & moving</h3>
-            <p>Save money, avoid wasting gas, build a cushion, and move only when the numbers make sense instead of rushing into being broke.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🇪🇸</div>
-            <h3>Spanish</h3>
-            <p>Practice useful phrases, listening, translation, and speaking almost every day so Spanish becomes a real skill.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🤖</div>
-            <h3>AI & coding</h3>
-            <p>Learn how to use AI agents, APIs, web apps, local models, and automation tools to build useful projects faster.</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🧠</div>
-            <h3>Self-improvement</h3>
-            <p>Build a better routine, sleep better, reduce wasted time, and keep stacking small wins until life feels different.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Projects & <span class="gradient-text">interests</span></h2>
-          <p>The stuff I’m into, building, learning, or planning around.</p>
-        </div>
-        <div class="grid grid-2">
-          <article class="card reveal">
-            <div class="icon">💻</div>
-            <h3>Web apps & AI tools</h3>
-            <ul>
-              <li>One-file websites and clean UI builds</li>
-              <li>OpenClaw, agents, APIs, and automation</li>
-              <li>Deal finder, real estate brain, and productivity tools</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🎮</div>
-            <h3>Minecraft & modding</h3>
-            <ul>
-              <li>Texture packs and PvP visuals</li>
-              <li>ProjectE-style systems and Bedrock add-ons</li>
-              <li>Legacy console features and custom mod ideas</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🐍</div>
-            <h3>Reptiles & tarantulas</h3>
-            <ul>
-              <li>Ball python care and safe transport</li>
-              <li>Tarantula enclosures and sling care</li>
-              <li>Possible reptile sales/breeding website ideas</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon">🛻</div>
-            <h3>Trucking & hotshot ideas</h3>
-            <ul>
-              <li>CDL Class A path</li>
-              <li>Hotshot setup ideas and truck builds</li>
-              <li>Long-term higher-income work</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="plan">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Simple <span class="gradient-text">roadmap</span></h2>
-          <p>A practical timeline: make progress without moving too early or wasting money.</p>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item reveal">
-            <div class="time">Now</div>
-            <div>
-              <h3>Stabilize routine</h3>
-              <p>Work, gym, CDL study, Spanish, save money, and stop wasting gas/time.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal">
-            <div class="time">Next</div>
-            <div>
-              <h3>CDL progress</h3>
-              <p>Study hard, pass written tests, get CLP, finish ELDT, and prepare for skills testing.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal">
-            <div class="time">Later 2026</div>
-            <div>
-              <h3>Move smarter</h3>
-              <p>Research Longview, save enough for starting costs, check vehicle reliability, and only move when the cushion is there.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="contact reveal">
-          <div>
-            <h2>Built for the next level.</h2>
-            <p>This site can be edited into a portfolio, business page, trucking page, AI projects page, or personal brand hub whenever I’m ready.</p>
-          </div>
-          <a class="btn btn-primary" href="https://github.com/brawliscool" target="_blank" rel="noreferrer">GitHub Profile →</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <span>© <span id="year"></span> Justin Williams</span>
-      <span>CDL • Fitness • AI • Spanish • Self-improvement</span>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-  </script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
