@@ -2,35 +2,573 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070b" />
   <title>A&J Mobile Detailing | Fairfield, TX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root{--bg:#080b10;--panel:#0c1017;--panel-2:#101621;--line:rgba(255,255,255,.08);--line-blue:rgba(0,102,255,.55);--blue:#0068ff;--blue-2:#1882ff;--text:#f5f7fb;--muted:#aeb5c2;--soft:#737d8d;--yellow:#ffc83d;--max:1280px}
-    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;letter-spacing:.01em}a{text-decoration:none;color:inherit}.wrap{width:min(calc(100% - 72px),var(--max));margin:0 auto}.site{background:linear-gradient(180deg,#05070b 0%,#0a0d12 45%,#090d12 100%)}
-    .topbar{height:66px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.045);background:rgba(2,4,8,.88);position:sticky;top:0;z-index:50;backdrop-filter:blur(14px)}.nav{display:flex;align-items:center;justify-content:space-between;gap:30px}.logo{display:flex;align-items:baseline;gap:10px;font-weight:900;letter-spacing:.02em;white-space:nowrap}.logo .aj{font-size:29px;color:var(--blue);line-height:1;font-style:italic}.logo .md{font-size:15px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;font-style:italic;color:#fff}.links{display:flex;gap:44px;align-items:center;font-size:14px;font-weight:700}.links a{color:#fff;opacity:.94;position:relative;padding:24px 0}.links a.active:after{content:"";position:absolute;left:0;right:0;bottom:13px;height:3px;background:var(--blue);border-radius:99px;box-shadow:0 0 18px var(--blue)}.phone-pill{border:1px solid var(--line-blue);border-radius:8px;height:38px;padding:0 17px;display:flex;align-items:center;gap:9px;font-weight:800;background:#070b12;box-shadow:inset 0 0 24px rgba(0,104,255,.12)}
-    .hero{position:relative;min-height:470px;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.07);background:radial-gradient(circle at 74% 38%,rgba(0,104,255,.25),transparent 30%),linear-gradient(90deg,#06080c 0%,#080b12 38%,#08101e 100%)}.hero:before{content:"A&J";position:absolute;top:60px;left:48%;transform:translateX(-50%);font-size:130px;font-weight:900;font-style:italic;color:rgba(0,104,255,.09);letter-spacing:-.08em;z-index:1}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#06080c 0%,rgba(6,8,12,.98) 25%,rgba(6,8,12,.44) 46%,rgba(6,8,12,.12) 74%,rgba(6,8,12,.4) 100%);z-index:2;pointer-events:none}.hero-bg{position:absolute;right:0;top:0;width:68%;height:100%;background:url('images/hero-bg.jpg') center/cover no-repeat;filter:brightness(.62) contrast(1.25) saturate(1.2);opacity:.98;z-index:1}.hero-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 60% 55%,transparent 0,rgba(0,98,255,.12) 35%,rgba(0,0,0,.78) 100%)}.hero-content{position:relative;z-index:3;padding:50px 0 28px;max-width:520px}.location{display:inline-flex;gap:11px;align-items:center;border:1px solid var(--line-blue);color:#fff;border-radius:8px;padding:9px 17px;font-size:13px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin-bottom:26px;background:rgba(0,28,80,.22)}.location i{color:var(--blue)}h1{font-size:53px;line-height:1.05;text-transform:uppercase;letter-spacing:.08em;font-weight:900;margin-bottom:14px;text-shadow:0 4px 30px rgba(0,0,0,.8)}h1 span{display:block;color:var(--blue);font-weight:500;letter-spacing:.23em}.hero-copy{color:#d7dbe3;font-size:16px;line-height:1.45;max-width:470px;margin-bottom:24px}.hero-buttons{display:flex;gap:22px;margin-bottom:30px}.btn{height:39px;min-width:177px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;gap:13px;text-transform:uppercase;font-size:13px;font-weight:900;letter-spacing:.09em;transition:.2s}.btn-primary{background:var(--blue);box-shadow:0 0 24px rgba(0,104,255,.32)}.btn-dark{background:#070b10;border:1px solid var(--line-blue)}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:500px}.mini-feature{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:center}.mini-feature .circle{width:42px;height:42px;border:1px solid var(--line-blue);border-radius:50%;display:grid;place-items:center;color:var(--blue);font-size:17px}.mini-feature b{display:block;font-size:11px;line-height:1.05;text-transform:uppercase;letter-spacing:.08em}.mini-feature span{display:block;color:#a9b2c0;font-size:11px;line-height:1.15;margin-top:4px}
-    .packages{padding:18px 0 8px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1080px;margin:0 auto}.card{position:relative;background:linear-gradient(145deg,rgba(20,25,34,.9),rgba(8,11,16,.98));border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:29px 35px 20px;min-height:260px;box-shadow:0 18px 50px rgba(0,0,0,.22)}.card.featured{border-color:var(--blue);box-shadow:0 0 0 1px rgba(0,104,255,.14),0 18px 55px rgba(0,0,0,.45)}.popular{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--blue);border-radius:5px;padding:4px 26px;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.icon-bubble{width:52px;height:52px;border-radius:50%;background:radial-gradient(circle,#12346d,#0b1b34);display:grid;place-items:center;color:#8dbdff;font-size:20px;margin-bottom:-46px}.card h2{font-size:22px;text-transform:uppercase;letter-spacing:.06em;line-height:1.12;margin-left:72px;margin-bottom:7px}.card p{color:#bdc3cc;font-size:13px;line-height:1.25;margin-left:72px;min-height:34px}.card hr{border:0;border-top:1px solid rgba(255,255,255,.05);margin:14px 0}.card ul{list-style:none;display:grid;gap:7px;margin:0 0 14px 0;color:#e3e6eb;font-size:13px}.card li:before{content:'✓';color:var(--blue-2);margin-right:10px}.price-row{display:flex;align-items:end;justify-content:space-between;border-top:1px solid rgba(255,255,255,.055);padding-top:12px}.price{font-size:29px;font-weight:900}.price small{font-size:9px;color:#8d95a2;text-transform:uppercase;margin-left:10px}.book-small{height:32px;min-width:128px;border:1px solid var(--line-blue);border-radius:5px;color:#91c1ff;background:rgba(0,28,80,.16);font-weight:900;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;text-align:center;line-height:1}.book-small.fill{background:var(--blue);color:#fff}.notice{text-align:center;color:#a5acb7;font-size:13px;letter-spacing:.09em;text-transform:uppercase;margin:12px 0 8px}.notice i{color:var(--blue);margin-right:9px}.notice span{color:var(--blue);margin:0 13px}
-    .section-title{text-align:center;font-size:23px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;margin:9px 0 14px}.section-title:after{content:"";display:block;width:58px;height:2px;background:var(--blue);margin:7px auto 0}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.compare{height:128px;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(255,255,255,.08);position:relative;background:#111}.compare img{width:100%;height:100%;object-fit:cover;filter:brightness(.78) contrast(1.1)}.compare .after-img{filter:brightness(.98) contrast(1.1) saturate(1.05)}.tag{position:absolute;bottom:10px;padding:6px 13px;border-radius:4px;background:rgba(6,9,14,.86);font-size:10px;font-weight:900;letter-spacing:.08em}.tag.before{left:14px}.tag.after{right:14px;background:var(--blue)}.gallery-btn{text-align:center;margin:12px 0 8px}.gallery-btn .btn{height:33px;min-width:236px;font-size:11px}
-    .reviews{padding:8px 0 15px;border-top:1px solid rgba(255,255,255,.055);border-bottom:1px solid rgba(255,255,255,.055)}.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}.review{background:linear-gradient(145deg,rgba(17,22,30,.88),rgba(8,11,16,.9));border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:18px 23px}.stars{color:var(--yellow);letter-spacing:3px;margin-bottom:12px}.review p{font-size:13px;color:#e5e7eb;line-height:1.45;min-height:58px}.person{display:flex;gap:12px;align-items:center;margin-top:13px}.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#c9d5e8,#53606d);display:grid;place-items:center;color:#111;font-weight:900}.person b{font-size:13px}.person span{display:block;color:#9ca4b1;font-size:12px}.dots{display:none!important}
-    .contact-area{display:grid;grid-template-columns:270px 1fr 305px;gap:30px;align-items:start;padding:24px 0 15px}.block-title{font-size:17px;text-transform:uppercase;letter-spacing:.22em;font-weight:900;margin-bottom:14px}.block-title:after{content:"";display:block;width:46px;height:2px;background:var(--blue);margin-top:8px}.booking-left p{color:#c5cad2;font-size:12px;line-height:1.35;margin-bottom:20px}.supplies{height:118px;background:linear-gradient(90deg,rgba(0,0,0,.1),rgba(0,0,0,.4)),url('images/before.jpg') center/cover;border-radius:8px;position:relative;overflow:hidden;filter:saturate(.65) brightness(.7)}.supplies:after{content:"";position:absolute;left:14px;bottom:4px;width:210px;height:74px;background:linear-gradient(100deg,#0068ff 0 22%,#111 22% 40%,#b08d62 40% 100%);filter:blur(20px);opacity:.72}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px 10px}.form-grid input,.form-grid select,.form-grid textarea{width:100%;height:37px;background:#0a0e15;border:1px solid rgba(255,255,255,.08);border-radius:5px;color:#cbd2dd;padding:0 12px;font-family:inherit;outline:none}.form-grid textarea{grid-column:1/-1;height:52px;padding-top:12px}.send{grid-column:1/-1;height:39px;background:var(--blue);border:0;border-radius:5px;color:white;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.contact-list{display:grid;gap:17px;margin-top:19px}.contact-item{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}.contact-item i{color:var(--blue);font-size:18px;text-align:center;margin-top:1px}.contact-item b{font-size:14px}.contact-item span{display:block;color:#9da6b4;font-size:12px;margin-top:2px}footer{border-top:1px solid rgba(255,255,255,.06);height:58px;display:flex;align-items:center}.foot{display:flex;align-items:center;justify-content:space-between}.copy{color:#828a96;font-size:12px}.socials{display:flex;gap:25px;font-size:18px}.socials i{color:#fff}
-    @media(max-width:1080px){.wrap{width:min(calc(100% - 34px),var(--max))}.links{display:none}.phone-pill{display:inline-flex}.cards,.gallery,.review-grid,.contact-area{grid-template-columns:1fr}.contact-area{gap:22px}.hero-bg{width:100%;opacity:.28}.hero{min-height:auto}.hero-content{padding-top:42px}.features{grid-template-columns:1fr}.card h2,.card p{margin-left:0}.icon-bubble{margin-bottom:14px}.compare{height:260px}.form-grid{grid-template-columns:1fr}.foot{flex-direction:column;gap:12px;text-align:center}.topbar{height:auto;min-height:68px;padding:14px 0}footer{height:auto;padding:24px 0}.copy{order:3}}
-    @media(max-width:640px){.wrap{width:min(calc(100% - 28px),var(--max))}.nav{gap:14px}.logo{gap:7px}.logo .aj{font-size:27px}.logo .md{font-size:11px;letter-spacing:.08em}.phone-pill{height:36px;padding:0 11px;font-size:0;min-width:43px;justify-content:center}.phone-pill i{font-size:15px}.hero{min-height:640px;display:flex;align-items:flex-start}.hero:before{font-size:92px;top:110px;left:55%;opacity:.9}.hero:after{background:linear-gradient(180deg,rgba(6,8,12,.54) 0%,rgba(6,8,12,.74) 22%,#06080c 78%)}.hero-bg{height:250px;width:100%;opacity:.8;filter:brightness(.42) contrast(1.2) saturate(1.05);background-position:center top}.hero-content{padding:238px 0 28px;max-width:100%}.location{font-size:10px;letter-spacing:.12em;padding:8px 11px;margin-bottom:15px}h1{font-size:clamp(34px,10vw,43px);letter-spacing:.045em;line-height:1.02;margin-bottom:12px}h1 span{letter-spacing:.14em;font-size:.68em;margin-top:6px}.hero-copy{font-size:15px;line-height:1.48;margin-bottom:18px}.hero-buttons{gap:10px;margin-bottom:18px}.btn{width:100%;height:48px;min-width:0;font-size:12px}.features{gap:10px}.mini-feature{grid-template-columns:36px 1fr;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px}.mini-feature .circle{width:36px;height:36px;font-size:14px}.mini-feature b{font-size:10px}.mini-feature span{font-size:10px}.packages{padding:18px 0 4px}.cards{gap:16px}.card{padding:26px 20px 18px;min-height:0;border-radius:13px}.popular{top:-11px;font-size:10px;padding:4px 20px}.card h2{font-size:21px}.card p{font-size:13px;min-height:auto}.card ul{font-size:13px;gap:8px}.price-row{align-items:center;gap:12px}.price{font-size:30px}.price small{display:block;margin-left:0;margin-top:2px}.book-small{height:42px;min-width:116px;display:inline-flex;align-items:center;justify-content:center;text-align:center;line-height:1}.notice{font-size:11px;line-height:1.5;margin:16px auto 8px;max-width:300px}.section-title{font-size:19px;letter-spacing:.18em;margin-top:18px}.gallery{gap:14px}.compare{height:auto;aspect-ratio:16/9;display:block}.compare img:first-child{display:none}.compare .after-img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.92) contrast(1.08) saturate(1.08)}.compare:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.22),transparent 48%,rgba(0,104,255,.08));z-index:1}.tag{z-index:2;bottom:9px;font-size:9px;padding:6px 11px}.tag.before{left:9px}.tag.after{right:9px}.gallery-btn .btn{height:43px}.reviews{padding:14px 0 20px}.review{padding:17px}.review p{font-size:13px;min-height:0}.contact-area{padding:22px 0 18px}.block-title{font-size:15px;letter-spacing:.18em}.supplies{height:145px}.form-grid{gap:9px}.form-grid input,.form-grid select{height:45px}.form-grid textarea{height:86px}.send{height:48px}.contact-right{padding-top:4px}.contact-list{gap:14px}.contact-item{grid-template-columns:26px 1fr}.contact-item b{font-size:13px;overflow-wrap:anywhere}.socials{gap:20px}.foot .logo{justify-content:center}.copy{font-size:11px;line-height:1.35}}
+    :root {
+      --bg: #05070b;
+      --bg-2: #080d14;
+      --panel: rgba(14, 19, 29, 0.86);
+      --panel-strong: #0d121c;
+      --line: rgba(255, 255, 255, 0.1);
+      --blue: #0068ff;
+      --blue-2: #25a1ff;
+      --text: #f8fbff;
+      --muted: #aab4c4;
+      --soft: #717b8c;
+      --yellow: #ffc83d;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      min-height: 100vh;
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0, 104, 255, 0.16), transparent 30rem),
+        radial-gradient(circle at 80% 30%, rgba(37, 161, 255, 0.12), transparent 32rem),
+        linear-gradient(180deg, #05070b 0%, #080d14 48%, #05070b 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .site { min-height: 100vh; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(5, 7, 11, .9);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      white-space: nowrap;
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+
+    .logo .aj { color: var(--blue-2); font-size: 31px; line-height: 1; font-style: italic; }
+    .logo .md { color: #fff; font-size: 15px; text-transform: uppercase; letter-spacing: .13em; font-style: italic; }
+
+    .links { display: flex; align-items: center; gap: 30px; font-size: 14px; font-weight: 800; }
+    .links a { color: rgba(255,255,255,.86); padding: 24px 0; position: relative; }
+    .links a:hover, .links a.active { color: #fff; }
+    .links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 17px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--blue);
+      box-shadow: 0 0 18px rgba(0,104,255,.7);
+    }
+
+    .phone-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(37,161,255,.55);
+      border-radius: 10px;
+      background: rgba(0,104,255,.1);
+      color: white;
+      font-weight: 900;
+      box-shadow: inset 0 0 24px rgba(0,104,255,.1);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 72% 24%, rgba(0,104,255,.36), transparent 24rem),
+        linear-gradient(105deg, rgba(5,7,11,.98) 0 42%, rgba(5,7,11,.64) 60%, rgba(5,7,11,.92) 100%),
+        url("images/hero-bg.jpg") right center / cover no-repeat,
+        linear-gradient(135deg, #06101f, #020307);
+    }
+
+    .hero::after {
+      content: "A&J";
+      position: absolute;
+      top: 34px;
+      left: 47%;
+      z-index: -1;
+      color: rgba(37,161,255,.09);
+      font-size: clamp(92px, 13vw, 170px);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -.08em;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 560px) 1fr;
+      align-items: center;
+      min-height: 560px;
+      padding: 64px 0 58px;
+      gap: 42px;
+    }
+
+    .location {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 10px 16px;
+      border: 1px solid rgba(37,161,255,.55);
+      border-radius: 10px;
+      background: rgba(0,104,255,.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 570px;
+      margin-bottom: 18px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: .98;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+      font-weight: 900;
+      text-shadow: 0 12px 34px rgba(0,0,0,.75);
+    }
+
+    h1 span { display: block; color: var(--blue-2); font-weight: 700; letter-spacing: .16em; font-size: .72em; margin-top: 8px; }
+
+    .hero-copy {
+      max-width: 520px;
+      margin-bottom: 26px;
+      color: #d8dee8;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .hero-buttons, .gallery-btn { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      min-height: 46px;
+      min-width: 164px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(37,161,255,.55);
+      background: rgba(6,11,18,.9);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--blue), var(--blue-2)); border-color: transparent; box-shadow: 0 16px 34px rgba(0,104,255,.28); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.12); }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+      max-width: 640px;
+    }
+    .mini-feature {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 16px;
+      background: rgba(7, 12, 19, .72);
+      box-shadow: 0 18px 42px rgba(0,0,0,.22);
+    }
+    .mini-feature .circle {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(37,161,255,.55);
+      color: var(--blue-2);
+      background: rgba(0,104,255,.08);
+      font-weight: 900;
+    }
+    .mini-feature b { display: block; margin-bottom: 5px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .mini-feature span { color: var(--muted); font-size: 12px; line-height: 1.35; }
+
+    main { padding: 28px 0 0; }
+    section { scroll-margin-top: 90px; }
+    .packages { margin-bottom: 30px; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .card, .review, .contact-area, .compare {
+      border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(145deg, rgba(17,22,32,.92), rgba(7,10,16,.96));
+      box-shadow: 0 20px 60px rgba(0,0,0,.26);
+    }
+    .card { position: relative; min-height: 100%; padding: 28px; border-radius: 18px; }
+    .card.featured { border-color: rgba(37,161,255,.72); box-shadow: 0 0 0 1px rgba(0,104,255,.16), 0 22px 66px rgba(0,0,0,.34); }
+    .popular {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 5px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .icon-bubble {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      background: rgba(0,104,255,.12);
+      color: var(--blue-2);
+      font-size: 24px;
+    }
+    .card h2 { margin-bottom: 9px; font-size: 25px; line-height: 1.05; text-transform: uppercase; letter-spacing: .05em; }
+    .card p { min-height: 48px; color: var(--muted); line-height: 1.45; }
+    .card hr { margin: 18px 0; border: 0; border-top: 1px solid rgba(255,255,255,.08); }
+    .card ul { display: grid; gap: 9px; margin-bottom: 22px; list-style: none; color: #e7ebf2; }
+    .card li::before { content: "✓"; margin-right: 10px; color: var(--blue-2); font-weight: 900; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
+    .price { font-size: 34px; font-weight: 900; }
+    .price small { display: block; margin-top: 2px; color: var(--soft); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
+    .book-small { min-height: 38px; padding: 0 16px; border: 1px solid rgba(37,161,255,.55); border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: #b9dcff; font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+    .book-small.fill { background: linear-gradient(135deg, var(--blue), var(--blue-2)); color: #fff; border-color: transparent; }
+    .notice { margin: 18px 0 0; text-align: center; color: var(--muted); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    .notice span { color: var(--blue-2); margin: 0 10px; }
+
+    .section-title { margin: 34px 0 18px; text-align: center; font-size: clamp(24px, 3vw, 34px); text-transform: uppercase; letter-spacing: .16em; }
+    .section-title::after { content: ""; display: block; width: 66px; height: 3px; margin: 10px auto 0; border-radius: 999px; background: var(--blue-2); }
+    .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .compare { position: relative; height: 190px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border-radius: 16px; }
+    .compare img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.75) contrast(1.08); }
+    .compare .after-img { filter: brightness(1.02) contrast(1.08) saturate(1.06); }
+    .tag { position: absolute; bottom: 12px; padding: 7px 12px; border-radius: 999px; background: rgba(5,7,11,.84); color: white; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    .tag.before { left: 12px; }
+    .tag.after { right: 12px; background: var(--blue); }
+    .gallery-btn { justify-content: center; margin: 20px 0 8px; }
+
+    .reviews { margin-top: 30px; padding-bottom: 10px; }
+    .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .review { border-radius: 16px; padding: 22px; }
+    .stars { color: var(--yellow); letter-spacing: 3px; margin-bottom: 12px; }
+    .review p { min-height: 96px; color: #e8ecf4; line-height: 1.55; }
+    .person { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #dfe7f5, #647181); color: #0b1018; font-weight: 900; }
+    .person b { display: block; }
+    .person span { color: var(--muted); font-size: 13px; }
+
+    .contact-area {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr) 310px;
+      gap: 24px;
+      margin: 40px 0 24px;
+      padding: 26px;
+      border-radius: 20px;
+    }
+    .block-title { margin-bottom: 12px; font-size: 20px; text-transform: uppercase; letter-spacing: .13em; }
+    .block-title::after { content: ""; display: block; width: 48px; height: 3px; margin-top: 8px; border-radius: 999px; background: var(--blue-2); }
+    .booking-left p { color: var(--muted); line-height: 1.5; margin-bottom: 18px; }
+    .supplies { min-height: 150px; border-radius: 16px; background: linear-gradient(90deg, rgba(0,0,0,.05), rgba(0,0,0,.48)), url("images/before.jpg") center / cover no-repeat, linear-gradient(135deg, #111827, #05070b); border: 1px solid rgba(255,255,255,.08); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .form-grid input, .form-grid select, .form-grid textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      background: rgba(5,8,13,.82);
+      color: white;
+      padding: 0 14px;
+      font: inherit;
+      outline: none;
+    }
+    .form-grid textarea { grid-column: 1 / -1; min-height: 82px; padding-top: 12px; resize: vertical; }
+    .send { grid-column: 1 / -1; min-height: 46px; border: 0; border-radius: 10px; background: linear-gradient(135deg, var(--blue), var(--blue-2)); color: white; font: inherit; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+    .contact-list { display: grid; gap: 16px; margin-top: 18px; }
+    .contact-item { display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
+    .contact-item .contact-icon { color: var(--blue-2); font-weight: 900; }
+    .contact-item b { display: block; }
+    .contact-item span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+    footer { border-top: 1px solid rgba(255,255,255,.08); padding: 22px 0 28px; }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 18px; color: var(--muted); }
+    .copy { font-size: 13px; }
+    .socials { display: flex; gap: 14px; color: #fff; font-weight: 900; }
+
+    @media (max-width: 980px) {
+      .links { display: none; }
+      .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 52px 0 46px; }
+      .features, .cards, .gallery, .review-grid, .contact-area { grid-template-columns: 1fr; }
+      .compare { height: 260px; }
+      .contact-area { padding: 22px; }
+      .foot { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      .nav { min-height: 68px; gap: 12px; }
+      .logo { gap: 7px; }
+      .logo .aj { font-size: 28px; }
+      .logo .md { font-size: 11px; letter-spacing: .08em; }
+      .phone-pill { min-height: 38px; width: 42px; padding: 0; font-size: 0; border-radius: 999px; }
+      .phone-pill::before { content: "☎"; font-size: 18px; line-height: 1; }
+      .phone-pill span { display: none; }
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(5,7,11,.72), rgba(5,7,11,.92)),
+          url("images/hero-bg.jpg") center top / cover no-repeat,
+          radial-gradient(circle at 50% 0%, rgba(0,104,255,.32), transparent 22rem),
+          #05070b;
+      }
+      .hero::after { top: 20px; left: 55%; opacity: .75; }
+      .hero-grid { padding: 34px 0 38px; }
+      .location { margin-bottom: 18px; padding: 9px 12px; font-size: 10px; letter-spacing: .12em; }
+      h1 { font-size: clamp(38px, 12vw, 52px); letter-spacing: .025em; line-height: 1.02; }
+      h1 span { font-size: .72em; letter-spacing: .1em; }
+      .hero-copy { font-size: 16px; line-height: 1.5; }
+      .hero-buttons { display: grid; grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .features { margin-top: 24px; }
+      .mini-feature { min-height: auto; }
+      main { padding-top: 20px; }
+      .card { padding: 24px; }
+      .price-row { align-items: flex-start; flex-direction: column; }
+      .book-small { width: 100%; }
+      .notice { font-size: 11px; line-height: 1.45; }
+      .notice span { display: none; }
+      .compare { height: 220px; }
+      .review p { min-height: auto; }
+      .form-grid { grid-template-columns: 1fr; }
+      .contact-area { margin-top: 32px; padding: 18px; border-radius: 18px; }
+    }
   </style>
 </head>
 <body>
-<div class="site">
-  <header class="topbar"><div class="wrap nav"><a class="logo" href="#home"><span class="aj">A&J</span><span class="md">Mobile Detailing</span></a><nav class="links"><a class="active" href="#home">Home</a><a href="#services">Services</a><a href="#photos">Before & After</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav><a class="phone-pill" href="tel:9038792012"><i class="fa-solid fa-phone"></i> (903) 879-2012</a></div></header>
-  <section class="hero" id="home"><div class="hero-bg"></div><div class="wrap hero-content"><div class="location"><i class="fa-solid fa-location-dot"></i> Fairfield, Texas</div><h1>Premium Mobile<br>Car Detailing <span>In Fairfield, TX</span></h1><p class="hero-copy">We bring the showroom to you. Premium detailing, convenient mobile service, and results that speak for themselves.</p><div class="hero-buttons"><a class="btn btn-primary" href="#contact">Book Now <i class="fa-solid fa-arrow-right"></i></a><a class="btn btn-dark" href="#services">View Services <i class="fa-solid fa-arrow-right"></i></a></div><div class="features"><div class="mini-feature"><div class="circle"><i class="fa-regular fa-gem"></i></div><div><b>Premium Products</b><span>Top-tier products for a flawless finish</span></div></div><div class="mini-feature"><div class="circle"><i class="fa-regular fa-clock"></i></div><div><b>Convenient & Mobile</b><span>We come to your home or office</span></div></div><div class="mini-feature"><div class="circle"><i class="fa-solid fa-shield-halved"></i></div><div><b>Satisfaction Guaranteed</b><span>Quality you can see. Service you can trust.</span></div></div></div></div></section>
-  <main class="wrap"><section class="packages" id="services"><div class="cards"><article class="card"><div class="icon-bubble"><i class="fa-solid fa-spray-can-sparkles"></i></div><h2>Express Wash<br>& Vacuum</h2><p>A quick refresh to keep your vehicle clean and sharp.</p><hr><ul><li>Exterior Hand Wash</li><li>Tire & Wheel Clean</li><li>Door Jambs Wiped</li><li>Vacuum Interior</li><li>Windows Cleaned</li></ul><div class="price-row"><div class="price">$75 <small>Starting At</small></div><a class="book-small" href="#contact">Book Now</a></div></article><article class="card featured"><div class="popular">Most Popular</div><div class="icon-bubble"><i class="fa-solid fa-car-side"></i></div><h2>Standard<br>Full Detail</h2><p>Our most popular package for a deep, head-to-toe clean.</p><hr><ul><li>Everything in Express Wash</li><li>Interior Deep Clean</li><li>Dash, Console & Vents Cleaned</li><li>Interior Surface Protection</li><li>Tire Shine</li></ul><div class="price-row"><div class="price">$175 <small>Starting At</small></div><a class="book-small fill" href="#contact">Book Now</a></div></article><article class="card"><div class="icon-bubble"><i class="fa-regular fa-gem"></i></div><h2>Premium<br>Detail</h2><p>The ultimate detailing experience for your vehicle.</p><hr><ul><li>Everything in Standard Detail</li><li>Paint Decontamination</li><li>One Step Paint Enhancement</li><li>Sealant or Wax Protection</li><li>Interior Leather Conditioning</li></ul><div class="price-row"><div class="price">$275 <small>Starting At</small></div><a class="book-small" href="#contact">Book Now</a></div></article></div><div class="notice"><i class="fa-solid fa-recycle"></i> Larger vehicles, trucks & SUVs additional <span>•</span> Ask about maintenance packages</div></section>
-    <section id="photos"><h2 class="section-title">Before & After</h2><div class="gallery"><div class="compare"><img src="images/before.jpg" alt="Before exterior"><img class="after-img" src="images/after.jpg" alt="After exterior"><span class="tag before">Before</span><span class="tag after">After</span></div><div class="compare"><img src="images/before.jpg" alt="Before wheel"><img class="after-img" src="images/after.jpg" alt="After wheel"><span class="tag before">Before</span><span class="tag after">After</span></div><div class="compare"><img src="images/before.jpg" alt="Before interior"><img class="after-img" src="images/after.jpg" alt="After interior"><span class="tag before">Before</span><span class="tag after">After</span></div></div><div class="gallery-btn"><a class="btn btn-dark" href="#photos">View More Transformations <i class="fa-solid fa-arrow-right"></i></a></div></section>
-    <section class="reviews" id="reviews"><h2 class="section-title">What Our Customers Say</h2><div class="review-grid"><article class="review"><div class="stars">★★★★★</div><p>“A&J did an amazing job on my truck! Showed up on time, super professional, and my truck looks better than the day I bought it. Highly recommend!”</p><div class="person"><div class="avatar">C</div><div><b>– Cody M.</b><span>Fairfield, TX</span></div></div></article><article class="review"><div class="stars">★★★★★</div><p>“Convenient, friendly, and the attention to detail is top notch. I won’t trust my vehicles with anyone else in Fairfield.”</p><div class="person"><div class="avatar">J</div><div><b>– Jessica T.</b><span>Fairfield, TX</span></div></div></article><article class="review"><div class="stars">★★★★★</div><p>“From the exterior shine to the interior clean, everything was perfect. Worth every penny!”</p><div class="person"><div class="avatar">N</div><div><b>– Nathan P.</b><span>Fairfield, TX</span></div></div></article></div></section>
-    <section class="contact-area" id="contact"><div class="booking-left"><h2 class="block-title">Book Your Detail</h2><p>Fill out the form and we’ll get back to you quickly to confirm your appointment.</p><div class="supplies" aria-label="Detailing supplies"></div></div><form id="quoteForm" class="form-grid"><input name="name" required placeholder="Full Name"><input name="phone" required placeholder="Phone Number"><input name="email" placeholder="Email Address"><input name="vehicle" placeholder="Vehicle (Make/Model)"><select name="service"><option>Service Interested In</option><option>Express Wash & Vacuum</option><option>Standard Full Detail</option><option>Premium Detail</option></select><input name="date" placeholder="Preferred Date"><textarea name="requests" placeholder="Additional Information (Optional)"></textarea><button class="send" type="submit">Send Request</button></form><div class="contact-right"><h2 class="block-title">Get In Touch</h2><div class="contact-list"><div class="contact-item"><i class="fa-solid fa-phone"></i><div><b>(903) 879-2012</b></div></div><div class="contact-item"><i class="fa-solid fa-envelope"></i><div><b>ajmobiledetailingtx@gmail.com</b></div></div><div class="contact-item"><i class="fa-solid fa-location-dot"></i><div><b>Fairfield, TX 75840</b><span>We come to you!</span></div></div><div class="contact-item"><i class="fa-solid fa-clock"></i><div><b>Mon – Sat: 8:00 AM – 6:00 PM</b><span>Appointments recommended</span></div></div></div></div></section></main>
-  <footer><div class="wrap foot"><a class="logo" href="#home"><span class="aj">A&J</span><span class="md">Mobile Detailing</span></a><div class="copy">© 2024 A&J Mobile Detailing. All rights reserved.</div><div class="socials"><i class="fa-brands fa-facebook"></i><i class="fa-brands fa-instagram"></i><i class="fa-brands fa-tiktok"></i></div></div></footer>
-</div><script>document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}}}));</script>
+  <div class="site">
+    <header class="topbar">
+      <div class="wrap nav">
+        <a class="logo" href="#home" aria-label="A&J Mobile Detailing home"><span class="aj">A&J</span><span class="md">Mobile Detailing</span></a>
+        <nav class="links" aria-label="Main navigation">
+          <a class="active" href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#photos">Before &amp; After</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="phone-pill" href="tel:9038792012"><span>Call</span> (903) 879-2012</a>
+      </div>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div class="hero-content">
+          <div class="location">📍 Fairfield, Texas</div>
+          <h1>Premium Mobile Car Detailing <span>In Fairfield, TX</span></h1>
+          <p class="hero-copy">We bring the showroom to you. Premium detailing, convenient mobile service, and results that speak for themselves.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#contact">Book Now →</a>
+            <a class="btn" href="#services">View Services →</a>
+          </div>
+          <div class="features" aria-label="Service highlights">
+            <div class="mini-feature"><div class="circle">✦</div><b>Premium Products</b><span>Top-tier products for a flawless finish.</span></div>
+            <div class="mini-feature"><div class="circle">⌚</div><b>Convenient &amp; Mobile</b><span>We come to your home or office.</span></div>
+            <div class="mini-feature"><div class="circle">✓</div><b>Satisfaction Guaranteed</b><span>Quality you can see. Service you can trust.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <section class="packages" id="services">
+        <div class="cards">
+          <article class="card">
+            <div class="icon-bubble">🧼</div>
+            <h2>Express Wash<br>&amp; Vacuum</h2>
+            <p>A quick refresh to keep your vehicle clean and sharp.</p>
+            <hr>
+            <ul>
+              <li>Exterior Hand Wash</li>
+              <li>Tire &amp; Wheel Clean</li>
+              <li>Door Jambs Wiped</li>
+              <li>Vacuum Interior</li>
+              <li>Windows Cleaned</li>
+            </ul>
+            <div class="price-row"><div class="price">$75 <small>Starting At</small></div><a class="book-small" href="#contact">Book Now</a></div>
+          </article>
+
+          <article class="card featured">
+            <div class="popular">Most Popular</div>
+            <div class="icon-bubble">🚘</div>
+            <h2>Standard<br>Full Detail</h2>
+            <p>Our most popular package for a deep, head-to-toe clean.</p>
+            <hr>
+            <ul>
+              <li>Everything in Express Wash</li>
+              <li>Interior Deep Clean</li>
+              <li>Dash, Console &amp; Vents Cleaned</li>
+              <li>Interior Surface Protection</li>
+              <li>Tire Shine</li>
+            </ul>
+            <div class="price-row"><div class="price">$175 <small>Starting At</small></div><a class="book-small fill" href="#contact">Book Now</a></div>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble">💎</div>
+            <h2>Premium<br>Detail</h2>
+            <p>The ultimate detailing experience for your vehicle.</p>
+            <hr>
+            <ul>
+              <li>Everything in Standard Detail</li>
+              <li>Paint Decontamination</li>
+              <li>One Step Paint Enhancement</li>
+              <li>Sealant or Wax Protection</li>
+              <li>Interior Leather Conditioning</li>
+            </ul>
+            <div class="price-row"><div class="price">$275 <small>Starting At</small></div><a class="book-small" href="#contact">Book Now</a></div>
+          </article>
+        </div>
+        <p class="notice">Larger vehicles, trucks &amp; SUVs additional <span>•</span> Ask about maintenance packages</p>
+      </section>
+
+      <section id="photos">
+        <h2 class="section-title">Before &amp; After</h2>
+        <div class="gallery">
+          <div class="compare"><img src="images/before.jpg" alt="Before exterior detail"><img class="after-img" src="images/after.jpg" alt="After exterior detail"><span class="tag before">Before</span><span class="tag after">After</span></div>
+          <div class="compare"><img src="images/before.jpg" alt="Before wheel detail"><img class="after-img" src="images/after.jpg" alt="After wheel detail"><span class="tag before">Before</span><span class="tag after">After</span></div>
+          <div class="compare"><img src="images/before.jpg" alt="Before interior detail"><img class="after-img" src="images/after.jpg" alt="After interior detail"><span class="tag before">Before</span><span class="tag after">After</span></div>
+        </div>
+        <div class="gallery-btn"><a class="btn" href="#contact">Get Your Transformation →</a></div>
+      </section>
+
+      <section class="reviews" id="reviews">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="review-grid">
+          <article class="review"><div class="stars">★★★★★</div><p>“A&amp;J did an amazing job on my truck! Showed up on time, super professional, and my truck looks better than the day I bought it.”</p><div class="person"><div class="avatar">C</div><div><b>Cody M.</b><span>Fairfield, TX</span></div></div></article>
+          <article class="review"><div class="stars">★★★★★</div><p>“Convenient, friendly, and the attention to detail is top notch. I won’t trust my vehicles with anyone else in Fairfield.”</p><div class="person"><div class="avatar">J</div><div><b>Jessica T.</b><span>Fairfield, TX</span></div></div></article>
+          <article class="review"><div class="stars">★★★★★</div><p>“From the exterior shine to the interior clean, everything was perfect. Worth every penny!”</p><div class="person"><div class="avatar">N</div><div><b>Nathan P.</b><span>Fairfield, TX</span></div></div></article>
+        </div>
+      </section>
+
+      <section class="contact-area" id="contact">
+        <div class="booking-left">
+          <h2 class="block-title">Book Your Detail</h2>
+          <p>Fill out the form and we’ll get back to you quickly to confirm your appointment.</p>
+          <div class="supplies" aria-label="Detailing supplies"></div>
+        </div>
+
+        <form id="quoteForm" class="form-grid">
+          <input name="name" required placeholder="Full Name" autocomplete="name">
+          <input name="phone" required placeholder="Phone Number" autocomplete="tel">
+          <input name="email" placeholder="Email Address" autocomplete="email">
+          <input name="vehicle" placeholder="Vehicle (Make/Model)">
+          <select name="service">
+            <option>Service Interested In</option>
+            <option>Express Wash &amp; Vacuum</option>
+            <option>Standard Full Detail</option>
+            <option>Premium Detail</option>
+          </select>
+          <input name="date" placeholder="Preferred Date">
+          <textarea name="requests" placeholder="Additional Information (Optional)"></textarea>
+          <button class="send" type="submit">Send Request</button>
+        </form>
+
+        <div class="contact-right">
+          <h2 class="block-title">Get In Touch</h2>
+          <div class="contact-list">
+            <div class="contact-item"><div class="contact-icon">☎</div><div><b><a href="tel:9038792012">(903) 879-2012</a></b></div></div>
+            <div class="contact-item"><div class="contact-icon">✉</div><div><b><a href="mailto:ajmobiledetailingtx@gmail.com">ajmobiledetailingtx@gmail.com</a></b></div></div>
+            <div class="contact-item"><div class="contact-icon">⌖</div><div><b>Fairfield, TX 75840</b><span>We come to you!</span></div></div>
+            <div class="contact-item"><div class="contact-icon">◷</div><div><b>Mon – Sat: 8:00 AM – 6:00 PM</b><span>Appointments recommended</span></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap foot">
+        <a class="logo" href="#home"><span class="aj">A&J</span><span class="md">Mobile Detailing</span></a>
+        <div class="copy">© 2024 A&amp;J Mobile Detailing. All rights reserved.</div>
+        <div class="socials" aria-label="Social links"><span>Facebook</span><span>Instagram</span><span>TikTok</span></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const id = link.getAttribute('href');
+        if (!id || id.length <= 1) return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const form = document.getElementById('quoteForm');
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const lines = [
+        'New detailing request',
+        '',
+        `Name: ${data.get('name') || ''}`,
+        `Phone: ${data.get('phone') || ''}`,
+        `Email: ${data.get('email') || ''}`,
+        `Vehicle: ${data.get('vehicle') || ''}`,
+        `Service: ${data.get('service') || ''}`,
+        `Preferred Date: ${data.get('date') || ''}`,
+        `Notes: ${data.get('requests') || ''}`
+      ];
+      const subject = encodeURIComponent('A&J Mobile Detailing Booking Request');
+      const body = encodeURIComponent(lines.join('\n'));
+      window.location.href = `mailto:ajmobiledetailingtx@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
