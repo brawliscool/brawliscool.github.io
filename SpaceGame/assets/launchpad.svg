@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#5b8ca5"/><stop offset="1" stop-color="#122436"/></linearGradient><linearGradient id="tower" x1="0" x2="1"><stop stop-color="#263948"/><stop offset=".5" stop-color="#6c8392"/><stop offset="1" stop-color="#1b2a36"/></linearGradient></defs>
+<rect width="720" height="420" fill="url(#sky)"/><circle cx="590" cy="85" r="42" fill="#d7f5ff" opacity=".35"/><g fill="#fff" opacity=".4"><circle cx="80" cy="68" r="2"/><circle cx="130" cy="42" r="1.5"/><circle cx="620" cy="45" r="2"/></g>
+<path d="M0 345 Q120 315 220 342 T420 340 T720 330V420H0Z" fill="#17242c"/>
+<g stroke="#455d6b" stroke-width="6"><path d="M90 330V90M155 330V110M90 120H155M90 170H155M90 220H155M90 270H155"/><path d="M90 90L155 330M155 110L90 330"/></g>
+<rect x="70" y="330" width="120" height="18" rx="5" fill="url(#tower)"/><rect x="245" y="340" width="230" height="22" rx="6" fill="#384c58"/><rect x="275" y="326" width="170" height="16" rx="5" fill="#718a99"/><path d="M120 138H300M120 192H287" stroke="#718a99" stroke-width="10"/><circle cx="300" cy="138" r="9" fill="#ffcc6e"/><circle cx="287" cy="192" r="9" fill="#ffcc6e"/></svg>
