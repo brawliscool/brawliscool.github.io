@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="120" viewBox="0 0 720 120">
+<defs>
+ <linearGradient id="metal" x1="0" x2="1"><stop stop-color="#eef8ff"/><stop offset=".45" stop-color="#a9c2d4"/><stop offset=".7" stop-color="#f8fdff"/><stop offset="1" stop-color="#7893a7"/></linearGradient>
+ <linearGradient id="blue" x1="0" x2="1"><stop stop-color="#2cc5ee"/><stop offset=".5" stop-color="#b6f3ff"/><stop offset="1" stop-color="#147799"/></linearGradient>
+ <linearGradient id="purple" x1="0" x2="1"><stop stop-color="#7251dc"/><stop offset=".5" stop-color="#c6b8ff"/><stop offset="1" stop-color="#412888"/></linearGradient>
+ <linearGradient id="orange" x1="0" x2="1"><stop stop-color="#f1782f"/><stop offset=".5" stop-color="#ffd38a"/><stop offset="1" stop-color="#a73a1c"/></linearGradient>
+ <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity=".45"/></filter>
+</defs>
+<g filter="url(#shadow)">
+ <!-- command pod -->
+ <g transform="translate(60 60)"><path d="M0-50 C22-42 34-18 36 14 L29 34 H-29 L-36 14 C-34-18-22-42 0-50Z" fill="url(#metal)" stroke="#fff" stroke-width="3"/><path d="M-24 17H24" stroke="#536d80" stroke-width="5"/><ellipse cy="-10" rx="13" ry="10" fill="#173f5b" stroke="#7de8ff" stroke-width="3"/><path d="M-8-35H8" stroke="#ff6c6c" stroke-width="4"/></g>
+ <!-- fuel tank -->
+ <g transform="translate(180 60)"><rect x="-29" y="-49" width="58" height="98" rx="19" fill="url(#blue)" stroke="#d8f9ff" stroke-width="3"/><path d="M-29-25H29M-29 25H29" stroke="#176d89" stroke-width="5"/><rect x="-8" y="-44" width="16" height="88" rx="7" fill="#fff" opacity=".35"/></g>
+ <!-- engine -->
+ <g transform="translate(300 60)"><path d="M-30-36H30L23-10H-23Z" fill="url(#metal)" stroke="#fff" stroke-width="3"/><path d="M-22-9H22L38 42H-38Z" fill="url(#purple)" stroke="#ded6ff" stroke-width="3"/><ellipse cy="40" rx="37" ry="10" fill="#24184e" stroke="#a98dff" stroke-width="3"/><ellipse cy="39" rx="22" ry="5" fill="#111827"/></g>
+ <!-- booster -->
+ <g transform="translate(420 60)"><path d="M0-51 C12-43 20-28 20-13V35L12 48H-12L-20 35V-13C-20-28-12-43 0-51Z" fill="url(#orange)" stroke="#ffe2ad" stroke-width="3"/><path d="M-20-12H20M-20 25H20" stroke="#a74520" stroke-width="5"/><path d="M-9 47L0 55L9 47" fill="#4e251b"/></g>
+ <!-- fin -->
+ <g transform="translate(540 60)"><path d="M-30 45 L-7-40 L17 11 L31 45Z" fill="url(#purple)" stroke="#d9d0ff" stroke-width="3"/><path d="M-5-28L7 38" stroke="#fff" stroke-opacity=".35" stroke-width="5"/></g>
+ <!-- landing leg -->
+ <g transform="translate(660 60)" fill="none" stroke-linecap="round"><path d="M-10-45L5 12L30 42" stroke="url(#metal)" stroke-width="10"/><path d="M5 12L-18 39" stroke="#a9c2d4" stroke-width="7"/><path d="M18 43H42" stroke="#f3d66f" stroke-width="8"/><circle cx="5" cy="12" r="6" fill="#263b4b" stroke="#dff7ff" stroke-width="2"/></g>
+</g></svg>
