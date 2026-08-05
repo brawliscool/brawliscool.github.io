@@ -7,105 +7,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Orbital Foundry Mobile</title>
-  <link rel="stylesheet" href="./style.css?v=3">
+  <link rel="stylesheet" href="./style.css?v=4">
 </head>
 <body>
   <div class="phone-shell">
-    <header class="mobile-topbar">
-      <div>
-        <div class="eyebrow">Orbital Foundry</div>
-        <h1 id="screenTitle">Build your ship</h1>
-      </div>
-      <div class="credits">◈ <span id="credits">3000</span></div>
-    </header>
-
+    <header class="mobile-topbar"><div><div class="eyebrow">Orbital Foundry</div><h1 id="screenTitle">Build your ship</h1></div><div class="credits">◈ <span id="credits">3000</span></div></header>
     <main>
       <section class="screen active" id="buildScreen">
-        <div class="card intro-card">
-          <div>
-            <div class="eyebrow">Step 1</div>
-            <h2>Assemble a launch-ready ship</h2>
-          </div>
-          <button class="ghost" id="starter">Starter</button>
-        </div>
-
-        <div class="builder-wrap">
-          <div class="parts-strip" id="parts"></div>
-          <div class="builder-card">
-            <canvas id="builderCanvas" width="320" height="420"></canvas>
-            <div class="hint">Tap a part, then tap a slot. Tap a filled slot to remove it.</div>
-          </div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card"><span>Mass</span><b id="mass">0 t</b></div>
-          <div class="stat-card"><span>Thrust</span><b id="thrust">0 kN</b></div>
-          <div class="stat-card"><span>Fuel</span><b id="fuelm">0 u</b></div>
-          <div class="stat-card"><span>TWR</span><b id="twr">0.00</b></div>
-        </div>
-
-        <div class="check-card">
-          <div class="check-head"><span>Flight readiness</span><b id="rating">INCOMPLETE</b></div>
-          <ul id="check"></ul>
-        </div>
-
+        <div class="card intro-card"><div><div class="eyebrow">Step 1</div><h2>Assemble a launch-ready ship</h2></div><button class="ghost" id="starter">Starter</button></div>
+        <div class="builder-wrap"><div class="parts-strip" id="parts"></div><div class="builder-card"><canvas id="builderCanvas" width="320" height="420"></canvas><div class="hint">Tap a part, then tap a slot. Tap a filled slot to remove it.</div></div></div>
+        <div class="stats-grid"><div class="stat-card"><span>Mass</span><b id="mass">0 t</b></div><div class="stat-card"><span>Thrust</span><b id="thrust">0 kN</b></div><div class="stat-card"><span>Fuel</span><b id="fuelm">0 u</b></div><div class="stat-card"><span>TWR</span><b id="twr">0.00</b></div></div>
+        <div class="check-card"><div class="check-head"><span>Flight readiness</span><b id="rating">INCOMPLETE</b></div><ul id="check"></ul></div>
         <button class="primary big-action" id="launch">Launch mission</button>
       </section>
-
       <section class="screen" id="flightScreen">
-        <div class="flight-card">
-          <canvas id="game"></canvas>
-          <div class="flight-overlay">
-            <div class="banner" id="banner">Launch when ready.</div>
-            <div class="hud-row">
-              <div><span>Altitude</span><b id="alt">0 m</b></div>
-              <div><span>Vertical</span><b id="vy">0 m/s</b></div>
-              <div><span>Horizontal</span><b id="vx">0 m/s</b></div>
-            </div>
-            <div class="bars">
-              <div><span>Fuel <b id="fuel">0 / 0</b></span><i><em id="fuelbar"></em></i></div>
-              <div><span>Hull <b id="hull">100%</b></span><i><em id="hullbar"></em></i></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="touch-panel">
-          <button class="control rotate" data-k="left">↶</button>
-          <button class="control thrust" data-k="up">🔥</button>
-          <button class="control rotate" data-k="right">↷</button>
-        </div>
-        <div class="throttle-row">
-          <span>Throttle</span><b id="throttle">0%</b>
-          <button class="mini" data-k="down">Reduce</button>
-        </div>
-
-        <div class="mission-card">
-          <div class="mission-head">
-            <div><div class="eyebrow">Mission control</div><h2 id="phase">Launch</h2></div>
-            <button class="ghost" id="yardTop">Shipyard</button>
-          </div>
-          <div class="planet-list" id="planets"></div>
-          <button class="primary" id="transfer" disabled>Reach orbit first</button>
-          <div class="log" id="log"></div>
-        </div>
+        <div class="flight-card"><canvas id="game"></canvas><div class="flight-overlay"><div class="banner" id="banner">Launch when ready.</div><div class="hud-row"><div><span>Altitude</span><b id="alt">0 m</b></div><div><span>Vertical</span><b id="vy">0 m/s</b></div><div><span>Horizontal</span><b id="vx">0 m/s</b></div></div><div class="bars"><div><span>Fuel <b id="fuel">0 / 0</b></span><i><em id="fuelbar"></em></i></div><div><span>Hull <b id="hull">100%</b></span><i><em id="hullbar"></em></i></div></div></div></div>
+        <div class="touch-panel"><button class="control rotate" data-k="left">↶</button><button class="control thrust" data-k="up">🔥</button><button class="control rotate" data-k="right">↷</button></div>
+        <div class="throttle-row"><span>Throttle</span><b id="throttle">0%</b><button class="mini" data-k="down">Reduce</button></div>
+        <div class="mission-card"><div class="mission-head"><div><div class="eyebrow">Mission control</div><h2 id="phase">Launch</h2></div><button class="ghost" id="yardTop">Shipyard</button></div><div class="planet-list" id="planets"></div><button class="primary" id="transfer" disabled>Reach orbit first</button><div class="log" id="log"></div></div>
       </section>
     </main>
   </div>
-
-  <div class="modalbg" id="modal">
-    <div class="modal">
-      <div class="big" id="micon">🚀</div>
-      <div class="eyebrow" id="meyebrow">Mission report</div>
-      <h3 id="mtitle">Complete</h3>
-      <p id="mtext"></p>
-      <div class="modalact">
-        <button class="ghost" id="retry">Retry</button>
-        <button class="primary" id="yard">Shipyard</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="./game-core.js?v=3"></script>
-  <script src="./game-flight.js?v=3"></script>
+  <div class="modalbg" id="modal"><div class="modal"><div class="big" id="micon">🚀</div><div class="eyebrow" id="meyebrow">Mission report</div><h3 id="mtitle">Complete</h3><p id="mtext"></p><div class="modalact"><button class="ghost" id="retry">Retry</button><button class="primary" id="yard">Shipyard</button></div></div></div>
+  <script src="./game-core.js?v=4"></script>
+  <script src="./game-flight.js?v=4"></script>
+  <script src="./visual-upgrade.js?v=1"></script>
 </body>
 </html>
