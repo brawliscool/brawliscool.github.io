@@ -740,3 +740,7 @@ footer {
   .page-hero { padding: 90px 0 44px; }
   .section-padding { padding: 60px 0; }
 }
+.spam-trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+#formStatus, .booking-note { grid-column:1/-1; font-size:14px; line-height:1.5; }
+.send:disabled { opacity:.6; cursor:wait; }
+.form-grid input, .form-grid select, .form-grid button { min-height:44px; }

@@ -129,18 +129,22 @@
       </div>
 
       <form id="quoteForm" class="form-grid">
-        <input name="name" required placeholder="Full Name" autocomplete="name">
-        <input name="phone" required placeholder="Phone Number" autocomplete="tel">
-        <input name="email" placeholder="Email Address" autocomplete="email">
-        <input name="vehicle" placeholder="Vehicle (Make/Model)">
-        <select name="service">
-          <option>Service Interested In</option>
-          <option>A&amp;J Refresh Detail - Starting at $90</option>
-          <option>A&amp;J Full Detail - Starting at $130</option>
-          <option>A&amp;J Complete Detail - Starting at $180</option>
+        <input name="name" aria-label="Full name" minlength="2" maxlength="80" required placeholder="Full Name" autocomplete="name">
+        <input name="phone" type="tel" aria-label="Phone number" maxlength="30" required placeholder="Phone Number" autocomplete="tel">
+        <input name="email" type="email" aria-label="Email address (optional)" maxlength="254" placeholder="Email Address" autocomplete="email">
+        <input name="vehicle" required aria-label="Vehicle make and model" maxlength="120" placeholder="Vehicle (Make/Model)">
+        <select name="service" aria-label="Detailing package" required>
+          <option value="">Choose a package</option>
+          <option value="refresh">A&amp;J Refresh Detail - Starting at $90</option>
+          <option value="full">A&amp;J Full Detail - Starting at $130</option>
+          <option value="complete">A&amp;J Complete Detail - Starting at $180</option>
         </select>
-        <input name="date" placeholder="Preferred Date">
-        <textarea name="requests" placeholder="Additional Information (Optional)"></textarea>
+        <input name="address" required maxlength="240" autocomplete="street-address" aria-label="Service address" placeholder="Service Address">
+        <input name="date" type="date" aria-label="Preferred date (optional)">
+        <textarea name="requests" maxlength="2000" aria-label="Additional information (optional)" placeholder="Additional Information (Optional)"></textarea>
+        <div class="spam-trap" aria-hidden="true"><label>Leave empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p id="formStatus" role="status" aria-live="polite"></p>
+        <p class="booking-note">Starting prices vary with vehicle size and condition. Requests are subject to availability and confirmation. <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
         <button class="send" type="submit">Send Request</button>
       </form>
 
@@ -159,42 +163,11 @@
   <footer>
     <div class="wrap foot">
       <a class="logo" href="#home"><span class="aj">A&J</span><span class="md">Mobile Detailing</span></a>
-      <div class="copy">© 2025 A&amp;J Mobile Detailing. All rights reserved.</div>
+      <div class="copy">© 2026 A&amp;J Mobile Detailing. All rights reserved.</div>
       <div class="socials" aria-label="Social links"><span>Facebook</span><span>Instagram</span><span>TikTok</span></div>
     </div>
   </footer>
 
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        const id = link.getAttribute('href');
-        if (!id || id.length <= 1) return;
-        const target = document.querySelector(id);
-        if (!target) return;
-        event.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    const form = document.getElementById('quoteForm');
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const lines = [
-        'New detailing request',
-        '',
-        `Name: ${data.get('name') || ''}`,
-        `Phone: ${data.get('phone') || ''}`,
-        `Email: ${data.get('email') || ''}`,
-        `Vehicle: ${data.get('vehicle') || ''}`,
-        `Service: ${data.get('service') || ''}`,
-        `Preferred Date: ${data.get('date') || ''}`,
-        `Notes: ${data.get('requests') || ''}`
-      ];
-      const subject = encodeURIComponent('A&J Mobile Detailing Booking Request');
-      const body = encodeURIComponent(lines.join('\n'));
-      window.location.href = `mailto:ajmobiledetailingtx@gmail.com?subject=${subject}&body=${body}`;
-    });
-  </script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
