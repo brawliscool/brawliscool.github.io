@@ -1,8 +1,8 @@
 const origins = ['https://ajdetailing.store','https://www.ajdetailing.store','https://brawliscool.github.io'];
-export function createHandler({env,fetchImpl = fetch,rateLimit,context}) {
+export function createHandler({env,fetchImpl = fetch,context}) {
   return async req => {
     const origin = req.headers.get('origin') || '';
-    const reply = (body,status = 200) => new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store','Vary':'Origin','X-Content-Type-Options':'nosniff',...(origins.includes(origin)?{'Access-Control-Allow-Origin':origin}:{}),'Access-Control-Allow-Headers':'content-type','Access-Control-Allow-Methods':'POST, OPTIONS',...(status === 429?{'Retry-After':'900'}:{})}});
+    const reply = (body,status = 200) => new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store','Vary':'Origin','X-Content-Type-Options':'nosniff',...(origins.includes(origin)?{'Access-Control-Allow-Origin':origin}:{}),'Access-Control-Allow-Headers':'content-type','Access-Control-Allow-Methods':'POST, OPTIONS'}});
     if(!origins.includes(origin))return reply({message:'Access denied.'},403);
     if(req.method === 'OPTIONS')return reply({});
     if(req.method !== 'POST')return reply({message:'Method not allowed.'},405);
@@ -14,13 +14,8 @@ export function createHandler({env,fetchImpl = fetch,rateLimit,context}) {
       const bytes = new Uint8Array(length);let offset = 0;for(const chunk of chunks){bytes.set(chunk,offset);offset += chunk.length;}
       let input;try{input = JSON.parse(new TextDecoder().decode(bytes));}catch{return reply({message:'Invalid request.'},400);}
       if(!input || Array.isArray(input) || input.action !== 'session')return reply({message:'Invalid request.'},400);
-      if(!env('XAI_API_KEY') || !env('SUPABASE_SERVICE_ROLE_KEY'))return reply({message:'The receptionist is temporarily unavailable. Please use Request a detail.'},503);
+      if(!env('XAI_API_KEY'))return reply({message:'The receptionist is temporarily unavailable. Please use Request a detail.'},503);
       if(input.mode !== undefined && !['text','voice'].includes(input.mode))return reply({message:'Invalid assistant mode.'},400);
-      // Global and per-client quotas are atomic in Postgres and checked before paid token issuance.
-      const identity = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-      const hash = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(identity + env('SUPABASE_SERVICE_ROLE_KEY')));
-      const key = Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
-      if(!await rateLimit(key))return reply({message:'Too many conversations. Please try again in 15 minutes.'},429);
       const upstream = await fetchImpl('https://api.x.ai/v1/realtime/client_secrets',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${env('XAI_API_KEY')}`},body:JSON.stringify({expires_after:{seconds:60}}),signal:AbortSignal.timeout(10000)});
       if(!upstream.ok)throw new Error('upstream unavailable');
       const token = await upstream.json();
