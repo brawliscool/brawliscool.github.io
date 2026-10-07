@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createHandler} from '../supabase/functions/receptionist/handler.js';
 import {encodePCM,decodePCM} from '../js/receptionist-audio.js';
 
-const secrets = {XAI_API_KEY:'test-secret',SUPABASE_SERVICE_ROLE_KEY:'test-service'};
+const secrets = {XAI_API_KEY:'test-secret'};
 const origin = 'https://ajdetailing.store';
 function req(body,custom = {}) {
   return new Request('https://example.com',{method:'POST',headers:{origin,'Content-Type':'application/json',...custom},body:JSON.stringify(body)});
@@ -11,7 +11,7 @@ function req(body,custom = {}) {
 function harness(overrides = {}) {
   const calls = [];
   const handler = createHandler({
-    env:k=>secrets[k],context:'current packages',rateLimit:async()=>true,
+    env:k=>secrets[k],context:'current packages',
     fetchImpl:async(url,options)=>{calls.push({url,options});return Response.json({value:'temporary-token',expires_at:12345});},
     ...overrides,
   });
@@ -23,17 +23,14 @@ test('rejects untrusted origins before upstream calls',async()=>{
   const response=await handler(req({action:'session',mode:'text'},{origin:'https://evil.example'}));
   assert.equal(response.status,403);assert.equal(calls.length,0);
 });
-test('missing xAI or server secrets fail closed',async()=>{
+test('missing xAI secret fails closed',async()=>{
   const {handler,calls}=harness({env:()=>undefined});
   assert.equal((await handler(req({action:'session',mode:'text'}))).status,503);assert.equal(calls.length,0);
 });
-test('rate limits reject sessions before xAI token issuance',async()=>{
-  const {handler,calls}=harness({rateLimit:async()=>false});const r=await handler(req({action:'session',mode:'text'}));
-  assert.equal(r.status,429);assert.equal(calls.length,0);assert.equal(r.headers.get('Retry-After'),'900');
-});
-test('quota failures are safe and fail closed',async()=>{
-  const {handler,calls}=harness({rateLimit:async()=>{throw Error('private db diagnostic');}});const r=await handler(req({action:'session',mode:'text'}));
-  assert.equal(r.status,503);assert.ok(!(await r.text()).includes('private'));assert.equal(calls.length,0);
+test('session issuance no longer depends on a Supabase quota or service-role key',async()=>{
+  let quotaCalls=0;
+  const {handler,calls}=harness({rateLimit:async()=>{quotaCalls++;return false;}});const r=await handler(req({action:'session',mode:'text'}));
+  assert.equal(r.status,200);assert.equal(calls.length,1);assert.equal(quotaCalls,0);
 });
 test('text sessions issue short-lived credentials for the saved agent without CAPTCHA',async()=>{
   const {handler,calls}=harness();const r=await handler(req({action:'session',mode:'text'}));const body=await r.json();
