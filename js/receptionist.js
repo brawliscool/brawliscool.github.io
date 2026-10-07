@@ -29,14 +29,11 @@ message('assistant', 'Hi! I’m Nova, your AI text assistant. Ask about packages
 function controls() { const ready = ws?.readyState === WebSocket.OPEN; input.disabled = !ready || busy || !!stream; submit.disabled = input.disabled; mic.disabled = mode !== 'voice' || !ready || busy || micStarting; }
 function send(event) { if (ws?.readyState === WebSocket.OPEN) ws.send(JSON.stringify(event)); }
 function stopPlayback() { for (const node of playing) {try {node.stop();} catch {}} playing.clear(); nextPlay = 0; }
-function stopMic(commit = false) {
-  const wasRecording = !!stream;
+function stopMic() {
   stream?.getTracks().forEach(track => track.stop()); stream = undefined;
   source?.disconnect(); processor?.disconnect(); mute?.disconnect();
   if (processor) processor.port.onmessage = null;
   source = processor = mute = undefined; mic.textContent = 'Start speaking';
-  if (commit && wasRecording) {busy = true; answer = undefined; send({type:'input_audio_buffer.commit'}); send({type:'response.create'}); status.textContent = mode === 'voice' ? 'Nova Voice is replying…' : 'Nova is replying…';}
-  else if (wasRecording) send({type:'input_audio_buffer.clear'});
   controls();
 }
 function disconnect() {
@@ -60,16 +57,18 @@ async function connect(attempt) {
     timer = setTimeout(() => {if(socket.readyState !== WebSocket.OPEN){disconnect(); status.textContent = 'Connection timed out. Close and reopen to retry.';}},15000);
     socket.onopen = () => {
       clearTimeout(timer); connecting = false;
-      send({type:'session.update',session:{turn_detection:null,audio:{input:{format:{type:'audio/pcm',rate:48000}},output:{format:{type:'audio/pcm',rate:24000}}}}});
+      send({type:'session.update',session:{turn_detection:mode === 'voice' ? {type:'server_vad',silence_duration_ms:800} : null,audio:{input:{format:{type:'audio/pcm',rate:48000}},output:{format:{type:'audio/pcm',rate:24000}}}}});
       // Send current site facts as context without replacing the saved agent's instructions or voice.
       send({type:'conversation.item.create',item:{type:'message',role:'user',content:[{type:'input_text',text:data.context}]}});
-      status.textContent = mode === 'text' ? 'Ready. Type your question below.' : 'Ready. Choose Start speaking to turn on your microphone.'; controls();
+      status.textContent = mode === 'text' ? 'Ready. Type your question below.' : 'Ready. Tap Start speaking; Nova sends your speech automatically when you pause.'; controls();
       timer = setTimeout(() => {disconnect(); status.textContent = 'Session ended. Close and reopen to start again.';},600000);
     };
     socket.onmessage = event => {
       if (ws !== socket) return;
       try {
         const e = JSON.parse(event.data);
+        if (mode === 'voice' && e.type === 'input_audio_buffer.speech_started') status.textContent = 'Listening…';
+        else if (mode === 'voice' && e.type === 'input_audio_buffer.speech_stopped') status.textContent = 'Sending your message…';
         if (mode === 'text' && ['response.output_audio_transcript.delta','response.audio_transcript.delta','response.output_text.delta','response.text.delta'].includes(e.type)) {
           answer ||= message('assistant',''); answer.textContent += String(e.delta || ''); log.scrollTop = log.scrollHeight;
         } else if (['response.output_audio.delta','response.audio.delta'].includes(e.type) && mode === 'voice' && audio && !panel.hidden) {
@@ -77,7 +76,7 @@ async function connect(attempt) {
           const node = audio.createBufferSource(); node.buffer = buffer; node.connect(audio.destination); playing.add(node); node.onended = () => playing.delete(node);
           nextPlay = Math.max(nextPlay,audio.currentTime); node.start(nextPlay); nextPlay += buffer.duration;
         } else if (e.type === 'conversation.item.input_audio_transcription.completed' && mode === 'text') message('user',e.transcript || 'Voice message');
-        else if (e.type === 'response.done') {busy = false; answer = undefined; status.textContent = mode === 'voice' ? 'Choose Start speaking for your next question.' : 'Ready for your next question.'; controls();}
+        else if (e.type === 'response.done') {busy = false; answer = undefined; status.textContent = mode === 'voice' ? (stream ? 'Listening. Speak whenever you’re ready.' : 'Tap Start speaking for your next question.') : 'Ready for your next question.'; controls();}
         else if (e.type === 'error') {busy = false; stopMic(); status.textContent = 'Nova could not respond. Please try again or use Request a detail.'; controls();}
       } catch {status.textContent = 'Unable to read the response. Please try again.';busy = false;controls();}
     };
@@ -119,7 +118,7 @@ form.addEventListener('submit',event => {
   send({type:'conversation.item.create',item:{type:'message',role:'user',content:[{type:'input_text',text}]}});send({type:'response.create'});
 });
 mic.addEventListener('click',async () => {
-  if(stream){stopMic(true);return;}
+  if(stream){stopMic();status.textContent = 'Microphone off. Tap Start speaking to resume.';return;}
   if(mode !== 'voice' || micStarting || busy)return;
   micStarting = true;controls();const attempt = generation;
   try {
@@ -131,7 +130,7 @@ mic.addEventListener('click',async () => {
     send({type:'session.update',session:{audio:{input:{format:{type:'audio/pcm',rate:audio.sampleRate}}}}});
     source = audio.createMediaStreamSource(stream);processor = new AudioWorkletNode(audio,'nova-microphone');mute = audio.createGain();mute.gain.value = 0;
     processor.port.onmessage = event => {if(stream && !document.hidden && ws?.bufferedAmount < 100000)send({type:'input_audio_buffer.append',audio:encodePCM(event.data)});};
-    source.connect(processor);processor.connect(mute);mute.connect(audio.destination);mic.textContent = 'Finish speaking';status.textContent = 'Microphone on. Tap Finish speaking to send.';
+    source.connect(processor);processor.connect(mute);mute.connect(audio.destination);mic.textContent = 'Stop listening';status.textContent = 'Listening. Your speech sends automatically when you pause.';
   } catch {stopMic();status.textContent = 'Microphone unavailable. Switch to Nova for text chat, or call Nova Voice.';}
   finally {micStarting = false;controls();}
 });
