@@ -7,22 +7,26 @@ launch.setAttribute('aria-expanded', 'false');
 launch.setAttribute('aria-controls', 'nova-reception');
 const panel = document.createElement('section');
 panel.id = 'nova-reception'; panel.className = 'nova-reception'; panel.hidden = true;
-panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI receptionist');
-panel.innerHTML = `<header><div><h2>Nova receptionist</h2><small>AI help · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled>Talk to Nova</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925">Call AI receptionist ↗</a><p class="nova-chat-notice">Messages and voice are sent to xAI. Voice starts only when you choose Talk. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
+panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI assistants');
+let mode = 'text';
+panel.innerHTML = `<header><div><h2>Nova</h2><small data-subtitle>Text chatbot · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-mode-tabs" role="group" aria-label="Choose your assistant"><button type="button" data-mode="text" aria-pressed="true">Nova <small>Text chat</small></button><button type="button" data-mode="voice" aria-pressed="false">Nova Voice <small>Speech only</small></button></div><div class="nova-voice-screen" hidden><div class="nova-voice-orb" aria-hidden="true">✦</div><h3>Nova Voice</h3><p>Speak naturally. Get a spoken reply.</p></div><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled hidden>Start speaking</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925">Call Nova Voice ↗</a><p class="nova-chat-notice">Messages are sent to xAI. Nova Voice uses your microphone only when you choose Start speaking. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
 document.body.append(launch, panel);
 const log = panel.querySelector('.nova-chat-log'), status = panel.querySelector('.nova-chat-status');
 const form = panel.querySelector('form'), input = form.querySelector('input'), submit = form.querySelector('button');
 const mic = panel.querySelector('[data-mic]'), captcha = panel.querySelector('.nova-chat-captcha');
 let ws, connecting = false, busy = false, answer, audio, stream, source, processor, mute, nextPlay = 0, timer, captchaId, generation = 0, micStarting = false;
 const playing = new Set();
+const voiceScreen = panel.querySelector('.nova-voice-screen');
+const heading = panel.querySelector('h2');
+const subtitle = panel.querySelector('[data-subtitle]');
 function message(role, text) {
   const p = document.createElement('p'); p.className = 'nova-chat-message'; p.dataset.role = role; p.textContent = text;
   log.append(p); log.scrollTop = log.scrollHeight;
   while (log.children.length > 60) log.firstChild.remove();
   return p;
 }
-message('assistant', 'Hi! I’m Nova’s AI receptionist. Ask about packages, pricing, or getting your car detailed.');
-function controls() { const ready = ws?.readyState === WebSocket.OPEN; input.disabled = !ready || busy || !!stream; submit.disabled = input.disabled; mic.disabled = !ready || busy || micStarting; }
+message('assistant', 'Hi! I’m Nova, your AI text assistant. Ask about packages, pricing, or getting your car detailed.');
+function controls() { const ready = ws?.readyState === WebSocket.OPEN; input.disabled = !ready || busy || !!stream; submit.disabled = input.disabled; mic.disabled = mode !== 'voice' || !ready || busy || micStarting; }
 function send(event) { if (ws?.readyState === WebSocket.OPEN) ws.send(JSON.stringify(event)); }
 function stopPlayback() { for (const node of playing) {try {node.stop();} catch {}} playing.clear(); nextPlay = 0; }
 function stopMic(commit = false) {
@@ -30,8 +34,8 @@ function stopMic(commit = false) {
   stream?.getTracks().forEach(track => track.stop()); stream = undefined;
   source?.disconnect(); processor?.disconnect(); mute?.disconnect();
   if (processor) processor.port.onmessage = null;
-  source = processor = mute = undefined; mic.textContent = 'Talk to Nova';
-  if (commit && wasRecording) {busy = true; answer = undefined; send({type:'input_audio_buffer.commit'}); send({type:'response.create'}); status.textContent = 'Nova is replying…';}
+  source = processor = mute = undefined; mic.textContent = 'Start speaking';
+  if (commit && wasRecording) {busy = true; answer = undefined; send({type:'input_audio_buffer.commit'}); send({type:'response.create'}); status.textContent = mode === 'voice' ? 'Nova Voice is replying…' : 'Nova is replying…';}
   else if (wasRecording) send({type:'input_audio_buffer.clear'});
   controls();
 }
@@ -51,7 +55,7 @@ async function request(body) {
 async function connect(token, attempt) {
   try {
     status.textContent = 'Connecting to Nova…';
-    const data = await request({action:'session',turnstileToken:token});
+    const data = await request({action:'session',turnstileToken:token,mode});
     if (attempt !== generation || panel.hidden) return;
     const socket = new WebSocket(`wss://api.x.ai/v1/realtime?agent_id=${encodeURIComponent(data.agentId)}`, [`xai-client-secret.${data.value}`]);
     ws = socket;
@@ -61,21 +65,21 @@ async function connect(token, attempt) {
       send({type:'session.update',session:{turn_detection:null,audio:{input:{format:{type:'audio/pcm',rate:48000}},output:{format:{type:'audio/pcm',rate:24000}}}}});
       // Send current site facts as context without replacing the saved agent's instructions or voice.
       send({type:'conversation.item.create',item:{type:'message',role:'user',content:[{type:'input_text',text:data.context}]}});
-      status.textContent = 'Ready. Type a question or choose Talk to Nova.'; controls();
+      status.textContent = mode === 'text' ? 'Ready. Type your question below.' : 'Ready. Choose Start speaking to turn on your microphone.'; controls();
       timer = setTimeout(() => {disconnect(); status.textContent = 'Session ended. Close and reopen to start again.';},600000);
     };
     socket.onmessage = event => {
       if (ws !== socket) return;
       try {
         const e = JSON.parse(event.data);
-        if (['response.output_audio_transcript.delta','response.audio_transcript.delta','response.output_text.delta','response.text.delta'].includes(e.type)) {
+        if (mode === 'text' && ['response.output_audio_transcript.delta','response.audio_transcript.delta','response.output_text.delta','response.text.delta'].includes(e.type)) {
           answer ||= message('assistant',''); answer.textContent += String(e.delta || ''); log.scrollTop = log.scrollHeight;
-        } else if (['response.output_audio.delta','response.audio.delta'].includes(e.type) && audio && !panel.hidden) {
+        } else if (['response.output_audio.delta','response.audio.delta'].includes(e.type) && mode === 'voice' && audio && !panel.hidden) {
           const samples = decodePCM(e.delta), buffer = audio.createBuffer(1,samples.length,24000); buffer.copyToChannel(samples,0);
           const node = audio.createBufferSource(); node.buffer = buffer; node.connect(audio.destination); playing.add(node); node.onended = () => playing.delete(node);
           nextPlay = Math.max(nextPlay,audio.currentTime); node.start(nextPlay); nextPlay += buffer.duration;
-        } else if (e.type === 'conversation.item.input_audio_transcription.completed') message('user',e.transcript || 'Voice message');
-        else if (e.type === 'response.done') {busy = false; answer = undefined; status.textContent = 'Ready for your next question.'; controls();}
+        } else if (e.type === 'conversation.item.input_audio_transcription.completed' && mode === 'text') message('user',e.transcript || 'Voice message');
+        else if (e.type === 'response.done') {busy = false; answer = undefined; status.textContent = mode === 'voice' ? 'Choose Start speaking for your next question.' : 'Ready for your next question.'; controls();}
         else if (e.type === 'error') {busy = false; stopMic(); status.textContent = 'Nova could not respond. Please try again or use Request a detail.'; controls();}
       } catch {status.textContent = 'Unable to read the response. Please try again.';busy = false;controls();}
     };
@@ -95,7 +99,7 @@ async function setup() {
     });
     if (attempt !== generation || panel.hidden) return;
     captchaId = window.turnstile.render(captcha,{sitekey:config.siteKey,theme:'dark',action:'nova-receptionist',callback:token => {captcha.hidden = true;connect(token,attempt);},'error-callback':() => {status.textContent = 'Security check failed. Close and reopen to retry.';},'expired-callback':() => {if(!ws)status.textContent = 'Security check expired. Close and reopen to retry.';}});
-  } catch {connecting = false;status.textContent = 'Web chat is temporarily unavailable. Call the AI receptionist or request a detail below.';}
+  } catch {connecting = false;status.textContent = 'Online AI is temporarily unavailable. Call Nova Voice or request a detail below.';}
 }
 launch.addEventListener('click', () => {
   panel.hidden = !panel.hidden; launch.setAttribute('aria-expanded', String(!panel.hidden));
@@ -103,18 +107,30 @@ launch.addEventListener('click', () => {
 });
 function close() {panel.hidden = true;launch.setAttribute('aria-expanded','false');disconnect();launch.focus();}
 panel.querySelector('[data-close]').addEventListener('click',close);
+function switchMode(next) {
+  if (next === mode) return;
+  disconnect(); mode = next; panel.dataset.mode = mode;
+  log.hidden = mode === 'voice'; form.hidden = mode === 'voice';
+  mic.hidden = mode === 'text'; voiceScreen.hidden = mode === 'text';
+  heading.textContent = mode === 'text' ? 'Nova' : 'Nova Voice';
+  subtitle.textContent = mode === 'text' ? 'Text chatbot · Packages, questions & booking' : 'Speech AI assistant · Speak & listen';
+  panel.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
+  captcha.hidden = false; controls(); setup();
+}
+panel.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => switchMode(button.dataset.mode)));
+panel.querySelector('.nova-reception-phone').addEventListener('click',close);
 panel.querySelector('.nova-chat-actions a').addEventListener('click',close);
 panel.addEventListener('keydown',event => {if(event.key === 'Escape')close();});
 document.addEventListener('visibilitychange',() => {if(document.hidden)stopMic();});
 window.addEventListener('pagehide',disconnect);
 form.addEventListener('submit',event => {
-  event.preventDefault(); const text = input.value.trim(); if(!text || busy || ws?.readyState !== WebSocket.OPEN)return;
-  busy = true; answer = undefined; stopPlayback();message('user',text);input.value = ''; status.textContent = 'Nova is replying…';controls();
+  event.preventDefault(); const text = input.value.trim(); if(mode !== 'text' || !text || busy || ws?.readyState !== WebSocket.OPEN)return;
+  busy = true; answer = undefined; stopPlayback();message('user',text);input.value = ''; status.textContent = mode === 'voice' ? 'Nova Voice is replying…' : 'Nova is replying…';controls();
   send({type:'conversation.item.create',item:{type:'message',role:'user',content:[{type:'input_text',text}]}});send({type:'response.create'});
 });
 mic.addEventListener('click',async () => {
   if(stream){stopMic(true);return;}
-  if(micStarting || busy)return;
+  if(mode !== 'voice' || micStarting || busy)return;
   micStarting = true;controls();const attempt = generation;
   try {
     audio ||= new AudioContext({sampleRate:48000});await audio.resume();stopPlayback();
@@ -126,6 +142,6 @@ mic.addEventListener('click',async () => {
     source = audio.createMediaStreamSource(stream);processor = new AudioWorkletNode(audio,'nova-microphone');mute = audio.createGain();mute.gain.value = 0;
     processor.port.onmessage = event => {if(stream && !document.hidden && ws?.bufferedAmount < 100000)send({type:'input_audio_buffer.append',audio:encodePCM(event.data)});};
     source.connect(processor);processor.connect(mute);mute.connect(audio.destination);mic.textContent = 'Finish speaking';status.textContent = 'Microphone on. Tap Finish speaking to send.';
-  } catch {stopMic();status.textContent = 'Microphone unavailable. You can type your question instead.';}
+  } catch {stopMic();status.textContent = 'Microphone unavailable. Switch to Nova for text chat, or call Nova Voice.';}
   finally {micStarting = false;controls();}
 });

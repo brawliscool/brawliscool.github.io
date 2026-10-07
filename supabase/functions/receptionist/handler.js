@@ -16,6 +16,7 @@ export function createHandler({env,fetchImpl = fetch,rateLimit,context}) {
       if(!input || Array.isArray(input) || !['config','session'].includes(input.action))return reply({message:'Invalid request.'},400);
       if(!env('XAI_API_KEY') || !env('RECEPTIONIST_TURNSTILE_SECRET') || !env('RECEPTIONIST_TURNSTILE_SITE_KEY'))return reply({message:'The receptionist is temporarily unavailable. Please use Request a detail.'},503);
       if(input.action === 'config')return reply({siteKey:env('RECEPTIONIST_TURNSTILE_SITE_KEY')});
+      if(input.mode !== undefined && !['text','voice'].includes(input.mode))return reply({message:'Invalid assistant mode.'},400);
       if(typeof input.turnstileToken !== 'string' || input.turnstileToken.length < 1 || input.turnstileToken.length > 2048)return reply({message:'Complete the security check.'},400);
       // CAPTCHA is mandatory; fail closed before issuing any paid-model credential.
       const check = await fetchImpl('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',body:new URLSearchParams({secret:env('RECEPTIONIST_TURNSTILE_SECRET'),response:input.turnstileToken}),signal:AbortSignal.timeout(8000)});
@@ -31,7 +32,10 @@ export function createHandler({env,fetchImpl = fetch,rateLimit,context}) {
       if(!upstream.ok)throw new Error('upstream unavailable');
       const token = await upstream.json();
       if(typeof token.value !== 'string' || !Number.isFinite(token.expires_at))throw new Error('invalid upstream');
-      return reply({value:token.value,expiresAt:token.expires_at,agentId:'agent_puv531kMMP30cKia',context});
+      const assistantContext = input.mode === 'voice'
+        ? `${context} Your name in this session is Nova Voice. This is a speech-only interface: the customer speaks and hears your spoken reply. Do not direct them to type in this interface.`
+        : `${context} Your name in this session is Nova. This is a text-only chatbot interface. The customer types and reads your reply; there are no microphone controls in this mode.`;
+      return reply({value:token.value,expiresAt:token.expires_at,agentId:'agent_puv531kMMP30cKia',context:assistantContext});
     } catch {return reply({message:'The receptionist is unavailable right now. Please use Request a detail.'},503);}
   };
 }

@@ -1,5 +1,9 @@
 # Nova website receptionist
 
+## Assistant modes
+
+Nova is the text chatbot: typed input and visible text replies, with no microphone controls or audio playback. Nova Voice is the speech assistant: microphone input and spoken output, with no text entry or displayed conversation transcript. Each mode starts a separate realtime session; switching ends the prior session and stops microphone/audio. Both use the saved agent, with current business and mode context. The phone call button is labelled Call Nova Voice.
+
 Uses the saved xAI agent `agent_puv531kMMP30cKia` for typed questions and opt-in voice. The existing booking form still handles actual requests; the receptionist cannot confirm or submit appointments. The Call AI receptionist button opens the caller's dialer for the owner-supplied agent number, +1 (443) 486-3925. This integration does not provision or change that number's routing; live telephone behavior must be verified separately.
 
 ## Activation
