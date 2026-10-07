@@ -69,3 +69,44 @@ form{padding:22px 18px}
 .mobile-dock a{font-size:.9375rem}
 .footer-bottom{font-size:.875rem}
 }
+
+/* Spacious mobile layout */
+@media(max-width:760px){
+.wrap,.container{width:calc(100% - 48px)}
+.hero{padding-block:52px 64px;gap:44px}
+.hero h1{line-height:1.14;letter-spacing:-.04em}
+.hero .lead{line-height:1.9;margin-top:28px}
+.hero .actions{gap:16px;margin-top:36px}
+.hero-note{margin-top:28px;line-height:1.8}
+.section{padding-block:84px}
+.eyebrow{margin-bottom:28px;line-height:1.8}
+.section-heading{gap:28px;margin-bottom:40px}
+h2{line-height:1.22}
+.packages{gap:32px}
+.package{padding:32px 24px}
+.package-top{margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.package>p{margin-top:12px;line-height:1.8}
+.price{margin-block:32px}
+.package ul{margin-top:32px;padding-top:24px}
+.package li{padding-block:12px;line-height:1.65}
+.button{min-height:58px;padding-block:18px}
+.fine-print{margin-top:32px;line-height:1.9;text-align:left}
+.work-grid{grid-template-columns:1fr;gap:28px}
+.work-grid .work-large{grid-column:auto}
+.work-grid img,.work-grid .work-large img{height:280px}
+.work-grid figcaption{padding:20px}
+.about,.faq,.contact-grid{gap:48px}
+.process>div{padding-block:32px}
+.area{padding:36px 24px;gap:32px}
+summary{padding-block:28px;line-height:1.7}
+summary:after{top:26px}
+details p{line-height:1.9;padding-bottom:32px}
+form{padding:32px 22px}
+.form-note{line-height:1.85;margin-bottom:32px}
+.form-grid{gap:28px}
+input,select,textarea{margin-top:12px;min-height:56px;padding:15px}
+form .button{margin-top:32px}
+.footer-top{gap:32px;padding-bottom:40px}
+.footer-bottom{gap:24px;line-height:1.8}
+.mobile-dock{grid-template-columns:1fr}
+}
