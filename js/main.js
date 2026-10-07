@@ -1,4 +1,4 @@
-import {business,validateBooking} from './business.js';
+import {business,validateBooking} from './business.js?v=nova-ui-20261007';
 const endpoint='https://vjrppghecgcqzyulpnkk.supabase.co/functions/v1/quote';
 const key='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqcnBwZ2hlY2djcXp5dWxwbmtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNDQ2NzMsImV4cCI6MjA4MDkyMDY3M30.Zx_tYyUv0HjUPpZhuz1KvOGdlkNoz8qX5_SP58g-Gts';
 const form=document.getElementById('quoteForm');
@@ -19,5 +19,5 @@ form.addEventListener('submit',async event=>{
   const data=await response.json();if(!response.ok||data.success!==true)throw new Error(data.message || 'Unable to submit.');
   status.textContent=data.message;form.reset();requestId=crypto.randomUUID();startedAt=Date.now();
  }catch(error){status.textContent=`${error.name==='TimeoutError'?'The request timed out. You can retry safely.':error.message || 'Unable to submit.'} Call ${business.phone} or email ${business.email} if needed. Your details have been kept.`;}
- finally{sending=false;button.disabled=false;button.textContent='Send Request';}
+ finally{sending=false;button.disabled=false;button.textContent='Send booking request';}
 });
