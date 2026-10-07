@@ -1,16 +1,24 @@
 import {encodePCM, decodePCM} from './receptionist-audio.js';
 const endpoint = 'https://vjrppghecgcqzyulpnkk.supabase.co/functions/v1/receptionist';
-const launch = document.createElement('button');
-launch.className = 'nova-reception-launch';
-launch.textContent = '✦ Ask Nova';
-launch.setAttribute('aria-expanded', 'false');
-launch.setAttribute('aria-controls', 'nova-reception');
+const launchers = document.createElement('div');
+launchers.className = 'nova-assistant-launchers';
+const textLaunch = document.createElement('button');
+textLaunch.className = 'nova-reception-launch nova-text-launch';
+textLaunch.textContent = '✦ Chat with Nova';
+textLaunch.setAttribute('aria-expanded', 'false');
+textLaunch.setAttribute('aria-controls', 'nova-reception');
+const voiceLaunch = document.createElement('button');
+voiceLaunch.className = 'nova-reception-launch nova-voice-launch';
+voiceLaunch.textContent = '◉ Nova Voice';
+voiceLaunch.setAttribute('aria-expanded', 'false');
+voiceLaunch.setAttribute('aria-controls', 'nova-reception');
+launchers.append(textLaunch, voiceLaunch);
 const panel = document.createElement('section');
 panel.id = 'nova-reception'; panel.className = 'nova-reception'; panel.hidden = true;
-panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI assistants');
+panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI assistant');
 let mode = 'text';
-panel.innerHTML = `<header><div><h2>Nova</h2><small data-subtitle>Text chatbot · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-mode-tabs" role="group" aria-label="Choose your assistant"><button type="button" data-mode="text" aria-pressed="true">Nova <small>Text chat</small></button><button type="button" data-mode="voice" aria-pressed="false">Nova Voice <small>Speech only</small></button></div><div class="nova-voice-screen" hidden><div class="nova-voice-orb" aria-hidden="true">✦</div><h3>Nova Voice</h3><p>Speak naturally. Get a spoken reply.</p></div><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled hidden>Start speaking</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925">Call Nova Voice ↗</a><p class="nova-chat-notice">Messages are sent to xAI. Nova Voice uses your microphone only when you choose Start speaking. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
-document.body.append(launch, panel);
+panel.innerHTML = `<header><div><h2>Nova</h2><small data-subtitle>Text chatbot · Packages, questions & booking</small></div><button type="button" aria-label="Close assistant" data-close>✕</button></header><div class="nova-voice-screen" hidden><div class="nova-voice-orb" aria-hidden="true">✦</div><h3>Nova Voice</h3><p>Speech only. Tap Start speaking, ask your question, then tap Finish speaking.</p></div><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask Nova about detailing…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled hidden>Start speaking</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925" hidden>Call Nova Voice ↗</a><p class="nova-chat-notice">Nova text messages and Nova Voice audio are processed by xAI to generate replies. Microphone access starts only when you choose Start speaking. Appointments still require confirmation. <a href="privacy.html">Privacy</a></p></div>`;
+document.body.append(launchers, panel);
 const log = panel.querySelector('.nova-chat-log'), status = panel.querySelector('.nova-chat-status');
 const form = panel.querySelector('form'), input = form.querySelector('input'), submit = form.querySelector('button');
 const mic = panel.querySelector('[data-mic]'), captcha = panel.querySelector('.nova-chat-captcha');
@@ -19,6 +27,7 @@ const playing = new Set();
 const voiceScreen = panel.querySelector('.nova-voice-screen');
 const heading = panel.querySelector('h2');
 const subtitle = panel.querySelector('[data-subtitle]');
+const phone = panel.querySelector('.nova-reception-phone');
 function message(role, text) {
   const p = document.createElement('p'); p.className = 'nova-chat-message'; p.dataset.role = role; p.textContent = text;
   log.append(p); log.scrollTop = log.scrollHeight;
@@ -101,24 +110,38 @@ async function setup() {
     captchaId = window.turnstile.render(captcha,{sitekey:config.siteKey,theme:'dark',action:'nova-receptionist',callback:token => {captcha.hidden = true;connect(token,attempt);},'error-callback':() => {status.textContent = 'Security check failed. Close and reopen to retry.';},'expired-callback':() => {if(!ws)status.textContent = 'Security check expired. Close and reopen to retry.';}});
   } catch {connecting = false;status.textContent = 'Online AI is temporarily unavailable. Call Nova Voice or request a detail below.';}
 }
-launch.addEventListener('click', () => {
-  panel.hidden = !panel.hidden; launch.setAttribute('aria-expanded', String(!panel.hidden));
-  if(panel.hidden) disconnect(); else {captcha.hidden = false;panel.querySelector('[data-close]').focus();setup();}
-});
-function close() {panel.hidden = true;launch.setAttribute('aria-expanded','false');disconnect();launch.focus();}
-panel.querySelector('[data-close]').addEventListener('click',close);
-function switchMode(next) {
-  if (next === mode) return;
-  disconnect(); mode = next; panel.dataset.mode = mode;
-  log.hidden = mode === 'voice'; form.hidden = mode === 'voice';
-  mic.hidden = mode === 'text'; voiceScreen.hidden = mode === 'text';
+let activeLaunch = textLaunch;
+function configureMode() {
+  panel.dataset.mode = mode;
+  log.hidden = mode === 'voice';
+  form.hidden = mode === 'voice';
+  mic.hidden = mode === 'text';
+  voiceScreen.hidden = mode === 'text';
+  phone.hidden = mode === 'text';
   heading.textContent = mode === 'text' ? 'Nova' : 'Nova Voice';
   subtitle.textContent = mode === 'text' ? 'Text chatbot · Packages, questions & booking' : 'Speech AI assistant · Speak & listen';
-  panel.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
-  captcha.hidden = false; controls(); setup();
+  controls();
 }
-panel.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => switchMode(button.dataset.mode)));
-panel.querySelector('.nova-reception-phone').addEventListener('click',close);
+function openMode(next, button) {
+  if (!panel.hidden && mode === next) { close(); return; }
+  if (!panel.hidden) disconnect();
+  mode = next; activeLaunch = button; configureMode();
+  panel.hidden = false; launchers.hidden = true;
+  textLaunch.setAttribute('aria-expanded', String(mode === 'text'));
+  voiceLaunch.setAttribute('aria-expanded', String(mode === 'voice'));
+  captcha.hidden = false;
+  panel.querySelector('[data-close]').focus();
+  setup();
+}
+textLaunch.addEventListener('click', () => openMode('text', textLaunch));
+voiceLaunch.addEventListener('click', () => openMode('voice', voiceLaunch));
+function close() {
+  panel.hidden = true; launchers.hidden = false;
+  textLaunch.setAttribute('aria-expanded','false'); voiceLaunch.setAttribute('aria-expanded','false');
+  disconnect(); activeLaunch?.focus();
+}
+panel.querySelector('[data-close]').addEventListener('click',close);
+
 panel.querySelector('.nova-chat-actions a').addEventListener('click',close);
 panel.addEventListener('keydown',event => {if(event.key === 'Escape')close();});
 document.addEventListener('visibilitychange',() => {if(document.hidden)stopMic();});
