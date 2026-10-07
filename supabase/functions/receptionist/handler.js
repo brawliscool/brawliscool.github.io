@@ -13,17 +13,10 @@ export function createHandler({env,fetchImpl = fetch,rateLimit,context}) {
       while(true){const {done,value} = await reader.read();if(done)break;length += value.length;if(length > 4096){await reader.cancel();return reply({message:'Request too large.'},413);}chunks.push(value);}
       const bytes = new Uint8Array(length);let offset = 0;for(const chunk of chunks){bytes.set(chunk,offset);offset += chunk.length;}
       let input;try{input = JSON.parse(new TextDecoder().decode(bytes));}catch{return reply({message:'Invalid request.'},400);}
-      if(!input || Array.isArray(input) || !['config','session'].includes(input.action))return reply({message:'Invalid request.'},400);
-      if(!env('XAI_API_KEY') || !env('RECEPTIONIST_TURNSTILE_SECRET') || !env('RECEPTIONIST_TURNSTILE_SITE_KEY'))return reply({message:'The receptionist is temporarily unavailable. Please use Request a detail.'},503);
-      if(input.action === 'config')return reply({siteKey:env('RECEPTIONIST_TURNSTILE_SITE_KEY')});
+      if(!input || Array.isArray(input) || input.action !== 'session')return reply({message:'Invalid request.'},400);
+      if(!env('XAI_API_KEY') || !env('SUPABASE_SERVICE_ROLE_KEY'))return reply({message:'The receptionist is temporarily unavailable. Please use Request a detail.'},503);
       if(input.mode !== undefined && !['text','voice'].includes(input.mode))return reply({message:'Invalid assistant mode.'},400);
-      if(typeof input.turnstileToken !== 'string' || input.turnstileToken.length < 1 || input.turnstileToken.length > 2048)return reply({message:'Complete the security check.'},400);
-      // CAPTCHA is mandatory; fail closed before issuing any paid-model credential.
-      const check = await fetchImpl('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',body:new URLSearchParams({secret:env('RECEPTIONIST_TURNSTILE_SECRET'),response:input.turnstileToken}),signal:AbortSignal.timeout(8000)});
-      if(!check.ok)throw new Error('verification unavailable');
-      const verdict = await check.json();
-      if(!verdict.success || verdict.hostname !== new URL(origin).hostname || verdict.action !== 'nova-receptionist')return reply({message:'Security verification failed. Close and reopen to retry.'},403);
-      // Global and per-client quotas are atomic in Postgres, not isolate-local memory.
+      // Global and per-client quotas are atomic in Postgres and checked before paid token issuance.
       const identity = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
       const hash = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(identity + env('SUPABASE_SERVICE_ROLE_KEY')));
       const key = Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
