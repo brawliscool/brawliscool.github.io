@@ -26,9 +26,10 @@ Deno.serve(async(req: Request)=>{
   const {error}=await client.from('aj_booking_requests').insert(record);
   if(error && error.code!=='23505')throw error;
   // A saved booking remains successful if email delivery fails; retries cannot duplicate it.
-  if(!error && Deno.env.get('RESEND_API_KEY') && Deno.env.get('FROM_EMAIL')){
-   try{const email=await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${Deno.env.get('RESEND_API_KEY')}`,'Idempotency-Key':record.request_id},body:JSON.stringify({from:Deno.env.get('FROM_EMAIL'),to:[business.email],subject:'New A&J booking request',text:Object.entries({...record,service:business.packages.find(p=>p.id===record.service)?.name}).map(([k,v])=>`${k}: ${v}`).join('\n')}),signal:AbortSignal.timeout(8000)});if(!email.ok)console.error('booking_notification_failed');}catch{console.error('booking_notification_failed');}
+  if(!error && Deno.env.get('RESEND_API_KEY')){
+   try{const email=await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${Deno.env.get('RESEND_API_KEY')}`,'Idempotency-Key':record.request_id},body:JSON.stringify({from:Deno.env.get('FROM_EMAIL') || 'A&J Mobile Detailing <nova@ajdetailing.store>',to:[business.email],subject:'New A&J booking request',text:Object.entries({...record,service:business.packages.find(p=>p.id===record.service)?.name}).map(([k,v])=>`${k}: ${v}`).join('\n')}),signal:AbortSignal.timeout(8000)});if(!email.ok)console.error('booking_notification_failed');else console.log('booking_notification_sent');}catch{console.error('booking_notification_failed');}
   }
+  if(!error && !Deno.env.get('RESEND_API_KEY'))console.warn('booking_notification_unconfigured');
   return response(req,{success:true,message:'Your request has been received. We will contact you to confirm availability and the final price. Your appointment is not confirmed yet.'});
  }catch{console.error('booking_request_failed');return response(req,{success:false,message:'Unable to submit right now. Please try again or call (903) 879-2012.'},503);}
 });
