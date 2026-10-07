@@ -1,4 +1,4 @@
-export const business = Object.freeze({name:'Nova Detailing', phone:'(903) 879-2012', email:'ajmobiledetailingtx@gmail.com', location:'Fairfield, TX 75840', hours:'Mon–Sat: 8:00 AM–6:00 PM', packages:[{id:'refresh',name:'Nova Refresh Detail',price:90},{id:'full',name:'Nova Full Detail',price:130},{id:'complete',name:'Nova Complete Detail',price:180}]});
+export const business = Object.freeze({name:'Nova Detailing', location:'Fairfield, TX 75840', hours:'Mon–Sat: 8:00 AM–6:00 PM', packages:[{id:'refresh',name:'Nova Refresh Detail',price:90},{id:'full',name:'Nova Full Detail',price:130},{id:'complete',name:'Nova Complete Detail',price:180}]});
 export function validateBooking(input, today = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago'}).format(new Date())) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Invalid submission.');
   const limits={name:80,phone:30,email:254,vehicle:120,address:240,service:20,date:10,requests:2000,website:200};
