@@ -8,7 +8,7 @@ launch.setAttribute('aria-controls', 'nova-reception');
 const panel = document.createElement('section');
 panel.id = 'nova-reception'; panel.className = 'nova-reception'; panel.hidden = true;
 panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI receptionist');
-panel.innerHTML = `<header><div><h2>Nova receptionist</h2><small>AI help · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled>Talk to Nova</button><a href="index.html#contact">Request a detail</a></div><p class="nova-chat-notice">Messages and voice are sent to xAI. Voice starts only when you choose Talk. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
+panel.innerHTML = `<header><div><h2>Nova receptionist</h2><small>AI help · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><div class="nova-chat-captcha"></div><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled>Talk to Nova</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925">Call AI receptionist ↗</a><p class="nova-chat-notice">Messages and voice are sent to xAI. Voice starts only when you choose Talk. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
 document.body.append(launch, panel);
 const log = panel.querySelector('.nova-chat-log'), status = panel.querySelector('.nova-chat-status');
 const form = panel.querySelector('form'), input = form.querySelector('input'), submit = form.querySelector('button');
@@ -95,7 +95,7 @@ async function setup() {
     });
     if (attempt !== generation || panel.hidden) return;
     captchaId = window.turnstile.render(captcha,{sitekey:config.siteKey,theme:'dark',action:'nova-receptionist',callback:token => {captcha.hidden = true;connect(token,attempt);},'error-callback':() => {status.textContent = 'Security check failed. Close and reopen to retry.';},'expired-callback':() => {if(!ws)status.textContent = 'Security check expired. Close and reopen to retry.';}});
-  } catch {connecting = false;status.textContent = 'The receptionist is temporarily unavailable. You can still request a detail below.';}
+  } catch {connecting = false;status.textContent = 'Web chat is temporarily unavailable. Call the AI receptionist or request a detail below.';}
 }
 launch.addEventListener('click', () => {
   panel.hidden = !panel.hidden; launch.setAttribute('aria-expanded', String(!panel.hidden));

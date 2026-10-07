@@ -1,6 +1,6 @@
 # Nova website receptionist
 
-Uses the saved xAI agent `agent_puv531kMMP30cKia` for typed questions and opt-in voice. The existing booking form still handles actual requests; the receptionist cannot confirm or submit appointments. No telephone number is provisioned by this integration.
+Uses the saved xAI agent `agent_puv531kMMP30cKia` for typed questions and opt-in voice. The existing booking form still handles actual requests; the receptionist cannot confirm or submit appointments. The Call AI receptionist button opens the caller's dialer for the owner-supplied agent number, +1 (443) 486-3925. This integration does not provision or change that number's routing; live telephone behavior must be verified separately.
 
 ## Activation
 
