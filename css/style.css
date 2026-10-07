@@ -6,3 +6,66 @@
 @media(max-width:380px){.form-grid{grid-template-columns:1fr}.work-grid{grid-template-columns:1fr}.work-grid .work-large{grid-column:auto}.work-grid img{height:210px}.hero-visual img{height:260px}.hero .actions .button{width:100%}.hero .actions .text-link{margin:auto}.eyebrow{letter-spacing:.1em}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.button:hover{transform:none}}
 .website-field{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* Nova UI polish: readable controls, balanced spacing and narrow-screen layouts. */
+.eyebrow{font-size:.875rem;letter-spacing:.1em}
+.links,.button,.text-link{font-size:.9375rem}
+.logo small{font-size:.75rem;letter-spacing:.25em}
+.hero{gap:48px;padding-block:64px}
+.hero-visual:before{display:none}
+.hero-visual{padding:0;overflow:hidden;background:#24232b;border:1px solid #49414f;border-radius:20px}
+.hero-visual img{border-radius:0;height:420px}
+.visual-caption{padding:18px 22px;font-size:1rem}
+.hero-note{font-size:.875rem}
+.image-label{font-size:.75rem;top:20px;left:20px}
+.benefit-strip>.wrap{font-size:.8125rem;letter-spacing:.07em}
+.section{padding-block:80px}
+.section-heading>p,.package>p,.package li,.process p,details p,.form-note,.fine-print{font-size:1rem}
+.package{padding:28px;border-radius:16px}
+.package>p{min-height:52px}
+.package-top,.badge,.price small,.price>span{font-size:.875rem}
+.badge{letter-spacing:.02em}
+.package .button{justify-content:center}
+.package li{line-height:1.5;padding-block:8px}
+.package ul{margin-top:24px}
+label,summary,input,select,textarea,.contact-email,.form-fallback,#formStatus{font-size:1rem}
+input,select,textarea{min-height:52px}
+.form-grid{gap:20px}
+form h3{margin-bottom:12px}
+.contact-grid>*{min-width:0}
+.form-fallback{padding-block:12px}
+button:disabled{opacity:.65;cursor:wait;transform:none}
+figcaption,.footer-top p,.footer-top>div a,.footer-bottom{font-size:.875rem}
+.area-tag{font-size:.875rem;letter-spacing:.04em}
+@media(max-width:1000px) and (min-width:761px){
+.links{gap:16px;font-size:.875rem}
+.nav-book{padding-inline:14px}
+.packages{gap:12px}
+.package{padding:20px}
+.badge{font-size:.75rem}
+.hero{gap:28px}
+}
+@media(max-width:760px){
+.hero{gap:28px;padding-block:32px 40px}
+.hero .eyebrow{font-size:.8125rem;letter-spacing:.05em;flex-wrap:wrap}
+.hero h1{font-size:clamp(44px,11.5vw,68px)}
+.hero .lead{margin-top:20px}
+.hero-visual{margin-left:0}
+.hero-visual img{height:280px}
+.hero .actions{display:grid;grid-template-columns:1fr;margin-top:24px;gap:8px}
+.hero .actions .button{justify-content:center;width:100%}
+.hero .actions .text-link{justify-content:center}
+.hero-note{justify-content:center;margin-top:16px}
+.benefit-strip>.wrap{font-size:.75rem;gap:12px}
+.section{padding-block:56px}
+.package>p{min-height:0}
+.package li{font-size:1rem}
+.work-grid figcaption{font-size:.875rem}
+.area .eyebrow{font-size:.8125rem}
+.area-tag{font-size:.8125rem}
+.form-grid{grid-template-columns:1fr}
+form{padding:22px 18px}
+.contact-phone{font-size:1.5rem}
+.mobile-dock a{font-size:.9375rem}
+.footer-bottom{font-size:.875rem}
+}
