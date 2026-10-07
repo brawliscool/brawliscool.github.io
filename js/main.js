@@ -8,7 +8,7 @@ date.min=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago'}).format(ne
 const status=document.getElementById('formStatus');
 const select=form.elements.service;
 select.replaceChildren(new Option('Choose a package',''),...business.packages.map(p=>new Option(`${p.name} - Starting at $${p.price}`,p.id)));
-document.querySelectorAll('.book-small').forEach((button,i)=>button.addEventListener('click',()=>{select.value=business.packages[i].id;}));
+document.querySelectorAll('[data-package]').forEach(link=>link.addEventListener('click',()=>{select.value=link.dataset.package;}));
 form.addEventListener('submit',async event=>{
  event.preventDefault();if(sending||!form.reportValidity())return;
  const input={...Object.fromEntries(new FormData(form)),startedAt,requestId};
