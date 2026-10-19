@@ -1,21 +1,34 @@
-import {encodePCM, decodePCM} from './receptionist-audio.js';
+let encodePCM, decodePCM;
 const endpoint = 'https://vjrppghecgcqzyulpnkk.supabase.co/functions/v1/receptionist';
-const launch = document.createElement('button');
-launch.className = 'nova-reception-launch';
-launch.textContent = '✦ Ask Nova';
-launch.setAttribute('aria-expanded', 'false');
-launch.setAttribute('aria-controls', 'nova-reception');
+const launch = document.querySelector('.nova-reception-launch');
 const panel = document.createElement('section');
 panel.id = 'nova-reception'; panel.className = 'nova-reception'; panel.hidden = true;
 panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Nova AI assistants');
 let mode = 'text';
 panel.innerHTML = `<header><div><h2>Nova</h2><small data-subtitle>Text chatbot · Packages, questions & booking</small></div><button type="button" aria-label="Close receptionist" data-close>✕</button></header><div class="nova-mode-tabs" role="group" aria-label="Choose your assistant"><button type="button" data-mode="text" aria-pressed="true">Nova <small>Text chat</small></button><button type="button" data-mode="voice" aria-pressed="false">Nova Voice <small>Speech only</small></button></div><div class="nova-voice-screen" hidden><div class="nova-voice-orb" aria-hidden="true">✦</div><h3>Nova Voice</h3><p>Speak naturally. Get a spoken reply.</p></div><div class="nova-chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div class="nova-chat-controls"><p class="nova-chat-status" role="status">Connecting…</p><form class="nova-chat-form"><input aria-label="Your message" placeholder="Ask about your car…" maxlength="1500" required disabled><button type="submit" disabled>Send</button></form><div class="nova-chat-actions"><button type="button" data-mic disabled hidden>Start speaking</button><a href="index.html#contact">Request a detail</a></div><a class="nova-reception-phone" href="tel:+14434863925">Call Nova Voice ↗</a><p class="nova-chat-notice">Messages are sent to xAI. Nova Voice uses your microphone only when you choose Start speaking. Appointments need personal confirmation. <a href="privacy.html">Privacy</a></p></div>`;
-document.body.append(launch, panel);
+document.body.append(panel);
 const log = panel.querySelector('.nova-chat-log'), status = panel.querySelector('.nova-chat-status');
 const form = panel.querySelector('form'), input = form.querySelector('input'), submit = form.querySelector('button');
 const mic = panel.querySelector('[data-mic]');
 let ws, connecting = false, busy = false, answer, audio, stream, source, processor, mute, nextPlay = 0, timer, generation = 0, micStarting = false;
 const playing = new Set();
+let sessionRequest;
+let textFrame;
+let answerText = '';
+function flushAnswer() {
+  if (textFrame) cancelAnimationFrame(textFrame);
+  textFrame = undefined;
+  if (answer && answerText) {
+    answer.append(document.createTextNode(answerText));
+    answerText = '';
+    log.scrollTop = log.scrollHeight;
+  }
+}
+function appendAnswer(delta) {
+  answer ||= message('assistant', '');
+  answerText += String(delta || '');
+  textFrame ||= requestAnimationFrame(flushAnswer);
+}
 const voiceScreen = panel.querySelector('.nova-voice-screen');
 const heading = panel.querySelector('h2');
 const subtitle = panel.querySelector('[data-subtitle]');
@@ -37,12 +50,14 @@ function stopMic() {
   controls();
 }
 function disconnect() {
-  generation++; clearTimeout(timer); stopMic(); stopPlayback();
+  generation++; clearTimeout(timer); sessionRequest?.abort(); sessionRequest = undefined;
+  flushAnswer(); micStarting = false; stopMic(); stopPlayback();
   ws?.close(); ws = undefined; connecting = busy = false; answer = undefined;
   audio?.close().catch(() => {}); audio = undefined; controls();
 }
 async function request(body) {
-  const response = await fetch(endpoint, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
+  sessionRequest = new AbortController();
+  const response = await fetch(endpoint, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.any([sessionRequest.signal, AbortSignal.timeout(15000)])});
   const data = await response.json();
   if (!response.ok) throw new Error(data.message || 'The receptionist is unavailable. Please use Request a detail.');
   return data;
@@ -56,6 +71,7 @@ async function connect(attempt) {
     ws = socket;
     timer = setTimeout(() => {if(socket.readyState !== WebSocket.OPEN){disconnect(); status.textContent = 'Connection timed out. Close and reopen to retry.';}},15000);
     socket.onopen = () => {
+      if (ws !== socket || attempt !== generation || panel.hidden) { socket.close(); return; }
       clearTimeout(timer); connecting = false;
       send({type:'session.update',session:{turn_detection:mode === 'voice' ? {type:'server_vad',silence_duration_ms:800} : null,audio:{input:{format:{type:'audio/pcm',rate:48000}},output:{format:{type:'audio/pcm',rate:24000}}}}});
       // Send current site facts as context without replacing the saved agent's instructions or voice.
@@ -70,13 +86,13 @@ async function connect(attempt) {
         if (mode === 'voice' && e.type === 'input_audio_buffer.speech_started') status.textContent = 'Listening…';
         else if (mode === 'voice' && e.type === 'input_audio_buffer.speech_stopped') status.textContent = 'Sending your message…';
         if (mode === 'text' && ['response.output_audio_transcript.delta','response.audio_transcript.delta','response.output_text.delta','response.text.delta'].includes(e.type)) {
-          answer ||= message('assistant',''); answer.textContent += String(e.delta || ''); log.scrollTop = log.scrollHeight;
+          appendAnswer(e.delta);
         } else if (['response.output_audio.delta','response.audio.delta'].includes(e.type) && mode === 'voice' && audio && !panel.hidden) {
           const samples = decodePCM(e.delta), buffer = audio.createBuffer(1,samples.length,24000); buffer.copyToChannel(samples,0);
           const node = audio.createBufferSource(); node.buffer = buffer; node.connect(audio.destination); playing.add(node); node.onended = () => playing.delete(node);
           nextPlay = Math.max(nextPlay,audio.currentTime); node.start(nextPlay); nextPlay += buffer.duration;
         } else if (e.type === 'conversation.item.input_audio_transcription.completed' && mode === 'text') message('user',e.transcript || 'Voice message');
-        else if (e.type === 'response.done') {busy = false; answer = undefined; status.textContent = mode === 'voice' ? (stream ? 'Listening. Speak whenever you’re ready.' : 'Tap Start speaking for your next question.') : 'Ready for your next question.'; controls();}
+        else if (e.type === 'response.done') {flushAnswer();busy = false; answer = undefined; status.textContent = mode === 'voice' ? (stream ? 'Listening. Speak whenever you’re ready.' : 'Tap Start speaking for your next question.') : 'Ready for your next question.'; controls();}
         else if (e.type === 'error') {busy = false; stopMic(); status.textContent = 'Nova could not respond. Please try again or use Request a detail.'; controls();}
       } catch {status.textContent = 'Unable to read the response. Please try again.';busy = false;controls();}
     };
@@ -90,10 +106,10 @@ async function setup() {
   status.textContent = 'Connecting to Nova…';
   await connect(attempt);
 }
-launch.addEventListener('click', () => {
+export function toggleReceptionist() {
   panel.hidden = !panel.hidden; launch.setAttribute('aria-expanded', String(!panel.hidden));
   if(panel.hidden) disconnect(); else {panel.querySelector('[data-close]').focus();setup();}
-});
+}
 function close() {panel.hidden = true;launch.setAttribute('aria-expanded','false');disconnect();launch.focus();}
 panel.querySelector('[data-close]').addEventListener('click',close);
 function switchMode(next) {
@@ -123,14 +139,16 @@ mic.addEventListener('click',async () => {
   micStarting = true;controls();const attempt = generation;
   try {
     audio ||= new AudioContext({sampleRate:48000});await audio.resume();stopPlayback();
+    ({encodePCM, decodePCM} = await import('./receptionist-audio.js'));
+    if(attempt !== generation || panel.hidden)return;
     const acquired = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
-    if(attempt !== generation || panel.hidden){acquired.getTracks().forEach(t => t.stop());return;}
-    stream = acquired;await audio.audioWorklet.addModule('js/receptionist-mic.js');
+    if(attempt !== generation || panel.hidden || document.hidden){acquired.getTracks().forEach(t => t.stop());return;}
+    stream = acquired;await audio.audioWorklet.addModule(new URL('./receptionist-mic.js?v=performance-20261019', import.meta.url));
     if(attempt !== generation || !stream)return;
     send({type:'session.update',session:{audio:{input:{format:{type:'audio/pcm',rate:audio.sampleRate}}}}});
     source = audio.createMediaStreamSource(stream);processor = new AudioWorkletNode(audio,'nova-microphone');mute = audio.createGain();mute.gain.value = 0;
     processor.port.onmessage = event => {if(stream && !document.hidden && ws?.bufferedAmount < 100000)send({type:'input_audio_buffer.append',audio:encodePCM(event.data)});};
     source.connect(processor);processor.connect(mute);mute.connect(audio.destination);mic.textContent = 'Stop listening';status.textContent = 'Listening. Your speech sends automatically when you pause.';
-  } catch {stopMic();status.textContent = 'Microphone unavailable. Switch to Nova for text chat, or call Nova Voice.';}
-  finally {micStarting = false;controls();}
+  } catch {if(attempt === generation){stopMic();status.textContent = 'Microphone unavailable. Switch to Nova for text chat, or call Nova Voice.';}}
+  finally {if(attempt === generation){micStarting = false;controls();}}
 });
