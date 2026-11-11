@@ -400,3 +400,23 @@
 .nova-chat-log {
   min-height: 0;
 }
+
+/* Match the redesigned site while retaining Nova's original realtime controls. */
+.nova-reception-launch{background:#ccf47e;color:#10200f;border:1px solid #eaffca;box-shadow:0 12px 35px #0009;display:inline-flex;align-items:center;gap:10px;min-height:56px;font-size:14px;font-weight:850}
+.nova-reception-launch .launch-online{background:#162417;color:#d5f5a8;padding:4px 7px;font-size:10px;border-radius:99px}
+.nova-reception-launch>span:first-child{font-size:19px}
+.nova-reception{background:#0d1510;color:#edf5e8;border:1px solid #486143;box-shadow:0 26px 100px #000c}
+.nova-reception header{border-color:#344532}
+.nova-reception header small,.nova-reception .nova-chat-status{color:#b6cdb0}
+.nova-reception button{background:#1d2a1e;border-color:#405640;color:#f3f9ee}
+.nova-reception button:hover:not(:disabled){background:#304533}
+.nova-reception input{background:#141e17;border-color:#455a42}
+.nova-reception .nova-chat-log,.nova-reception .nova-chat-controls,.nova-mode-tabs{border-color:#30422f}
+.nova-chat-message{background:#203023}
+.nova-chat-message[data-role=user]{background:#476d36}
+.nova-reception a{color:#d0f39b}
+.nova-reception .nova-chat-notice{color:#aabdaa}
+.nova-mode-tabs button[aria-pressed=true],.nova-reception[data-mode=voice] [data-mic]{background:#3b5c31;border-color:#b2e17d;color:#fff}
+.nova-voice-orb{background:radial-gradient(circle at 32% 24%,#d5fab0,#477741 56%,#15351a);box-shadow:0 0 48px #b1ea7655}
+.nova-reception .nova-reception-phone{background:#31492c;border-color:#91ba70;color:#eefbdf}
+.nova-reception button:focus-visible,.nova-reception a:focus-visible,.nova-reception input:focus-visible,.nova-reception-launch:focus-visible{outline-color:#d3f5a4}

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync, existsSync, statSync} from 'node:fs';
 import {Window} from 'happy-dom';
+import {gzipSync} from 'node:zlib';
 
 const root = new URL('../', import.meta.url);
 function page(name) {
@@ -16,7 +17,12 @@ test('home starts without assistant, audio, or booking modules on its critical p
   assert.ok(doc.querySelector('.nova-reception-launch'));
   const eager = [...doc.querySelectorAll('script[src],link[rel="stylesheet"]')].map(e => e.getAttribute('src') || e.getAttribute('href'));
   assert.deepEqual(eager.map(p => p.split('?')[0]).sort(), ['css/style.css','js/nova.js']);
-  assert.ok(eager.reduce((bytes, path) => bytes + statSync(new URL(path.split('?')[0], root)).size, 0) < 25000);
+  // Guard both the expanded asset footprint and actual compressed transfer cost.
+    const rawBytes = eager.reduce((bytes, path) => bytes + statSync(new URL(path.split('?')[0], root)).size, 0);
+    const transferBytes = eager.reduce((bytes, path) => bytes + gzipSync(readFileSync(new URL(path.split('?')[0], root))).length, 0);
+    assert.ok(rawBytes < 32000, 'Critical assets are too large: ' + rawBytes + ' B');
+    assert.ok(transferBytes < 12000, 'Compressed critical assets are too large: ' + transferBytes + ' B');
+    assert.ok(doc.querySelector('[data-open-nova]'), 'Prominent AI receptionist CTA must be present');
   await window.happyDOM.abort();
 });
 

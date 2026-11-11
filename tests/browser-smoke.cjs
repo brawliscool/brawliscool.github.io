@@ -23,7 +23,7 @@ for(const width of [320,390,760,1024,1440]){
  await page.locator('[data-mode="voice"]').click();await page.getByText('Ready. Tap Start speaking; Nova sends your speech automatically when you pause.').waitFor();assert.equal(await page.locator('.nova-chat-form').isVisible(),false);assert.equal(await page.locator('[data-mic]').isEnabled(),true);
 
  await page.locator('[data-close]').click();await page.locator('.nova-reception-launch').click();assert.equal(await page.locator('link[href*="receptionist.css"]').count(),1);await page.locator('[data-close]').click();
- for(const name of ['portfolio','privacy','terms','subscriptions']){await page.goto(`http://127.0.0.1:3101/${name}.html`,{waitUntil:'networkidle'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${name} overflow ${width}`);}
+ for(const name of ['portfolio','privacy','terms','subscriptions']){await page.goto(`http://127.0.0.1:3101/${name}.html`,{waitUntil:'networkidle'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${name} overflow ${width}`);await page.locator('.nova-reception-launch').waitFor({state:'visible'});assert.equal(await page.locator('.nova-reception-launch').count(),1,`${name} Nova assistant count`);}
  assert.deepEqual(errors,[],`browser errors ${width}`);console.log(`PASS ${width}px: navigation, booking, chat, voice UI, all 5 pages`);await page.close();
 }
 await browser.close();server.close();})().catch(e=>{console.error(e);server.close();process.exit(1)});
