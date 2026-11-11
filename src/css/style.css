@@ -359,3 +359,17 @@ footer{background:#0a0e0d;color:#f2f5ed;padding:73px 0 28px}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .button:hover,.package:hover,.work-grid figure:hover img{transform:none}
 }
+
+/* Interior editorial pages */
+.page-hero{padding-top:80px}
+.page-hero .section-top{margin-bottom:45px}
+.page-title{font-size:clamp(62px,9.2vw,130px);line-height:.93;letter-spacing:-.078em;margin-bottom:28px;max-width:1080px}
+.page-hero>.lead{max-width:630px;margin-bottom:15px}
+.page-actions{display:flex;flex-wrap:wrap;gap:12px;margin:29px 0 40px}
+.gallery-cta{display:flex;align-items:center;justify-content:space-between;gap:25px;background:#233526;border:1px solid #536b4b;padding:33px;margin-top:32px}
+.gallery-cta h2{font-size:clamp(29px,4vw,48px);margin-top:13px}
+.gallery-cta .button{flex:none}
+.maintenance-gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.maintenance-gallery img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.maintenance>p:not(.lead){color:var(--muted);font-size:15px;line-height:1.8}
+@media(max-width:760px){.page-hero{padding-top:54px}.page-hero .section-top{margin-bottom:29px}.page-title{font-size:clamp(50px,12vw,78px)}.gallery-cta{flex-direction:column;align-items:start;padding:25px}.maintenance-gallery{grid-template-columns:1fr;gap:12px}}
