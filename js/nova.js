@@ -21,7 +21,21 @@ document.addEventListener('keydown', event => {
 window.matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 
 // Keep the assistant's styles, dialog, audio code and connection off the critical path.
-const launch = document.querySelector('.nova-reception-launch');
+// Provide the same 24/7 AI receptionist on every page, not just the homepage.
+let launch = document.querySelector('.nova-reception-launch');
+if (!launch) {
+  launch = document.createElement('button');
+  launch.type = 'button';
+  launch.className = 'nova-reception-launch';
+  launch.setAttribute('aria-expanded', 'false');
+  launch.setAttribute('aria-controls', 'nova-reception');
+  launch.innerHTML = '<span aria-hidden="true">✳</span> Ask Nova <span class="launch-online">24/7</span>';
+  document.body.append(launch);
+}
+// Prominent in-page assistant buttons reuse the original lazy-loaded implementation.
+document.querySelectorAll('[data-open-nova]').forEach(trigger => trigger.addEventListener('click', () => {
+  if (!assistant || document.querySelector('#nova-reception')?.hidden) launch.click();
+}));
 let assistant;
 let loading;
 function loadAssistantStyles() {
@@ -49,7 +63,7 @@ launch?.addEventListener('click', async () => {
   } finally {
     loading = undefined;
     launch.removeAttribute('aria-busy');
-    if (assistant) launch.textContent = '✦ Ask Nova';
+    if (assistant) launch.innerHTML = '<span aria-hidden="true">✳</span> Ask Nova <span class="launch-online">24/7</span>';
   }
 });
 
