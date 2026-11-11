@@ -373,3 +373,5 @@ footer{background:#0a0e0d;color:#f2f5ed;padding:73px 0 28px}
 .maintenance-gallery img{width:100%;aspect-ratio:16/10;object-fit:cover}
 .maintenance>p:not(.lead){color:var(--muted);font-size:15px;line-height:1.8}
 @media(max-width:760px){.page-hero{padding-top:54px}.page-hero .section-top{margin-bottom:29px}.page-title{font-size:clamp(50px,12vw,78px)}.gallery-cta{flex-direction:column;align-items:start;padding:25px}.maintenance-gallery{grid-template-columns:1fr;gap:12px}}
+
+.page-title{overflow-wrap:anywhere}
